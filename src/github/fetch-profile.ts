@@ -1,4 +1,5 @@
 import { graphql } from "./client.js";
+import { fetchLanguages } from "../stats/languages.js";
 import type { ContributionDay, ProfileData, YearlyActivity } from "../types.js";
 import { computeStreak } from "../streak/compute.js";
 import { extractStats } from "../stats/extract.js";
@@ -172,6 +173,7 @@ function mergeContributions(days: ContributionDay[]): Map<string, number> {
 export async function fetchProfile(
   username: string,
   token: string,
+  options: { excludeRepos?: string[] } = {},
 ): Promise<ProfileData> {
   const { user } = await graphql<UserQueryResult>(
     USER_STATS_QUERY,
@@ -192,6 +194,8 @@ export async function fetchProfile(
     years.map((year) => fetchYearData(username, year, token)),
   );
 
+  const languages = await fetchLanguages(username, token, options.excludeRepos ?? []);
+
   const allDays = yearResults.flatMap((r) => r.days);
   const contributions = mergeContributions(allDays);
 
@@ -199,5 +203,6 @@ export async function fetchProfile(
     stats: extractStats(user),
     streak: computeStreak(contributions),
     yearly: yearResults.map((r) => r.activity),
+    languages,
   };
 }

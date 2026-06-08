@@ -36,8 +36,16 @@ export interface YearlyActivity {
   contributions: number;
 }
 
+export interface LanguageStat {
+  name: string;
+  color: string;
+  size: number;
+  count: number;
+}
+
 export interface ProfileData {
   stats: UserStats;
   streak: StreakStats;
   yearly: YearlyActivity[];
+  languages: LanguageStat[];
 }

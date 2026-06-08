@@ -8,6 +8,7 @@ export const icons = {
   trophy: `<path fill="currentColor" d="M3 2.5h10v2a3 3 0 01-2.8 3 2.5 2.5 0 01-4.4 0A3 3 0 013 4.5v-2zm2 9.5h6v1.5H5V12zm1.5 1.5h3V15H6.5v-1z"/>`,
   calendar: `<path fill="currentColor" d="M3.5 2A1.5 1.5 0 012 3.5v1h12v-1A1.5 1.5 0 0012.5 2h-1V1h-1v1h-4V1H5.5v1h-1zM2 6v7.5A1.5 1.5 0 003.5 15h9a1.5 1.5 0 001.5-1.5V6H2z"/>`,
   activity: `<path fill="currentColor" d="M1.5 8.5a1 1 0 011-1h2v7h-2a1 1 0 01-1-1v-5zm5 2a1 1 0 011-1h2v5h-2a1 1 0 01-1-1v-3zm5-3a1 1 0 011-1h2v8h-2a1 1 0 01-1-1V7.5z"/>`,
+  code: `<path fill="currentColor" d="M5.5 4.5L1 8l4.5 3.5V9l-2-1 2-1V4.5zm5 0V7l2-1-2-1v2.5L15 8l-4.5 3.5V10l2 1-2 1V11.5L15 8l-4.5-3.5z"/>`,
 } as const;
 
 export type IconName = keyof typeof icons;

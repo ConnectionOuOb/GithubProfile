@@ -1,6 +1,5 @@
 export const theme = {
   width: 880,
-  summaryHeight: 368,
   tableGap: 18,
   tableTitleH: 40,
   radius: 16,
@@ -9,6 +8,10 @@ export const theme = {
   headerMetricGap: 10,
   metricH: 108,
   metricPad: 18,
+  langSectionGap: 14,
+  langTitleH: 38,
+  langRowH: 32,
+  langPadBottom: 12,
 
   fsName: 28,
   fsLogin: 17,
@@ -17,12 +20,16 @@ export const theme = {
   fsMetricSub: 15,
   fsTableHeader: 15,
   fsTableTitle: 24,
+  fsLangTitle: 22,
+  fsLangName: 14,
+  fsLangPct: 13,
   fsMetricValue: 32,
   fsTableData: 14,
 
   iconMetric: 20,
   iconTableHeader: 16,
   iconTableTitle: 24,
+  iconLangTitle: 22,
   iconBadge: 18,
 
   bg: "#181b28",
@@ -47,12 +54,21 @@ export const theme = {
   tableHeaderH: 46,
 } as const;
 
-export function cardHeight(yearCount: number): number {
+export function cardHeight(yearCount: number, langCount: number): number {
   const tableRows = Math.max(yearCount, 1);
   const tableBlock =
     theme.tableTitleH +
     theme.tableHeaderH +
     tableRows * theme.tableRowH +
     theme.pad;
-  return theme.summaryHeight + theme.tableGap + tableBlock;
+  const metricsEndY =
+    108 + theme.headerMetricGap + theme.metricH + theme.gap + theme.metricH;
+  const langBlock =
+    langCount > 0
+      ? theme.langSectionGap +
+        theme.langTitleH +
+        Math.ceil(langCount / 2) * theme.langRowH +
+        theme.langPadBottom
+      : 0;
+  return metricsEndY + langBlock + theme.tableGap + tableBlock;
 }

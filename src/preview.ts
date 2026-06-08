@@ -28,6 +28,14 @@ const mock: ProfileData = {
     { year: 2025, commits: 98, pullRequests: 312, issues: 9, reviews: 22, contributions: 2100 },
     { year: 2026, commits: 45, pullRequests: 86, issues: 4, reviews: 8, contributions: 1410 },
   ],
+  languages: [
+    { name: "TypeScript", color: "#3178c6", size: 420_000, count: 12 },
+    { name: "Python", color: "#3572A5", size: 180_000, count: 5 },
+    { name: "Go", color: "#00ADD8", size: 95_000, count: 3 },
+    { name: "C#", color: "#178600", size: 72_000, count: 4 },
+    { name: "Shell", color: "#89e051", size: 28_000, count: 6 },
+    { name: "HTML", color: "#e34c26", size: 15_000, count: 2 },
+  ],
 };
 
 const avatarDataUri = await fetchAvatarDataUri(mock.stats.avatarUrl);

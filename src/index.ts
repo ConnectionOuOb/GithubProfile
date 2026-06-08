@@ -3,10 +3,18 @@ import { dirname, resolve } from "node:path";
 import { fetchAvatarDataUri } from "./github/avatar.js";
 import { fetchProfile } from "./github/fetch-profile.js";
 import { resolveUsername } from "./github/resolve-user.js";
+import { filterLanguages } from "./stats/languages.js";
 import { loadEnv } from "./load-env.js";
 import { renderProfileCard } from "./render/profile-card.js";
 
 loadEnv();
+
+function parseList(value: string | undefined): string[] {
+  return value
+    ?.split(",")
+    .map((s) => s.trim())
+    .filter(Boolean) ?? [];
+}
 
 function getToken(): string | undefined {
   for (const key of ["PROFILE_PAT", "GITHUB_PAT", "GITHUB_TOKEN"] as const) {
@@ -38,13 +46,29 @@ const usernameHint =
 
 try {
   const username = await resolveUsername(token, usernameHint);
-  const data = await fetchProfile(username, token);
+  const excludeRepos = parseList(process.env.EXCLUDE_REPOS);
+
+  const data = await fetchProfile(username, token, { excludeRepos });
   const avatarDataUri = await fetchAvatarDataUri(data.stats.avatarUrl, token);
 
-  const svg = renderProfileCard(data, {
-    showReviews: process.env.SHOW_REVIEWS === "true",
-    avatarDataUri,
+  const hideLanguages = parseList(process.env.HIDE_LANGUAGES ?? "JavaScript");
+  const langsCount = Math.min(
+    20,
+    Math.max(1, Number.parseInt(process.env.LANGS_COUNT ?? "10", 10) || 10),
+  );
+
+  const languages = filterLanguages(data.languages, {
+    count: langsCount,
+    hide: hideLanguages,
   });
+
+  const svg = renderProfileCard(
+    { ...data, languages },
+    {
+      showReviews: process.env.SHOW_REVIEWS === "true",
+      avatarDataUri,
+    },
+  );
 
   mkdirSync(dirname(outputPath), { recursive: true });
   writeFileSync(outputPath, svg, "utf8");

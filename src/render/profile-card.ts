@@ -1,6 +1,7 @@
 import type { ProfileData, YearlyActivity } from "../types.js";
 import { compact, escapeXml } from "./format.js";
 import { centeredIconLabel, iconSvg, type IconName } from "./icons.js";
+import { renderLanguagesSection, languagesSectionHeight } from "./languages-section.js";
 import { cardHeight, theme as t } from "./theme.js";
 
 interface RenderOptions {
@@ -200,7 +201,8 @@ export function renderProfileCard(
   const name = escapeXml(data.stats.name);
   const login = escapeXml(data.stats.login);
   const W = t.width;
-  const H = cardHeight(data.yearly.length);
+  const langCount = data.languages.length;
+  const H = cardHeight(data.yearly.length, langCount);
   const ax = t.pad + 44;
   const ay = 58;
   const contentW = W - t.pad * 2;
@@ -243,7 +245,9 @@ export function renderProfileCard(
 
   const metricsY1 = 108 + t.headerMetricGap;
   const metricsY2 = metricsY1 + t.metricH + t.gap;
-  const tableY = t.summaryHeight + t.tableGap + t.tableTitleH;
+  const langY = metricsY2 + t.metricH + t.langSectionGap;
+  const langBottom = langY + (langCount > 0 ? languagesSectionHeight(langCount) : 0);
+  const tableY = langBottom + t.tableGap + t.tableTitleH;
 
   const avatar = (dataUri?: string) =>
     dataUri
@@ -276,6 +280,8 @@ export function renderProfileCard(
 
   ${metricRow(streakMetrics, metricsY1, t.pad, contentW)}
   ${metricRow(statMetrics, metricsY2, t.pad, contentW)}
+
+  ${renderLanguagesSection(data.languages, langY)}
 
   ${yearlyTable(data, tableY, showReviews)}
 </svg>`;
