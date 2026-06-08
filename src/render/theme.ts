@@ -1,8 +1,10 @@
 export const theme = {
   width: 880,
-  height: 300,
+  summaryHeight: 320,
   radius: 16,
-  pad: 28,
+  pad: 32,
+  gap: 14,
+  cellPad: 18,
 
   bg: "#0d1117",
   panel: "#161b22",
@@ -19,6 +21,20 @@ export const theme = {
   orange: "#ffa657",
   pink: "#ff7b72",
 
+  goldLight: "#f5e6a3",
+  gold: "#d4af37",
+  goldDark: "#9a7b2e",
+
   font: "Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif",
   mono: "SFMono-Regular,Consolas,ui-monospace,monospace",
+
+  tableRowH: 36,
+  tableHeaderH: 40,
 } as const;
+
+export function cardHeight(yearCount: number): number {
+  const tableRows = Math.max(yearCount, 1);
+  const tableBlock =
+    theme.tableHeaderH + tableRows * theme.tableRowH + theme.pad;
+  return theme.summaryHeight + tableBlock;
+}

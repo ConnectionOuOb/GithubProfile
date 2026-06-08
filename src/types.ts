@@ -27,7 +27,17 @@ export interface UserStats {
   totalReviews: number;
 }
 
+export interface YearlyActivity {
+  year: number;
+  commits: number;
+  pullRequests: number;
+  issues: number;
+  reviews: number;
+  contributions: number;
+}
+
 export interface ProfileData {
   stats: UserStats;
   streak: StreakStats;
+  yearly: YearlyActivity[];
 }
