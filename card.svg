@@ -44,18 +44,14 @@
   <text x="196" y="50" fill="#eef1f8" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="28" font-weight="700">Connection</text>
   <text x="196" y="78" fill="#9aa3b5" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="17">@ConnectionOuOb</text>
   
-    <g transform="translate(780.32, 50)">
-      <g transform="translate(-66.08000000000001, -9) scale(1.125)"><path fill="#fff0b8" d="M8 1.5c1.2 2.2 2.5 3.1 2.5 5.5a2.5 2.5 0 01-5 0c0-1.2.5-2.2 1.2-3.4C5.8 4.8 5 6.5 5 8a3 3 0 006 0c0-1-.4-2-1.2-3.2.5 1.5.7 2.2.7 3.2a1.5 1.5 0 01-3 0C7.5 5.8 7.8 4.5 8 1.5z"/></g>
-      <text x="11.999999999999993" y="5.6" text-anchor="middle" fill="#e8c547" font-family="Segoe UI,system-ui,sans-serif" font-size="16" font-weight="700">1 day streak</text>
-    </g>
+    <svg x="714.24" y="41" width="18" height="18" viewBox="0 0 16 16"><path fill="#fff0b8" d="M8 1.5c1.2 2.2 2.5 3.1 2.5 5.5a2.5 2.5 0 01-5 0c0-1.2.5-2.2 1.2-3.4C5.8 4.8 5 6.5 5 8a3 3 0 006 0c0-1-.4-2-1.2-3.2.5 1.5.7 2.2.7 3.2a1.5 1.5 0 01-3 0C7.5 5.8 7.8 4.5 8 1.5z"/></svg>
+    <text x="738.24" y="55.6" fill="#e8c547" font-family="Segoe UI,system-ui,sans-serif" font-size="16" font-weight="700">1 day streak</text>
   
 
   
     
-    <g transform="translate(440, 158)">
-      <g transform="translate(-91.31999999999998, -12) scale(1.5)"><path fill="#fff0b8" d="M1.5 8.5a1 1 0 011-1h2v7h-2a1 1 0 01-1-1v-5zm5 2a1 1 0 011-1h2v5h-2a1 1 0 01-1-1v-3zm5-3a1 1 0 011-1h2v8h-2a1 1 0 01-1-1V7.5z"/></g>
-      <text x="15" y="8.399999999999999" text-anchor="middle" fill="#e8c547" font-family="Segoe UI,system-ui,sans-serif" font-size="24" font-weight="700">Statistics</text>
-    </g>
+    <svg x="348.68" y="146" width="24" height="24" viewBox="0 0 16 16"><path fill="#fff0b8" d="M1.5 8.5a1 1 0 011-1h2v7h-2a1 1 0 01-1-1v-5zm5 2a1 1 0 011-1h2v5h-2a1 1 0 01-1-1v-3zm5-3a1 1 0 011-1h2v8h-2a1 1 0 01-1-1V7.5z"/></svg>
+    <text x="378.68" y="166.4" fill="#e8c547" font-family="Segoe UI,system-ui,sans-serif" font-size="24" font-weight="700">Statistics</text>
   
     <rect x="32" y="178" width="816" height="2" rx="1" fill="url(#gold)" opacity="0.8"/>
   
@@ -63,7 +59,7 @@
     <rect x="32" y="198" width="261.3333333333333" height="108" rx="10" fill="rgba(255,255,255,0.045)" stroke="rgba(212,175,55,0.22)" stroke-width="1"/>
     <rect x="38" y="208" width="4" height="88" rx="2" fill="url(#foil)"/>
     <circle cx="265.3333333333333" cy="230" r="18" fill="#e8c547" opacity="0.14"/>
-    <g transform="translate(255.33333333333331, 220) scale(1.25)"><path fill="#fff0b8" d="M1.5 8.5a1 1 0 011-1h2v7h-2a1 1 0 01-1-1v-5zm5 2a1 1 0 011-1h2v5h-2a1 1 0 01-1-1v-3zm5-3a1 1 0 011-1h2v8h-2a1 1 0 01-1-1V7.5z"/></g>
+    <svg x="255.33333333333331" y="220" width="20" height="20" viewBox="0 0 16 16"><path fill="#fff0b8" d="M1.5 8.5a1 1 0 011-1h2v7h-2a1 1 0 01-1-1v-5zm5 2a1 1 0 011-1h2v5h-2a1 1 0 01-1-1v-3zm5-3a1 1 0 011-1h2v8h-2a1 1 0 01-1-1V7.5z"/></svg>
     <text x="58" y="236" fill="#eef1f8" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="18" font-weight="600">Total Contributions</text>
     <text x="58" y="256" fill="#9aa3b5" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="15">All-time activity</text>
     <text x="58" y="288" fill="#eef1f8" font-family="SFMono-Regular,Consolas,ui-monospace,monospace" font-size="32" font-weight="700">4.9k</text>
@@ -71,7 +67,7 @@
     <rect x="309.3333333333333" y="198" width="261.3333333333333" height="108" rx="10" fill="rgba(255,255,255,0.045)" stroke="rgba(212,175,55,0.22)" stroke-width="1"/>
     <rect x="315.3333333333333" y="208" width="4" height="88" rx="2" fill="url(#foil)"/>
     <circle cx="542.6666666666666" cy="230" r="18" fill="#e8c547" opacity="0.14"/>
-    <g transform="translate(532.6666666666666, 220) scale(1.25)"><path fill="#fff0b8" d="M8 1.5c1.2 2.2 2.5 3.1 2.5 5.5a2.5 2.5 0 01-5 0c0-1.2.5-2.2 1.2-3.4C5.8 4.8 5 6.5 5 8a3 3 0 006 0c0-1-.4-2-1.2-3.2.5 1.5.7 2.2.7 3.2a1.5 1.5 0 01-3 0C7.5 5.8 7.8 4.5 8 1.5z"/></g>
+    <svg x="532.6666666666666" y="220" width="20" height="20" viewBox="0 0 16 16"><path fill="#fff0b8" d="M8 1.5c1.2 2.2 2.5 3.1 2.5 5.5a2.5 2.5 0 01-5 0c0-1.2.5-2.2 1.2-3.4C5.8 4.8 5 6.5 5 8a3 3 0 006 0c0-1-.4-2-1.2-3.2.5 1.5.7 2.2.7 3.2a1.5 1.5 0 01-3 0C7.5 5.8 7.8 4.5 8 1.5z"/></svg>
     <text x="335.3333333333333" y="236" fill="#eef1f8" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="18" font-weight="600">Current Streak</text>
     <text x="335.3333333333333" y="256" fill="#9aa3b5" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="15">1 days active</text>
     <text x="335.3333333333333" y="288" fill="#eef1f8" font-family="SFMono-Regular,Consolas,ui-monospace,monospace" font-size="32" font-weight="700">1</text>
@@ -79,7 +75,7 @@
     <rect x="586.6666666666666" y="198" width="261.3333333333333" height="108" rx="10" fill="rgba(255,255,255,0.045)" stroke="rgba(212,175,55,0.22)" stroke-width="1"/>
     <rect x="592.6666666666666" y="208" width="4" height="88" rx="2" fill="url(#foil)"/>
     <circle cx="820" cy="230" r="18" fill="#e8c547" opacity="0.14"/>
-    <g transform="translate(810, 220) scale(1.25)"><path fill="#fff0b8" d="M3 2.5h10v2a3 3 0 01-2.8 3 2.5 2.5 0 01-4.4 0A3 3 0 013 4.5v-2zm2 9.5h6v1.5H5V12zm1.5 1.5h3V15H6.5v-1z"/></g>
+    <svg x="810" y="220" width="20" height="20" viewBox="0 0 16 16"><path fill="#fff0b8" d="M3 2.5h10v2a3 3 0 01-2.8 3 2.5 2.5 0 01-4.4 0A3 3 0 013 4.5v-2zm2 9.5h6v1.5H5V12zm1.5 1.5h3V15H6.5v-1z"/></svg>
     <text x="612.6666666666666" y="236" fill="#eef1f8" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="18" font-weight="600">Longest Streak</text>
     <text x="612.6666666666666" y="256" fill="#9aa3b5" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="15">Personal best</text>
     <text x="612.6666666666666" y="288" fill="#eef1f8" font-family="SFMono-Regular,Consolas,ui-monospace,monospace" font-size="32" font-weight="700">26</text>
@@ -88,7 +84,7 @@
     <rect x="32" y="322" width="192" height="108" rx="10" fill="rgba(255,255,255,0.045)" stroke="rgba(212,175,55,0.22)" stroke-width="1"/>
     <rect x="38" y="332" width="4" height="88" rx="2" fill="url(#foil)"/>
     <circle cx="196" cy="354" r="18" fill="#e8c547" opacity="0.14"/>
-    <g transform="translate(186, 344) scale(1.25)"><path fill="#fff0b8" d="M8 .5l2.1 4.3 4.7.7-3.4 3.3.8 4.7L8 11.3 4.8 13.5l.8-4.7L2.2 5.5l4.7-.7L8 .5z"/></g>
+    <svg x="186" y="344" width="20" height="20" viewBox="0 0 16 16"><path fill="#fff0b8" d="M8 .5l2.1 4.3 4.7.7-3.4 3.3.8 4.7L8 11.3 4.8 13.5l.8-4.7L2.2 5.5l4.7-.7L8 .5z"/></svg>
     <text x="58" y="360" fill="#eef1f8" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="18" font-weight="600">Stars</text>
     
     <text x="58" y="412" fill="#eef1f8" font-family="SFMono-Regular,Consolas,ui-monospace,monospace" font-size="32" font-weight="700">15</text>
@@ -96,15 +92,15 @@
     <rect x="240" y="322" width="192" height="108" rx="10" fill="rgba(255,255,255,0.045)" stroke="rgba(212,175,55,0.22)" stroke-width="1"/>
     <rect x="246" y="332" width="4" height="88" rx="2" fill="url(#foil)"/>
     <circle cx="404" cy="354" r="18" fill="#e8c547" opacity="0.14"/>
-    <g transform="translate(394, 344) scale(1.25)"><path fill="#fff0b8" d="M8 1a3 3 0 100 6 3 3 0 000-6zm0 8.5a5.5 5.5 0 014.7 2.6l-1.4 1.4A3.5 3.5 0 008 12.5a3.5 3.5 0 01-3.3 2l-1.4-1.4A5.5 5.5 0 008 9.5z"/></g>
+    <svg x="394" y="344" width="20" height="20" viewBox="0 0 16 16"><path fill="#fff0b8" d="M8 1a3 3 0 100 6 3 3 0 000-6zm0 8.5a5.5 5.5 0 014.7 2.6l-1.4 1.4A3.5 3.5 0 008 12.5a3.5 3.5 0 01-3.3 2l-1.4-1.4A5.5 5.5 0 008 9.5z"/></svg>
     <text x="266" y="360" fill="#eef1f8" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="18" font-weight="600">Commits</text>
     
-    <text x="266" y="412" fill="#eef1f8" font-family="SFMono-Regular,Consolas,ui-monospace,monospace" font-size="32" font-weight="700">325</text>
+    <text x="266" y="412" fill="#eef1f8" font-family="SFMono-Regular,Consolas,ui-monospace,monospace" font-size="32" font-weight="700">327</text>
   
     <rect x="448" y="322" width="192" height="108" rx="10" fill="rgba(255,255,255,0.045)" stroke="rgba(212,175,55,0.22)" stroke-width="1"/>
     <rect x="454" y="332" width="4" height="88" rx="2" fill="url(#foil)"/>
     <circle cx="612" cy="354" r="18" fill="#e8c547" opacity="0.14"/>
-    <g transform="translate(602, 344) scale(1.25)"><path fill="#fff0b8" d="M3 2.5a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm10 0a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM8 5.5a2 2 0 00-2 2v1H4.5a1 1 0 100 2H6v3.5a2 2 0 104 0V10.5h1.5a1 1 0 100-2H10v-1a2 2 0 00-2-2z"/></g>
+    <svg x="602" y="344" width="20" height="20" viewBox="0 0 16 16"><path fill="#fff0b8" d="M3 2.5a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm10 0a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM8 5.5a2 2 0 00-2 2v1H4.5a1 1 0 100 2H6v3.5a2 2 0 104 0V10.5h1.5a1 1 0 100-2H10v-1a2 2 0 00-2-2z"/></svg>
     <text x="474" y="360" fill="#eef1f8" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="18" font-weight="600">Pull Requests</text>
     
     <text x="474" y="412" fill="#eef1f8" font-family="SFMono-Regular,Consolas,ui-monospace,monospace" font-size="32" font-weight="700">671</text>
@@ -112,7 +108,7 @@
     <rect x="656" y="322" width="192" height="108" rx="10" fill="rgba(255,255,255,0.045)" stroke="rgba(212,175,55,0.22)" stroke-width="1"/>
     <rect x="662" y="332" width="4" height="88" rx="2" fill="url(#foil)"/>
     <circle cx="820" cy="354" r="18" fill="#e8c547" opacity="0.14"/>
-    <g transform="translate(810, 344) scale(1.25)"><path fill="#fff0b8" d="M8 1.5a6.5 6.5 0 110 13 6.5 6.5 0 010-13zm0 2a1 1 0 100 2 1 1 0 000-2zm1 3H7v5h2V6.5z"/></g>
+    <svg x="810" y="344" width="20" height="20" viewBox="0 0 16 16"><path fill="#fff0b8" d="M8 1.5a6.5 6.5 0 110 13 6.5 6.5 0 010-13zm0 2a1 1 0 100 2 1 1 0 000-2zm1 3H7v5h2V6.5z"/></svg>
     <text x="682" y="360" fill="#eef1f8" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="18" font-weight="600">Issues</text>
     
     <text x="682" y="412" fill="#eef1f8" font-family="SFMono-Regular,Consolas,ui-monospace,monospace" font-size="32" font-weight="700">22</text>
@@ -120,10 +116,8 @@
 
   
     
-    <g transform="translate(440, 480)">
-      <g transform="translate(-111.47999999999998, -12) scale(1.5)"><path fill="#fff0b8" d="M5.5 4.5L1 8l4.5 3.5V9l-2-1 2-1V4.5zm5 0V7l2-1-2-1v2.5L15 8l-4.5 3.5V10l2 1-2 1V11.5L15 8l-4.5-3.5z"/></g>
-      <text x="15" y="8.399999999999999" text-anchor="middle" fill="#e8c547" font-family="Segoe UI,system-ui,sans-serif" font-size="24" font-weight="700">Top Languages</text>
-    </g>
+    <svg x="328.52000000000004" y="468" width="24" height="24" viewBox="0 0 16 16"><path fill="#fff0b8" d="M5.5 4.5L1 8l4.5 3.5V9l-2-1 2-1V4.5zm5 0V7l2-1-2-1v2.5L15 8l-4.5 3.5V10l2 1-2 1V11.5L15 8l-4.5-3.5z"/></svg>
+    <text x="358.52000000000004" y="488.4" fill="#e8c547" font-family="Segoe UI,system-ui,sans-serif" font-size="24" font-weight="700">Top Languages</text>
   
     <rect x="32" y="500" width="816" height="2" rx="1" fill="url(#gold)" opacity="0.8"/>
   
@@ -134,55 +128,55 @@
     <text x="56" y="536.9" fill="#eef1f8" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="14" font-weight="600">Python</text>
     <text x="420" y="536.55" text-anchor="end" fill="#9aa3b5" font-family="SFMono-Regular,Consolas,ui-monospace,monospace" font-size="13">994k lines · 57.9%</text>
     <rect x="44" y="542" width="376" height="6" rx="3" fill="rgba(255,255,255,0.06)"/>
-    <rect x="44" y="542" width="217.5266625287692" height="6" rx="3" fill="#3572A5" opacity="0.85"/>
+    <rect x="44" y="542" width="217.5250467260356" height="6" rx="3" fill="#3572A5" opacity="0.85"/>
   
     <circle cx="44" cy="568" r="5" fill="#f34b7d"/>
     <text x="56" y="572.9" fill="#eef1f8" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="14" font-weight="600">C++</text>
     <text x="420" y="572.55" text-anchor="end" fill="#9aa3b5" font-family="SFMono-Regular,Consolas,ui-monospace,monospace" font-size="13">244k lines · 14.2%</text>
     <rect x="44" y="578" width="376" height="6" rx="3" fill="rgba(255,255,255,0.06)"/>
-    <rect x="44" y="578" width="53.355125492896185" height="6" rx="3" fill="#f34b7d" opacity="0.85"/>
+    <rect x="44" y="578" width="53.35472916742224" height="6" rx="3" fill="#f34b7d" opacity="0.85"/>
   
     <circle cx="44" cy="604" r="5" fill="#00B4AB"/>
     <text x="56" y="608.9" fill="#eef1f8" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="14" font-weight="600">Dart</text>
     <text x="420" y="608.55" text-anchor="end" fill="#9aa3b5" font-family="SFMono-Regular,Consolas,ui-monospace,monospace" font-size="13">190k lines · 11.1%</text>
     <rect x="44" y="614" width="376" height="6" rx="3" fill="rgba(255,255,255,0.06)"/>
-    <rect x="44" y="614" width="41.551703253985146" height="6" rx="3" fill="#00B4AB" opacity="0.85"/>
+    <rect x="44" y="614" width="41.551394605128394" height="6" rx="3" fill="#00B4AB" opacity="0.85"/>
   
     <circle cx="44" cy="640" r="5" fill="#b07219"/>
     <text x="56" y="644.9" fill="#eef1f8" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="14" font-weight="600">Java</text>
     <text x="420" y="644.55" text-anchor="end" fill="#9aa3b5" font-family="SFMono-Regular,Consolas,ui-monospace,monospace" font-size="13">83k lines · 4.8%</text>
     <rect x="44" y="650" width="376" height="6" rx="3" fill="rgba(255,255,255,0.06)"/>
-    <rect x="44" y="650" width="18.074487779060554" height="6" rx="3" fill="#b07219" opacity="0.85"/>
+    <rect x="44" y="650" width="18.074353520545202" height="6" rx="3" fill="#b07219" opacity="0.85"/>
   
     <circle cx="44" cy="676" r="5" fill="#00ADD8"/>
     <text x="56" y="680.9" fill="#eef1f8" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="14" font-weight="600">Go</text>
     <text x="420" y="680.55" text-anchor="end" fill="#9aa3b5" font-family="SFMono-Regular,Consolas,ui-monospace,monospace" font-size="13">78k lines · 4.5%</text>
     <rect x="44" y="686" width="376" height="6" rx="3" fill="rgba(255,255,255,0.06)"/>
-    <rect x="44" y="686" width="17.025007696252697" height="6" rx="3" fill="#00ADD8" opacity="0.85"/>
+    <rect x="44" y="686" width="17.024881233346242" height="6" rx="3" fill="#00ADD8" opacity="0.85"/>
   
     <circle cx="44" cy="712" r="5" fill="#555555"/>
     <text x="56" y="716.9" fill="#eef1f8" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="14" font-weight="600">C</text>
     <text x="420" y="716.55" text-anchor="end" fill="#9aa3b5" font-family="SFMono-Regular,Consolas,ui-monospace,monospace" font-size="13">55k lines · 3.2%</text>
     <rect x="44" y="722" width="376" height="6" rx="3" fill="rgba(255,255,255,0.06)"/>
-    <rect x="44" y="722" width="12.100549473556532" height="6" rx="3" fill="#555555" opacity="0.85"/>
+    <rect x="44" y="722" width="12.100459589858186" height="6" rx="3" fill="#555555" opacity="0.85"/>
   
     <circle cx="44" cy="748" r="5" fill="#dea584"/>
     <text x="56" y="752.9" fill="#eef1f8" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="14" font-weight="600">Rust</text>
     <text x="420" y="752.55" text-anchor="end" fill="#9aa3b5" font-family="SFMono-Regular,Consolas,ui-monospace,monospace" font-size="13">23k lines · 1.4%</text>
     <rect x="44" y="758" width="376" height="6" rx="3" fill="rgba(255,255,255,0.06)"/>
-    <rect x="44" y="758" width="5.127689021624507" height="6" rx="3" fill="#dea584" opacity="0.85"/>
+    <rect x="44" y="758" width="5.127650932804305" height="6" rx="3" fill="#dea584" opacity="0.85"/>
   
     <circle cx="44" cy="784" r="5" fill="#DA3434"/>
     <text x="56" y="788.9" fill="#eef1f8" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="14" font-weight="600">CMake</text>
     <text x="420" y="788.55" text-anchor="end" fill="#9aa3b5" font-family="SFMono-Regular,Consolas,ui-monospace,monospace" font-size="13">17k lines · 1.0%</text>
     <rect x="44" y="794" width="376" height="6" rx="3" fill="rgba(255,255,255,0.06)"/>
-    <rect x="44" y="794" width="3.6676490342752004" height="6" rx="3" fill="#DA3434" opacity="0.85"/>
+    <rect x="44" y="794" width="3.667621790730586" height="6" rx="3" fill="#DA3434" opacity="0.85"/>
   
     <circle cx="44" cy="820" r="5" fill="#427819"/>
     <text x="56" y="824.9" fill="#eef1f8" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="14" font-weight="600">Makefile</text>
     <text x="420" y="824.55" text-anchor="end" fill="#9aa3b5" font-family="SFMono-Regular,Consolas,ui-monospace,monospace" font-size="13">10k lines · 0.6%</text>
     <rect x="44" y="830" width="376" height="6" rx="3" fill="rgba(255,255,255,0.06)"/>
-    <rect x="44" y="830" width="2.206712086566062" height="6" rx="3" fill="#427819" opacity="0.85"/>
+    <rect x="44" y="830" width="2.2066956949597167" height="6" rx="3" fill="#427819" opacity="0.85"/>
   
     <circle cx="44" cy="856" r="5" fill="#89e051"/>
     <text x="56" y="860.9" fill="#eef1f8" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="14" font-weight="600">Shell</text>
@@ -251,15 +245,13 @@
     <rect x="460" y="866" width="376" height="6" rx="3" fill="rgba(255,255,255,0.06)"/>
     <rect x="460" y="866" width="2" height="6" rx="3" fill="#A97BFF" opacity="0.85"/>
   
-    <text x="440" y="911.85" text-anchor="middle" fill="#9aa3b5" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="11">HTML, CSS lines are not included in statistics.</text>
+    <text x="440" y="911.85" text-anchor="middle" fill="#9aa3b5" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="11">1.6M lines of HTML, 1.2M lines of JavaScript, and 1.1k lines of CSS are not included in statistics.</text>
   
 
   
     
-    <g transform="translate(440, 966)">
-      <g transform="translate(-126.35999999999997, -12) scale(1.5)"><path fill="#fff0b8" d="M3.5 2A1.5 1.5 0 012 3.5v1h12v-1A1.5 1.5 0 0012.5 2h-1V1h-1v1h-4V1H5.5v1h-1zM2 6v7.5A1.5 1.5 0 003.5 15h9a1.5 1.5 0 001.5-1.5V6H2z"/></g>
-      <text x="15" y="8.399999999999999" text-anchor="middle" fill="#e8c547" font-family="Segoe UI,system-ui,sans-serif" font-size="24" font-weight="700">Yearly Activity</text>
-    </g>
+    <svg x="313.64000000000004" y="954" width="24" height="24" viewBox="0 0 16 16"><path fill="#fff0b8" d="M3.5 2A1.5 1.5 0 012 3.5v1h12v-1A1.5 1.5 0 0012.5 2h-1V1h-1v1h-4V1H5.5v1h-1zM2 6v7.5A1.5 1.5 0 003.5 15h9a1.5 1.5 0 001.5-1.5V6H2z"/></svg>
+    <text x="343.64000000000004" y="974.4" fill="#e8c547" font-family="Segoe UI,system-ui,sans-serif" font-size="24" font-weight="700">Yearly Activity</text>
   
     <rect x="32" y="986" width="816" height="2" rx="1" fill="url(#gold)" opacity="0.8"/>
   
@@ -268,42 +260,32 @@
     
         <rect x="32" y="1006" width="114" height="46" fill="rgba(212,175,55,0.06)" stroke="rgba(212,175,55,0.22)" stroke-width="1"/>
         
-    <g transform="translate(89, 1029)">
-      <g transform="translate(-30.8, -8) scale(1)"><path fill="#fff0b8" d="M3.5 2A1.5 1.5 0 012 3.5v1h12v-1A1.5 1.5 0 0012.5 2h-1V1h-1v1h-4V1H5.5v1h-1zM2 6v7.5A1.5 1.5 0 003.5 15h9a1.5 1.5 0 001.5-1.5V6H2z"/></g>
-      <text x="11" y="5.25" text-anchor="middle" fill="#e8c547" font-family="Segoe UI,system-ui,sans-serif" font-size="15" font-weight="700">Year</text>
-    </g>
+    <svg x="58.2" y="1021" width="16" height="16" viewBox="0 0 16 16"><path fill="#fff0b8" d="M3.5 2A1.5 1.5 0 012 3.5v1h12v-1A1.5 1.5 0 0012.5 2h-1V1h-1v1h-4V1H5.5v1h-1zM2 6v7.5A1.5 1.5 0 003.5 15h9a1.5 1.5 0 001.5-1.5V6H2z"/></svg>
+    <text x="80.2" y="1034.25" fill="#e8c547" font-family="Segoe UI,system-ui,sans-serif" font-size="15" font-weight="700">Year</text>
   
       
         <rect x="146" y="1006" width="146" height="46" fill="rgba(212,175,55,0.06)" stroke="rgba(212,175,55,0.22)" stroke-width="1"/>
         
-    <g transform="translate(219, 1029)">
-      <g transform="translate(-44.75, -8) scale(1)"><path fill="#fff0b8" d="M8 1a3 3 0 100 6 3 3 0 000-6zm0 8.5a5.5 5.5 0 014.7 2.6l-1.4 1.4A3.5 3.5 0 008 12.5a3.5 3.5 0 01-3.3 2l-1.4-1.4A5.5 5.5 0 008 9.5z"/></g>
-      <text x="11" y="5.25" text-anchor="middle" fill="#e8c547" font-family="Segoe UI,system-ui,sans-serif" font-size="15" font-weight="700">Commits</text>
-    </g>
+    <svg x="174.25" y="1021" width="16" height="16" viewBox="0 0 16 16"><path fill="#fff0b8" d="M8 1a3 3 0 100 6 3 3 0 000-6zm0 8.5a5.5 5.5 0 014.7 2.6l-1.4 1.4A3.5 3.5 0 008 12.5a3.5 3.5 0 01-3.3 2l-1.4-1.4A5.5 5.5 0 008 9.5z"/></svg>
+    <text x="196.25" y="1034.25" fill="#e8c547" font-family="Segoe UI,system-ui,sans-serif" font-size="15" font-weight="700">Commits</text>
   
       
         <rect x="292" y="1006" width="130" height="46" fill="rgba(212,175,55,0.06)" stroke="rgba(212,175,55,0.22)" stroke-width="1"/>
         
-    <g transform="translate(357, 1029)">
-      <g transform="translate(-27.35, -8) scale(1)"><path fill="#fff0b8" d="M3 2.5a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm10 0a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM8 5.5a2 2 0 00-2 2v1H4.5a1 1 0 100 2H6v3.5a2 2 0 104 0V10.5h1.5a1 1 0 100-2H10v-1a2 2 0 00-2-2z"/></g>
-      <text x="11" y="5.25" text-anchor="middle" fill="#e8c547" font-family="Segoe UI,system-ui,sans-serif" font-size="15" font-weight="700">PRs</text>
-    </g>
+    <svg x="329.65" y="1021" width="16" height="16" viewBox="0 0 16 16"><path fill="#fff0b8" d="M3 2.5a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm10 0a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM8 5.5a2 2 0 00-2 2v1H4.5a1 1 0 100 2H6v3.5a2 2 0 104 0V10.5h1.5a1 1 0 100-2H10v-1a2 2 0 00-2-2z"/></svg>
+    <text x="351.65" y="1034.25" fill="#e8c547" font-family="Segoe UI,system-ui,sans-serif" font-size="15" font-weight="700">PRs</text>
   
       
         <rect x="422" y="1006" width="130" height="46" fill="rgba(212,175,55,0.06)" stroke="rgba(212,175,55,0.22)" stroke-width="1"/>
         
-    <g transform="translate(487, 1029)">
-      <g transform="translate(-40.1, -8) scale(1)"><path fill="#fff0b8" d="M8 1.5a6.5 6.5 0 110 13 6.5 6.5 0 010-13zm0 2a1 1 0 100 2 1 1 0 000-2zm1 3H7v5h2V6.5z"/></g>
-      <text x="11" y="5.25" text-anchor="middle" fill="#e8c547" font-family="Segoe UI,system-ui,sans-serif" font-size="15" font-weight="700">Issues</text>
-    </g>
+    <svg x="446.9" y="1021" width="16" height="16" viewBox="0 0 16 16"><path fill="#fff0b8" d="M8 1.5a6.5 6.5 0 110 13 6.5 6.5 0 010-13zm0 2a1 1 0 100 2 1 1 0 000-2zm1 3H7v5h2V6.5z"/></svg>
+    <text x="468.9" y="1034.25" fill="#e8c547" font-family="Segoe UI,system-ui,sans-serif" font-size="15" font-weight="700">Issues</text>
   
       
         <rect x="552" y="1006" width="296" height="46" fill="rgba(212,175,55,0.06)" stroke="rgba(212,175,55,0.22)" stroke-width="1"/>
         
-    <g transform="translate(700, 1029)">
-      <g transform="translate(-49.4, -8) scale(1)"><path fill="#fff0b8" d="M1.5 8.5a1 1 0 011-1h2v7h-2a1 1 0 01-1-1v-5zm5 2a1 1 0 011-1h2v5h-2a1 1 0 01-1-1v-3zm5-3a1 1 0 011-1h2v8h-2a1 1 0 01-1-1V7.5z"/></g>
-      <text x="11" y="5.25" text-anchor="middle" fill="#e8c547" font-family="Segoe UI,system-ui,sans-serif" font-size="15" font-weight="700">Activity</text>
-    </g>
+    <svg x="650.6" y="1021" width="16" height="16" viewBox="0 0 16 16"><path fill="#fff0b8" d="M1.5 8.5a1 1 0 011-1h2v7h-2a1 1 0 01-1-1v-5zm5 2a1 1 0 011-1h2v5h-2a1 1 0 01-1-1v-3zm5-3a1 1 0 011-1h2v8h-2a1 1 0 01-1-1V7.5z"/></svg>
+    <text x="672.6" y="1034.25" fill="#e8c547" font-family="Segoe UI,system-ui,sans-serif" font-size="15" font-weight="700">Activity</text>
   
       
     
@@ -311,7 +293,7 @@
             <text x="89" y="1078.9" text-anchor="middle" fill="#e8c547" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="14" font-weight="700">2026</text>
           
             <rect x="146" y="1052" width="146" height="44" fill="rgba(255,255,255,0.02)" stroke="rgba(212,175,55,0.22)" stroke-width="0.75"/>
-            <text x="219" y="1078.9" text-anchor="middle" fill="#eef1f8" font-family="SFMono-Regular,Consolas,ui-monospace,monospace" font-size="14" font-weight="600">121</text>
+            <text x="219" y="1078.9" text-anchor="middle" fill="#eef1f8" font-family="SFMono-Regular,Consolas,ui-monospace,monospace" font-size="14" font-weight="600">123</text>
           
             <rect x="292" y="1052" width="130" height="44" fill="rgba(255,255,255,0.02)" stroke="rgba(212,175,55,0.22)" stroke-width="0.75"/>
             <text x="357" y="1078.9" text-anchor="middle" fill="#eef1f8" font-family="SFMono-Regular,Consolas,ui-monospace,monospace" font-size="14" font-weight="600">11</text>
@@ -320,7 +302,7 @@
             <text x="487" y="1078.9" text-anchor="middle" fill="#eef1f8" font-family="SFMono-Regular,Consolas,ui-monospace,monospace" font-size="14" font-weight="600">0</text>
           
             <rect x="552" y="1052" width="296" height="44" fill="rgba(255,255,255,0.02)" stroke="rgba(212,175,55,0.22)" stroke-width="0.75"/>
-            <text x="700" y="1078.9" text-anchor="middle" fill="#eef1f8" font-family="SFMono-Regular,Consolas,ui-monospace,monospace" font-size="14" font-weight="600">154</text>
+            <text x="700" y="1078.9" text-anchor="middle" fill="#eef1f8" font-family="SFMono-Regular,Consolas,ui-monospace,monospace" font-size="14" font-weight="600">156</text>
           
             <rect x="32" y="1096" width="114" height="44" fill="transparent" stroke="rgba(212,175,55,0.22)" stroke-width="0.75"/>
             <text x="89" y="1122.9" text-anchor="middle" fill="#e8c547" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="14" font-weight="700">2025</text>
