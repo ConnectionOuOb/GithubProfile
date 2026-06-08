@@ -1,75 +1,83 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="760" height="200" viewBox="0 0 760 200" role="img" aria-label="GitHub profile for ConnectionOuOb">
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="196" viewBox="0 0 820 196" role="img" aria-label="GitHub profile for ConnectionOuOb">
   <title>Connection (@ConnectionOuOb)</title>
   
     <defs>
-      <linearGradient id="ring" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#7c9cff"/>
-        <stop offset="100%" stop-color="#c084fc"/>
+      <linearGradient id="g-ring" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#a78bfa"/>
+        <stop offset="100%" stop-color="#f472b6"/>
       </linearGradient>
-      <linearGradient id="shine" x1="0%" y1="0%" x2="0%" y2="100%">
-        <stop offset="0%" stop-color="rgba(255,255,255,0.06)"/>
-        <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+      <linearGradient id="g-bar" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#a78bfa" stop-opacity="0.8"/>
+        <stop offset="50%" stop-color="#6ea8fe" stop-opacity="0.6"/>
+        <stop offset="100%" stop-color="#f472b6" stop-opacity="0.8"/>
       </linearGradient>
-      <clipPath id="av"><circle cx="0" cy="0" r="22"/></clipPath>
+      <radialGradient id="g-glow" cx="25%" cy="30%" r="60%">
+        <stop offset="0%" stop-color="#a78bfa" stop-opacity="0.06"/>
+        <stop offset="100%" stop-color="#0c0e14" stop-opacity="0"/>
+      </radialGradient>
+      <clipPath id="clip-av"><circle cx="0" cy="0" r="32"/></clipPath>
     </defs>
   
-  <rect width="760" height="200" rx="16" fill="#0a0b10"/>
-  <rect x="0.5" y="0.5" width="759" height="199" rx="16" fill="none" stroke="rgba(255,255,255,0.07)"/>
+  <rect width="820" height="196" rx="20" fill="#0c0e14"/>
+  <rect width="820" height="196" rx="20" fill="url(#g-glow)"/>
+  <rect x="0.5" y="0.5" width="819" height="195" rx="20" fill="none" stroke="rgba(255,255,255,0.06)"/>
+  <rect x="20" y="0" width="780" height="2" rx="1" fill="url(#g-bar)" opacity="0.7"/>
+  <line x1="280" y1="24" x2="280" y2="172" stroke="rgba(255,255,255,0.055)"/>
   
-    <g transform="translate(20, 22)">
-      <circle cx="26" cy="26" r="25" fill="url(#ring)" opacity="0.9"/>
-      <circle cx="26" cy="26" r="23" fill="#0a0b10"/>
-      <g transform="translate(26, 26)">
-        <image href="https://avatars.githubusercontent.com/u/69660530?v=4" x="-22" y="-22" width="44" height="44" clip-path="url(#av)" preserveAspectRatio="xMidYMid slice"/>
-      </g>
-      <text x="60" y="22" fill="#eef1f6" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="17" font-weight="600" letter-spacing="-0.3">Connection</text>
-      <text x="60" y="42" fill="#8b929a" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12">@ConnectionOuOb</text>
-      <g transform="translate(612, 8)">
-          <rect width="108" height="28" rx="14" fill="rgba(124,156,255,0.12)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
-          <text x="54" y="18" text-anchor="middle" fill="#a78bfa" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="11" font-weight="600">1 day streak</text>
-        </g>
+    <g transform="translate(32, 56)">
+      <circle cx="0" cy="0" r="35" fill="url(#g-ring)" opacity="0.85"/>
+      <circle cx="0" cy="0" r="33" fill="#0c0e14"/>
+      <image href="https://avatars.githubusercontent.com/u/69660530?v=4" x="-32" y="-32" width="64" height="64" clip-path="url(#clip-av)" preserveAspectRatio="xMidYMid slice"/>
+    </g>
+    <g transform="translate(80, 42)">
+      <text fill="#f1f3f8" font-family="'Segoe UI',system-ui,-apple-system,sans-serif" font-size="18" font-weight="700" letter-spacing="-0.3">Connection</text>
+      <text y="22" fill="#868da0" font-family="'Segoe UI',system-ui,-apple-system,sans-serif" font-size="12" font-weight="400">@ConnectionOuOb</text>
+    </g>
+    
+    <g transform="translate(80, 88)">
+      <rect width="96" height="24" rx="12" fill="rgba(167,139,250,0.1)" stroke="rgba(167,139,250,0.2)" stroke-width="0.5"/>
+      <text x="48" y="16" text-anchor="middle" fill="#a78bfa" font-family="'Segoe UI',system-ui,-apple-system,sans-serif" font-size="10" font-weight="600">1 day streak</text>
+    </g>
+    
+    <g transform="translate(32, 132)">
+      
+          <circle cx="0" cy="0" r="3" fill="#fbbf24" opacity="0.85"/>
+          <text x="10" y="4" fill="#f1f3f8" font-family="'SF Mono',ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12" font-weight="600">15</text>
+          <text x="0" y="18" fill="#4e5565" font-family="'Segoe UI',system-ui,-apple-system,sans-serif" font-size="8.5" font-weight="500">Stars</text>
+        
+          <circle cx="60" cy="0" r="3" fill="#4ade80" opacity="0.85"/>
+          <text x="70" y="4" fill="#f1f3f8" font-family="'SF Mono',ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12" font-weight="600">293</text>
+          <text x="60" y="18" fill="#4e5565" font-family="'Segoe UI',system-ui,-apple-system,sans-serif" font-size="8.5" font-weight="500">Commits</text>
+        
+          <circle cx="120" cy="0" r="3" fill="#6ea8fe" opacity="0.85"/>
+          <text x="130" y="4" fill="#f1f3f8" font-family="'SF Mono',ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12" font-weight="600">671</text>
+          <text x="120" y="18" fill="#4e5565" font-family="'Segoe UI',system-ui,-apple-system,sans-serif" font-size="8.5" font-weight="500">PRs</text>
+        
+          <circle cx="180" cy="0" r="3" fill="#fb923c" opacity="0.85"/>
+          <text x="190" y="4" fill="#f1f3f8" font-family="'SF Mono',ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12" font-weight="600">22</text>
+          <text x="180" y="18" fill="#4e5565" font-family="'Segoe UI',system-ui,-apple-system,sans-serif" font-size="8.5" font-weight="500">Issues</text>
+        
     </g>
   
   
-    <rect x="20" y="78" width="720" height="102" rx="12" fill="rgba(255,255,255,0.035)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
-    <rect x="20" y="78" width="720" height="40" rx="12" fill="url(#shine)"/>
-    <line x1="36" y1="132" x2="724" y2="132" stroke="rgba(255,255,255,0.07)"/>
-    
-    
-    
-    <text x="140" y="114" text-anchor="middle" fill="#565c64" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="9" font-weight="600" letter-spacing="0.8">CONTRIBUTIONS</text>
-    <text x="140" y="142" text-anchor="middle" fill="#eef1f6" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="24" font-weight="700" letter-spacing="-0.8">4.8k</text>
-  
-    <line x1="260" y1="104" x2="260" y2="152" stroke="rgba(255,255,255,0.07)"/>
-    <rect x="268" y="92" width="224" height="68" rx="10" fill="rgba(124,156,255,0.12)"/>
-    <text x="380" y="114" text-anchor="middle" fill="#565c64" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="9" font-weight="600" letter-spacing="0.8">CURRENT STREAK</text>
-    <text x="380" y="142" text-anchor="middle" fill="#a78bfa" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="28" font-weight="700" letter-spacing="-0.8">1</text>
-  
-    <line x1="500" y1="104" x2="500" y2="152" stroke="rgba(255,255,255,0.07)"/>
-    
-    <text x="620" y="114" text-anchor="middle" fill="#565c64" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="9" font-weight="600" letter-spacing="0.8">LONGEST STREAK</text>
-    <text x="620" y="142" text-anchor="middle" fill="#eef1f6" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="24" font-weight="700" letter-spacing="-0.8">26</text>
-  
-    
+    <g transform="translate(280, 0)">
+      <rect x="0" y="30" width="540" height="136" rx="14" fill="#13161f" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      
+          
+          
+          <text x="102" y="78" text-anchor="middle" fill="#4e5565" font-family="'Segoe UI',system-ui,-apple-system,sans-serif" font-size="9" font-weight="600" letter-spacing="0.6">CONTRIBUTIONS</text>
+          <text x="102" y="114" text-anchor="middle" fill="#f1f3f8" font-family="'SF Mono',ui-monospace,SFMono-Regular,Menlo,monospace" font-size="30" font-weight="700" letter-spacing="-1.5">4.8k</text>
         
-        <circle cx="110" cy="154" r="2.5" fill="#f0c14a"/>
-        <text x="110" y="170" text-anchor="middle" fill="#eef1f6" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" font-weight="600">15</text>
-        <text x="110" y="184" text-anchor="middle" fill="#565c64" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="9" font-weight="500">Stars</text>
-      
-        <line x1="200" y1="146" x2="200" y2="174" stroke="rgba(255,255,255,0.07)"/>
-        <circle cx="290" cy="154" r="2.5" fill="#4ade80"/>
-        <text x="290" y="170" text-anchor="middle" fill="#eef1f6" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" font-weight="600">291</text>
-        <text x="290" y="184" text-anchor="middle" fill="#565c64" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="9" font-weight="500">Commits</text>
-      
-        <line x1="380" y1="146" x2="380" y2="174" stroke="rgba(255,255,255,0.07)"/>
-        <circle cx="470" cy="154" r="2.5" fill="#60a5fa"/>
-        <text x="470" y="170" text-anchor="middle" fill="#eef1f6" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" font-weight="600">671</text>
-        <text x="470" y="184" text-anchor="middle" fill="#565c64" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="9" font-weight="500">PRs</text>
-      
-        <line x1="560" y1="146" x2="560" y2="174" stroke="rgba(255,255,255,0.07)"/>
-        <circle cx="650" cy="154" r="2.5" fill="#fb923c"/>
-        <text x="650" y="170" text-anchor="middle" fill="#eef1f6" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" font-weight="600">22</text>
-        <text x="650" y="184" text-anchor="middle" fill="#565c64" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="9" font-weight="500">Issues</text>
-      
+          <line x1="186" y1="58" x2="186" y2="138" stroke="rgba(255,255,255,0.055)"/>
+          <rect x="192" y="42" width="156" height="112" rx="10" fill="rgba(167,139,250,0.06)" stroke="rgba(167,139,250,0.12)" stroke-width="0.5"/>
+          <text x="270" y="78" text-anchor="middle" fill="#4e5565" font-family="'Segoe UI',system-ui,-apple-system,sans-serif" font-size="9" font-weight="600" letter-spacing="0.6">CURRENT STREAK</text>
+          <text x="270" y="120" text-anchor="middle" fill="#a78bfa" font-family="'SF Mono',ui-monospace,SFMono-Regular,Menlo,monospace" font-size="36" font-weight="700" letter-spacing="-1.5">1</text>
+        
+          <line x1="354" y1="58" x2="354" y2="138" stroke="rgba(255,255,255,0.055)"/>
+          
+          <text x="438" y="78" text-anchor="middle" fill="#4e5565" font-family="'Segoe UI',system-ui,-apple-system,sans-serif" font-size="9" font-weight="600" letter-spacing="0.6">LONGEST STREAK</text>
+          <text x="438" y="114" text-anchor="middle" fill="#f1f3f8" font-family="'SF Mono',ui-monospace,SFMono-Regular,Menlo,monospace" font-size="30" font-weight="700" letter-spacing="-1.5">26</text>
+        
+    </g>
   
 </svg>
