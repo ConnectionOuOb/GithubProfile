@@ -53,24 +53,24 @@
     <rect x="38" y="128" width="4" height="88" rx="2" fill="url(#foil)"/>
     <circle cx="265.3333333333333" cy="150" r="18" fill="#e8c547" opacity="0.14"/>
     <svg x="255.33333333333331" y="140" width="20" height="20" viewBox="0 0 16 16"><path fill="#fff0b8" d="M1.5 8.5a1 1 0 011-1h2v7h-2a1 1 0 01-1-1v-5zm5 2a1 1 0 011-1h2v5h-2a1 1 0 01-1-1v-3zm5-3a1 1 0 011-1h2v8h-2a1 1 0 01-1-1V7.5z"/></svg>
-    <text x="58" y="156" fill="#eef1f8" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="16" font-weight="600">Total Contributions</text>
-    <text x="58" y="176" fill="#9aa3b5" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="13">All-time activity</text>
+    <text x="58" y="156" fill="#eef1f8" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="18" font-weight="600">Total Contributions</text>
+    <text x="58" y="176" fill="#9aa3b5" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="15">All-time activity</text>
     <text x="58" y="208" fill="#eef1f8" font-family="SFMono-Regular,Consolas,ui-monospace,monospace" font-size="32" font-weight="700">4.9k</text>
   
     <rect x="309.3333333333333" y="118" width="261.3333333333333" height="108" rx="10" fill="rgba(255,255,255,0.045)" stroke="rgba(212,175,55,0.22)" stroke-width="1"/>
     <rect x="315.3333333333333" y="128" width="4" height="88" rx="2" fill="url(#foil)"/>
     <circle cx="542.6666666666666" cy="150" r="18" fill="#e8c547" opacity="0.14"/>
     <svg x="532.6666666666666" y="140" width="20" height="20" viewBox="0 0 16 16"><path fill="#fff0b8" d="M8 1.5c1.2 2.2 2.5 3.1 2.5 5.5a2.5 2.5 0 01-5 0c0-1.2.5-2.2 1.2-3.4C5.8 4.8 5 6.5 5 8a3 3 0 006 0c0-1-.4-2-1.2-3.2.5 1.5.7 2.2.7 3.2a1.5 1.5 0 01-3 0C7.5 5.8 7.8 4.5 8 1.5z"/></svg>
-    <text x="335.3333333333333" y="156" fill="#eef1f8" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="16" font-weight="600">Current Streak</text>
-    <text x="335.3333333333333" y="176" fill="#9aa3b5" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="13">1 days active</text>
+    <text x="335.3333333333333" y="156" fill="#eef1f8" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="18" font-weight="600">Current Streak</text>
+    <text x="335.3333333333333" y="176" fill="#9aa3b5" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="15">1 days active</text>
     <text x="335.3333333333333" y="208" fill="#eef1f8" font-family="SFMono-Regular,Consolas,ui-monospace,monospace" font-size="32" font-weight="700">1</text>
   
     <rect x="586.6666666666666" y="118" width="261.3333333333333" height="108" rx="10" fill="rgba(255,255,255,0.045)" stroke="rgba(212,175,55,0.22)" stroke-width="1"/>
     <rect x="592.6666666666666" y="128" width="4" height="88" rx="2" fill="url(#foil)"/>
     <circle cx="820" cy="150" r="18" fill="#e8c547" opacity="0.14"/>
     <svg x="810" y="140" width="20" height="20" viewBox="0 0 16 16"><path fill="#fff0b8" d="M3 2.5h10v2a3 3 0 01-2.8 3 2.5 2.5 0 01-4.4 0A3 3 0 013 4.5v-2zm2 9.5h6v1.5H5V12zm1.5 1.5h3V15H6.5v-1z"/></svg>
-    <text x="612.6666666666666" y="156" fill="#eef1f8" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="16" font-weight="600">Longest Streak</text>
-    <text x="612.6666666666666" y="176" fill="#9aa3b5" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="13">Personal best</text>
+    <text x="612.6666666666666" y="156" fill="#eef1f8" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="18" font-weight="600">Longest Streak</text>
+    <text x="612.6666666666666" y="176" fill="#9aa3b5" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="15">Personal best</text>
     <text x="612.6666666666666" y="208" fill="#eef1f8" font-family="SFMono-Regular,Consolas,ui-monospace,monospace" font-size="32" font-weight="700">26</text>
   
   
@@ -78,7 +78,7 @@
     <rect x="38" y="252" width="4" height="88" rx="2" fill="url(#foil)"/>
     <circle cx="196" cy="274" r="18" fill="#e8c547" opacity="0.14"/>
     <svg x="186" y="264" width="20" height="20" viewBox="0 0 16 16"><path fill="#fff0b8" d="M8 .5l2.1 4.3 4.7.7-3.4 3.3.8 4.7L8 11.3 4.8 13.5l.8-4.7L2.2 5.5l4.7-.7L8 .5z"/></svg>
-    <text x="58" y="280" fill="#eef1f8" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="16" font-weight="600">Stars</text>
+    <text x="58" y="280" fill="#eef1f8" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="18" font-weight="600">Stars</text>
     
     <text x="58" y="332" fill="#eef1f8" font-family="SFMono-Regular,Consolas,ui-monospace,monospace" font-size="32" font-weight="700">15</text>
   
@@ -86,15 +86,15 @@
     <rect x="246" y="252" width="4" height="88" rx="2" fill="url(#foil)"/>
     <circle cx="404" cy="274" r="18" fill="#e8c547" opacity="0.14"/>
     <svg x="394" y="264" width="20" height="20" viewBox="0 0 16 16"><path fill="#fff0b8" d="M8 1a3 3 0 100 6 3 3 0 000-6zm0 8.5a5.5 5.5 0 014.7 2.6l-1.4 1.4A3.5 3.5 0 008 12.5a3.5 3.5 0 01-3.3 2l-1.4-1.4A5.5 5.5 0 008 9.5z"/></svg>
-    <text x="266" y="280" fill="#eef1f8" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="16" font-weight="600">Commits</text>
+    <text x="266" y="280" fill="#eef1f8" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="18" font-weight="600">Commits</text>
     
-    <text x="266" y="332" fill="#eef1f8" font-family="SFMono-Regular,Consolas,ui-monospace,monospace" font-size="32" font-weight="700">311</text>
+    <text x="266" y="332" fill="#eef1f8" font-family="SFMono-Regular,Consolas,ui-monospace,monospace" font-size="32" font-weight="700">313</text>
   
     <rect x="448" y="242" width="192" height="108" rx="10" fill="rgba(255,255,255,0.045)" stroke="rgba(212,175,55,0.22)" stroke-width="1"/>
     <rect x="454" y="252" width="4" height="88" rx="2" fill="url(#foil)"/>
     <circle cx="612" cy="274" r="18" fill="#e8c547" opacity="0.14"/>
     <svg x="602" y="264" width="20" height="20" viewBox="0 0 16 16"><path fill="#fff0b8" d="M3 2.5a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm10 0a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM8 5.5a2 2 0 00-2 2v1H4.5a1 1 0 100 2H6v3.5a2 2 0 104 0V10.5h1.5a1 1 0 100-2H10v-1a2 2 0 00-2-2z"/></svg>
-    <text x="474" y="280" fill="#eef1f8" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="16" font-weight="600">Pull Requests</text>
+    <text x="474" y="280" fill="#eef1f8" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="18" font-weight="600">Pull Requests</text>
     
     <text x="474" y="332" fill="#eef1f8" font-family="SFMono-Regular,Consolas,ui-monospace,monospace" font-size="32" font-weight="700">671</text>
   
@@ -102,7 +102,7 @@
     <rect x="662" y="252" width="4" height="88" rx="2" fill="url(#foil)"/>
     <circle cx="820" cy="274" r="18" fill="#e8c547" opacity="0.14"/>
     <svg x="810" y="264" width="20" height="20" viewBox="0 0 16 16"><path fill="#fff0b8" d="M8 1.5a6.5 6.5 0 110 13 6.5 6.5 0 010-13zm0 2a1 1 0 100 2 1 1 0 000-2zm1 3H7v5h2V6.5z"/></svg>
-    <text x="682" y="280" fill="#eef1f8" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="16" font-weight="600">Issues</text>
+    <text x="682" y="280" fill="#eef1f8" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="18" font-weight="600">Issues</text>
     
     <text x="682" y="332" fill="#eef1f8" font-family="SFMono-Regular,Consolas,ui-monospace,monospace" font-size="32" font-weight="700">22</text>
   
@@ -149,7 +149,7 @@
             <text x="89" y="494" text-anchor="middle" dominant-baseline="central" fill="#e8c547" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="14" font-weight="700">2026</text>
           
             <rect x="146" y="472" width="146" height="44" fill="rgba(255,255,255,0.02)" stroke="rgba(212,175,55,0.22)" stroke-width="0.75"/>
-            <text x="219" y="494" text-anchor="middle" dominant-baseline="central" fill="#eef1f8" font-family="SFMono-Regular,Consolas,ui-monospace,monospace" font-size="14" font-weight="600">107</text>
+            <text x="219" y="494" text-anchor="middle" dominant-baseline="central" fill="#eef1f8" font-family="SFMono-Regular,Consolas,ui-monospace,monospace" font-size="14" font-weight="600">109</text>
           
             <rect x="292" y="472" width="130" height="44" fill="rgba(255,255,255,0.02)" stroke="rgba(212,175,55,0.22)" stroke-width="0.75"/>
             <text x="357" y="494" text-anchor="middle" dominant-baseline="central" fill="#eef1f8" font-family="SFMono-Regular,Consolas,ui-monospace,monospace" font-size="14" font-weight="600">11</text>
@@ -158,7 +158,7 @@
             <text x="487" y="494" text-anchor="middle" dominant-baseline="central" fill="#eef1f8" font-family="SFMono-Regular,Consolas,ui-monospace,monospace" font-size="14" font-weight="600">0</text>
           
             <rect x="552" y="472" width="296" height="44" fill="rgba(255,255,255,0.02)" stroke="rgba(212,175,55,0.22)" stroke-width="0.75"/>
-            <text x="700" y="494" text-anchor="middle" dominant-baseline="central" fill="#eef1f8" font-family="SFMono-Regular,Consolas,ui-monospace,monospace" font-size="14" font-weight="600">140</text>
+            <text x="700" y="494" text-anchor="middle" dominant-baseline="central" fill="#eef1f8" font-family="SFMono-Regular,Consolas,ui-monospace,monospace" font-size="14" font-weight="600">142</text>
           
             <rect x="32" y="516" width="114" height="44" fill="transparent" stroke="rgba(212,175,55,0.22)" stroke-width="0.75"/>
             <text x="89" y="538" text-anchor="middle" dominant-baseline="central" fill="#e8c547" font-family="Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif" font-size="14" font-weight="700">2025</text>
