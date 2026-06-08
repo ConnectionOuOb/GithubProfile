@@ -7,19 +7,31 @@ import { renderProfileCard } from "./render/profile-card.js";
 
 loadEnv();
 
-const token =
-  process.env.GITHUB_TOKEN ??
-  process.env.GITHUB_PAT ??
-  process.env.PROFILE_PAT;
+function getToken(): string | undefined {
+  for (const key of ["PROFILE_PAT", "GITHUB_PAT", "GITHUB_TOKEN"] as const) {
+    const value = process.env[key]?.trim();
+    if (value) return value;
+  }
+}
+
+function reportMissingToken(): never {
+  if (process.env.GITHUB_ACTIONS) {
+    console.error(
+      "Missing PROFILE_PAT repository secret.\n" +
+        "GitHub → Settings → Secrets and variables → Actions → New secret\n" +
+        "Name: PROFILE_PAT  Value: your PAT (read:user + repo)",
+    );
+  } else {
+    console.error("Missing token. Set GITHUB_TOKEN in .env (see .env.example).");
+  }
+  process.exit(1);
+}
+
+const token = getToken() ?? reportMissingToken();
 
 const outputPath = resolve(
   process.env.OUTPUT_PATH ?? "profile/card.svg",
 );
-
-if (!token) {
-  console.error("Missing token. Set GITHUB_TOKEN in .env (see .env.example).");
-  process.exit(1);
-}
 
 const usernameHint =
   process.env.GITHUB_USERNAME ??
