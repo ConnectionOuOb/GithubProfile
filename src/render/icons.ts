@@ -19,7 +19,8 @@ export function iconSvg(
   size: number,
   color: string,
 ): string {
-  return `<svg x="${x}" y="${y}" width="${size}" height="${size}" viewBox="0 0 16 16" fill="${color}">${icons[name]}</svg>`;
+  const path = icons[name].replaceAll("currentColor", color);
+  return `<svg x="${x}" y="${y}" width="${size}" height="${size}" viewBox="0 0 16 16">${path}</svg>`;
 }
 
 export function centeredIconLabel(

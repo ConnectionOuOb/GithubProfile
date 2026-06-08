@@ -12,7 +12,6 @@ interface MetricProps {
   title: string;
   value: string;
   icon: IconName;
-  accent: string;
   subtitle?: string;
 }
 
@@ -36,8 +35,14 @@ function defs(): string {
     <defs>
       <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
         <stop offset="0%" stop-color="${t.goldLight}"/>
-        <stop offset="50%" stop-color="${t.gold}"/>
+        <stop offset="45%" stop-color="${t.gold}"/>
         <stop offset="100%" stop-color="${t.goldDark}"/>
+      </linearGradient>
+      <linearGradient id="foil" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="${t.goldLight}"/>
+        <stop offset="35%" stop-color="${t.gold}"/>
+        <stop offset="70%" stop-color="${t.goldMid}"/>
+        <stop offset="100%" stop-color="${t.goldDeep}"/>
       </linearGradient>
       <radialGradient id="ambient-purple" cx="0%" cy="0%" r="75%">
         <stop offset="0%" stop-color="#7c5cbf" stop-opacity="0.22"/>
@@ -73,7 +78,7 @@ function renderMetric(
   y: number,
   w: number,
   h: number,
-  { title, value, icon, accent, subtitle }: MetricProps,
+  { title, value, icon, subtitle }: MetricProps,
 ): string {
   const pad = t.metricPad;
   const iconSize = 18;
@@ -82,9 +87,9 @@ function renderMetric(
 
   return `
     <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="10" fill="${t.panel}" stroke="${t.panelBorder}" stroke-width="1"/>
-    <rect x="${x + 6}" y="${y + 10}" width="4" height="${h - 20}" rx="2" fill="${accent}" opacity="0.9"/>
-    <circle cx="${iconCx}" cy="${iconCy}" r="18" fill="${accent}" opacity="0.12"/>
-    ${iconSvg(icon, iconCx - iconSize / 2, iconCy - iconSize / 2, iconSize, accent)}
+    <rect x="${x + 6}" y="${y + 10}" width="4" height="${h - 20}" rx="2" fill="url(#foil)"/>
+    <circle cx="${iconCx}" cy="${iconCy}" r="18" fill="${t.gold}" opacity="0.14"/>
+    ${iconSvg(icon, iconCx - iconSize / 2, iconCy - iconSize / 2, iconSize, t.goldLight)}
     <text x="${x + pad + 8}" y="${y + pad + 18}" fill="${t.text}" font-family="${t.font}" font-size="14" font-weight="600">${title}</text>
     ${
       subtitle
@@ -148,7 +153,7 @@ function yearlyTable(data: ProfileData, startY: number, showReviews: boolean): s
       const icon = TABLE_COL_ICONS[col.key];
       const cell = `
         <rect x="${colX}" y="${startY}" width="${cw}" height="${headerH}" fill="rgba(212,175,55,0.06)" stroke="${t.panelBorder}" stroke-width="1"/>
-        ${centeredIconLabel(cellCx, startY + headerH / 2 + 2, icon, col.label, t.goldLight, 14, 13)}
+        ${centeredIconLabel(cellCx, startY + headerH / 2 + 2, icon, col.label, t.gold, 14, 13)}
       `;
       colX += cw;
       return cell;
@@ -167,7 +172,7 @@ function yearlyTable(data: ProfileData, startY: number, showReviews: boolean): s
           const cellCx = colX + cw / 2;
           const raw = row[col.key as keyof YearlyActivity];
           const text = col.key === "year" ? String(raw) : compact(Number(raw));
-          const color = col.key === "year" ? t.goldLight : t.text;
+          const color = col.key === "year" ? t.gold : t.text;
           const cell = `
             <rect x="${colX}" y="${y}" width="${cw}" height="${rowH}" fill="${bg}" stroke="${t.panelBorder}" stroke-width="0.75"/>
             <text x="${cellCx}" y="${y + 29}" text-anchor="middle" fill="${color}" font-family="${col.key === "year" ? t.font : t.mono}" font-size="14" font-weight="${col.key === "year" ? "700" : "600"}">${text}</text>
@@ -180,7 +185,7 @@ function yearlyTable(data: ProfileData, startY: number, showReviews: boolean): s
     .join("");
 
   return `
-    ${centeredIconLabel(cx, titleY, "calendar", "Yearly Activity", t.goldLight, 22, 22)}
+    ${centeredIconLabel(cx, titleY, "calendar", "Yearly Activity", t.gold, 22, 22)}
     <rect x="${x}" y="${startY}" width="${w}" height="${tableH}" rx="12" fill="${t.panel}" stroke="${t.panelBorder}" stroke-width="1"/>
     ${headerCells}
     ${rows}
@@ -207,36 +212,32 @@ export function renderProfileCard(
       subtitle: "All-time activity",
       value: compact(streakValue(data, "total")),
       icon: "activity",
-      accent: t.amber,
     },
     {
       title: "Current Streak",
       subtitle: streak > 0 ? `${streak} days active` : "No active streak",
       value: compact(streakValue(data, "current")),
       icon: "fire",
-      accent: t.purple,
     },
     {
       title: "Longest Streak",
       subtitle: "Personal best",
       value: compact(streakValue(data, "longest")),
       icon: "trophy",
-      accent: t.gold,
     },
   ];
 
   const statMetrics: MetricProps[] = [
-    { title: "Stars", value: compact(data.stats.totalStars), icon: "star", accent: t.amber },
-    { title: "Commits", value: compact(data.stats.totalCommits), icon: "commit", accent: t.green },
-    { title: "Pull Requests", value: compact(data.stats.totalPRs), icon: "pr", accent: t.blue },
-    { title: "Issues", value: compact(data.stats.totalIssues), icon: "issue", accent: t.orange },
+    { title: "Stars", value: compact(data.stats.totalStars), icon: "star" },
+    { title: "Commits", value: compact(data.stats.totalCommits), icon: "commit" },
+    { title: "Pull Requests", value: compact(data.stats.totalPRs), icon: "pr" },
+    { title: "Issues", value: compact(data.stats.totalIssues), icon: "issue" },
   ];
   if (showReviews) {
     statMetrics.push({
       title: "Reviews",
       value: compact(data.stats.totalReviews),
       icon: "review",
-      accent: t.purple,
     });
   }
 
@@ -256,7 +257,7 @@ export function renderProfileCard(
   <defs><clipPath id="av"><circle cx="${ax}" cy="${ay}" r="42"/></clipPath></defs>
   ${background(W, H)}
 
-  <circle cx="${ax}" cy="${ay}" r="46" fill="${t.purple}" opacity="0.15"/>
+  <circle cx="${ax}" cy="${ay}" r="46" fill="${t.gold}" opacity="0.18"/>
   ${avatar(avatarDataUri)}
 
   <text x="196" y="50" fill="${t.text}" font-family="${t.font}" font-size="26" font-weight="700">${name}</text>
@@ -264,8 +265,8 @@ export function renderProfileCard(
   ${
     streak > 0
       ? `<g transform="translate(${W - t.pad - 148}, 42)">
-    ${iconSvg("fire", 0, 0, 16, t.purple)}
-    <text x="24" y="13" fill="${t.purple}" font-family="${t.font}" font-size="14" font-weight="600">${streak} day streak</text>
+    ${iconSvg("fire", 0, 0, 16, t.goldLight)}
+    <text x="24" y="13" fill="url(#foil)" font-family="${t.font}" font-size="14" font-weight="600">${streak} day streak</text>
   </g>`
       : ""
   }

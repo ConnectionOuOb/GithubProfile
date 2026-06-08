@@ -1,7 +1,7 @@
 export const theme = {
   width: 880,
   summaryHeight: 368,
-  tableGap: 56,
+  tableGap: 28,
   tableTitleH: 40,
   radius: 16,
   pad: 32,
@@ -18,16 +18,11 @@ export const theme = {
   sub: "#9aa3b5",
   label: "#7b849a",
 
-  purple: "#c4a5fd",
-  blue: "#8ec5ff",
-  green: "#6ee7a0",
-  amber: "#f0ca5a",
-  orange: "#ffb86b",
-  pink: "#ff8a8a",
-
-  goldLight: "#f5e6a3",
-  gold: "#d4af37",
-  goldDark: "#9a7b2e",
+  goldLight: "#fff0b8",
+  gold: "#e8c547",
+  goldMid: "#d4af37",
+  goldDark: "#a67c00",
+  goldDeep: "#7a5a12",
 
   font: "Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif",
   mono: "SFMono-Regular,Consolas,ui-monospace,monospace",
