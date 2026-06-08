@@ -13,7 +13,7 @@ export const icons = {
 
 export type IconName = keyof typeof icons;
 
-import { textMiddleY } from "./format.js";
+import { estimateTextWidth, textMiddleY } from "./format.js";
 
 export function iconSvg(
   name: IconName,
@@ -37,14 +37,14 @@ export function centeredIconLabel(
   textColor = color,
 ): string {
   const gap = 6;
-  const textW = label.length * fontSize * 0.58;
-  const totalW = iconSize + gap + textW;
-  const startX = cx - totalW / 2;
+  const textW = estimateTextWidth(label, fontSize);
+  const textMidX = cx + (iconSize + gap) / 2;
+  const iconX = textMidX - textW / 2 - gap - iconSize;
   const iconY = cy - iconSize / 2;
 
   return `
-    ${iconSvg(icon, startX, iconY, iconSize, color)}
-    <text x="${startX + iconSize + gap}" y="${textMiddleY(cy, fontSize)}" fill="${textColor}" font-family="Segoe UI,system-ui,sans-serif" font-size="${fontSize}" font-weight="700">${label}</text>
+    ${iconSvg(icon, iconX, iconY, iconSize, color)}
+    <text x="${textMidX}" y="${textMiddleY(cy, fontSize)}" text-anchor="middle" fill="${textColor}" font-family="Segoe UI,system-ui,sans-serif" font-size="${fontSize}" font-weight="700">${label}</text>
   `;
 }
 
