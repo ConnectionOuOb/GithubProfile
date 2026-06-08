@@ -46,6 +46,6 @@ PAT 權限：Classic 勾選 `read:user` + `repo`（含私有統計）。
 | `GITHUB_USERNAME` | 自動 | 僅在要查別人時才填 |
 | `OUTPUT_PATH` | `profile/card.svg` | 輸出路徑 |
 | `SHOW_REVIEWS` | `false` | 顯示 PR review 數 |
-| `LANGS_COUNT` | `10` | Top Languages 顯示數量（1–20） |
+| `LANGS_COUNT` | `20` | Top Languages 顯示數量（1–20） |
 | `HIDE_LANGUAGES` | `JavaScript` | 逗號分隔，要隱藏的語言 |
 | `EXCLUDE_REPOS` | — | 逗號分隔，不計入語言統計的 repo 名稱 |

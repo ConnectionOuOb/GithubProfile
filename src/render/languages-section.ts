@@ -1,7 +1,6 @@
 import type { LanguageStat } from "../types.js";
 import { escapeXml, formatLines, textMiddleY } from "./format.js";
-import { centeredIconLabel } from "./icons.js";
-import { languagesSectionHeight } from "./layout.js";
+import { languagesPanelHeight } from "./layout.js";
 import { theme as t } from "./theme.js";
 
 function langRow(
@@ -29,17 +28,16 @@ function langRow(
   `;
 }
 
-export { languagesSectionHeight };
+export { languagesPanelHeight };
 
 export function renderLanguagesSection(
   langs: LanguageStat[],
-  startY: number,
+  contentY: number,
 ): string {
   if (langs.length === 0) return "";
 
   const x = t.pad;
   const w = t.width - t.pad * 2;
-  const cx = t.width / 2;
   const colGap = t.gap;
   const colW = (w - colGap) / 2;
   const totalSize = langs.reduce((sum, l) => sum + l.size, 0);
@@ -47,22 +45,20 @@ export function renderLanguagesSection(
   const left = langs.slice(0, mid);
   const right = langs.slice(mid);
   const rows = mid;
-  const panelY = startY + t.langTitleH - 6;
-  const panelH = rows * t.langRowH + t.langPadBottom + 6;
+  const panelH = languagesPanelHeight(langs.length);
 
   const leftCol = left
-    .map((lang, i) => langRow(lang, x, startY + t.langTitleH + i * t.langRowH, colW, totalSize))
+    .map((lang, i) => langRow(lang, x, contentY + i * t.langRowH, colW, totalSize))
     .join("");
 
   const rightCol = right
     .map((lang, i) =>
-      langRow(lang, x + colW + colGap, startY + t.langTitleH + i * t.langRowH, colW, totalSize),
+      langRow(lang, x + colW + colGap, contentY + i * t.langRowH, colW, totalSize),
     )
     .join("");
 
   return `
-    ${centeredIconLabel(cx, startY + t.langTitleH / 2, "code", "Top Languages", t.goldLight, t.iconLangTitle, t.fsLangTitle, t.gold)}
-    <rect x="${x}" y="${panelY}" width="${w}" height="${panelH}" rx="12" fill="${t.panel}" stroke="${t.panelBorder}" stroke-width="1"/>
+    <rect x="${x}" y="${contentY}" width="${w}" height="${panelH}" rx="12" fill="${t.panel}" stroke="${t.panelBorder}" stroke-width="1"/>
     ${leftCol}
     ${rightCol}
   `;

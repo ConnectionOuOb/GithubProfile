@@ -1,36 +1,60 @@
 import { theme as t } from "./theme.js";
+import { sectionBlockHeight } from "./section-header.js";
+
+export function languagesPanelHeight(langCount: number): number {
+  if (langCount <= 0) return 0;
+  const rows = Math.ceil(langCount / 2);
+  return rows * t.langRowH + t.langPadBottom;
+}
 
 export function languagesSectionHeight(langCount: number): number {
   if (langCount <= 0) return 0;
-  const rows = Math.ceil(langCount / 2);
-  return t.langTitleH + rows * t.langRowH + t.langPadBottom;
+  return sectionBlockHeight(languagesPanelHeight(langCount));
 }
 
 export interface CardLayout {
+  statsSectionY: number;
+  statsContentY: number;
   metricsY1: number;
   metricsY2: number;
-  langY: number;
+  langSectionY: number;
+  langContentY: number;
+  yearlySectionY: number;
   tableY: number;
-  yearlyTitleCy: number;
   height: number;
 }
 
 export function computeCardLayout(yearCount: number, langCount: number): CardLayout {
-  const metricsY1 = 108 + t.headerMetricGap;
-  const metricsY2 = metricsY1 + t.metricH + t.gap;
-  const metricsEndY = metricsY2 + t.metricH;
-  const langY = metricsEndY + (langCount > 0 ? t.langSectionGap : 0);
-  const langBottom = langY + languagesSectionHeight(langCount);
-  const tableY = langBottom + t.tableGap + t.tableTitleH;
+  const statsContentH = t.metricH + t.gap + t.metricH;
   const tableRows = Math.max(yearCount, 1);
   const tableHeight = t.tableHeaderH + tableRows * t.tableRowH;
 
+  let y = t.profileBlockH + t.sectionGap;
+
+  const statsSectionY = y;
+  const statsContentY = statsSectionY + t.sectionTitleH + t.sectionTitleGap;
+  const metricsY1 = statsContentY;
+  const metricsY2 = metricsY1 + t.metricH + t.gap;
+  y = statsContentY + statsContentH + t.sectionGap;
+
+  const langSectionY = langCount > 0 ? y : 0;
+  const langContentY = langCount > 0 ? langSectionY + t.sectionTitleH + t.sectionTitleGap : 0;
+  if (langCount > 0) {
+    y = langContentY + languagesPanelHeight(langCount) + t.sectionGap;
+  }
+
+  const yearlySectionY = y;
+  const tableY = yearlySectionY + t.sectionTitleH + t.sectionTitleGap;
+
   return {
+    statsSectionY,
+    statsContentY,
     metricsY1,
     metricsY2,
-    langY,
+    langSectionY,
+    langContentY,
+    yearlySectionY,
     tableY,
-    yearlyTitleCy: tableY - 22,
     height: tableY + tableHeight + t.pad,
   };
 }

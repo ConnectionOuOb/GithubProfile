@@ -3,6 +3,7 @@ import { compact, escapeXml, textMiddleY } from "./format.js";
 import { centeredIconLabel, iconSvg, type IconName } from "./icons.js";
 import { renderLanguagesSection } from "./languages-section.js";
 import { computeCardLayout } from "./layout.js";
+import { renderSectionHeader } from "./section-header.js";
 import { theme as t } from "./theme.js";
 
 interface RenderOptions {
@@ -118,7 +119,6 @@ function metricRow(
 function yearlyTable(
   data: ProfileData,
   startY: number,
-  titleCy: number,
   showReviews: boolean,
 ): string {
   const years = [...data.yearly].sort((a, b) => b.year - a.year);
@@ -126,10 +126,8 @@ function yearlyTable(
 
   const x = t.pad;
   const w = t.width - t.pad * 2;
-  const cx = t.width / 2;
   const rowH = t.tableRowH;
   const headerH = t.tableHeaderH;
-  const titleY = titleCy;
 
   const cols = showReviews
     ? [
@@ -193,7 +191,6 @@ function yearlyTable(
     .join("");
 
   return `
-    ${centeredIconLabel(cx, titleY, "calendar", "Yearly Activity", t.goldLight, t.iconTableTitle, t.fsTableTitle, t.gold)}
     <rect x="${x}" y="${startY}" width="${w}" height="${tableH}" rx="12" fill="${t.panel}" stroke="${t.panelBorder}" stroke-width="1"/>
     ${headerCells}
     ${rows}
@@ -253,8 +250,14 @@ export function renderProfileCard(
 
   const metricsY1 = layout.metricsY1;
   const metricsY2 = layout.metricsY2;
-  const langY = layout.langY;
   const tableY = layout.tableY;
+
+  const statsHeader = renderSectionHeader(layout.statsSectionY, "activity", "Statistics");
+  const langHeader =
+    langCount > 0
+      ? renderSectionHeader(layout.langSectionY, "code", "Top Languages")
+      : "";
+  const yearlyHeader = renderSectionHeader(layout.yearlySectionY, "calendar", "Yearly Activity");
 
   const avatar = (dataUri?: string) =>
     dataUri
@@ -285,11 +288,14 @@ export function renderProfileCard(
       : ""
   }
 
+  ${statsHeader}
   ${metricRow(streakMetrics, metricsY1, t.pad, contentW)}
   ${metricRow(statMetrics, metricsY2, t.pad, contentW)}
 
-  ${renderLanguagesSection(data.languages, langY)}
+  ${langHeader}
+  ${renderLanguagesSection(data.languages, layout.langContentY)}
 
-  ${yearlyTable(data, tableY, layout.yearlyTitleCy, showReviews)}
+  ${yearlyHeader}
+  ${yearlyTable(data, tableY, showReviews)}
 </svg>`;
 }

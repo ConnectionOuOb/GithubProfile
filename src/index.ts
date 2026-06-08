@@ -54,7 +54,7 @@ try {
   const hideLanguages = parseList(process.env.HIDE_LANGUAGES ?? "JavaScript");
   const langsCount = Math.min(
     20,
-    Math.max(1, Number.parseInt(process.env.LANGS_COUNT ?? "10", 10) || 10),
+    Math.max(1, Number.parseInt(process.env.LANGS_COUNT ?? "20", 10) || 20),
   );
 
   const languages = filterLanguages(data.languages, {
