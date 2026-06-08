@@ -10,7 +10,7 @@ export const theme = {
   metricPad: 18,
   langSectionGap: 14,
   langTitleH: 38,
-  langRowH: 32,
+  langRowH: 36,
   langPadBottom: 12,
 
   fsName: 28,
@@ -53,22 +53,3 @@ export const theme = {
   tableRowH: 44,
   tableHeaderH: 46,
 } as const;
-
-export function cardHeight(yearCount: number, langCount: number): number {
-  const tableRows = Math.max(yearCount, 1);
-  const tableBlock =
-    theme.tableTitleH +
-    theme.tableHeaderH +
-    tableRows * theme.tableRowH +
-    theme.pad;
-  const metricsEndY =
-    108 + theme.headerMetricGap + theme.metricH + theme.gap + theme.metricH;
-  const langBlock =
-    langCount > 0
-      ? theme.langSectionGap +
-        theme.langTitleH +
-        Math.ceil(langCount / 2) * theme.langRowH +
-        theme.langPadBottom
-      : 0;
-  return metricsEndY + langBlock + theme.tableGap + tableBlock;
-}

@@ -1,8 +1,9 @@
 import type { ProfileData, YearlyActivity } from "../types.js";
-import { compact, escapeXml } from "./format.js";
+import { compact, escapeXml, textMiddleY } from "./format.js";
 import { centeredIconLabel, iconSvg, type IconName } from "./icons.js";
-import { renderLanguagesSection, languagesSectionHeight } from "./languages-section.js";
-import { cardHeight, theme as t } from "./theme.js";
+import { renderLanguagesSection } from "./languages-section.js";
+import { computeCardLayout } from "./layout.js";
+import { theme as t } from "./theme.js";
 
 interface RenderOptions {
   showReviews?: boolean;
@@ -114,7 +115,12 @@ function metricRow(
     .join("");
 }
 
-function yearlyTable(data: ProfileData, startY: number, showReviews: boolean): string {
+function yearlyTable(
+  data: ProfileData,
+  startY: number,
+  titleCy: number,
+  showReviews: boolean,
+): string {
   const years = [...data.yearly].sort((a, b) => b.year - a.year);
   if (years.length === 0) return "";
 
@@ -123,7 +129,7 @@ function yearlyTable(data: ProfileData, startY: number, showReviews: boolean): s
   const cx = t.width / 2;
   const rowH = t.tableRowH;
   const headerH = t.tableHeaderH;
-  const titleY = startY - 22;
+  const titleY = titleCy;
 
   const cols = showReviews
     ? [
@@ -171,12 +177,13 @@ function yearlyTable(data: ProfileData, startY: number, showReviews: boolean): s
         .map((col, i) => {
           const cw = colWidths[i];
           const cellCx = colX + cw / 2;
+          const cellCy = y + rowH / 2;
           const raw = row[col.key as keyof YearlyActivity];
           const text = col.key === "year" ? String(raw) : compact(Number(raw));
           const color = col.key === "year" ? t.gold : t.text;
           const cell = `
             <rect x="${colX}" y="${y}" width="${cw}" height="${rowH}" fill="${bg}" stroke="${t.panelBorder}" stroke-width="0.75"/>
-            <text x="${cellCx}" y="${y + rowH / 2}" text-anchor="middle" dominant-baseline="central" fill="${color}" font-family="${col.key === "year" ? t.font : t.mono}" font-size="${t.fsTableData}" font-weight="${col.key === "year" ? "700" : "600"}">${text}</text>
+            <text x="${cellCx}" y="${textMiddleY(cellCy, t.fsTableData)}" text-anchor="middle" fill="${color}" font-family="${col.key === "year" ? t.font : t.mono}" font-size="${t.fsTableData}" font-weight="${col.key === "year" ? "700" : "600"}">${text}</text>
           `;
           colX += cw;
           return cell;
@@ -200,9 +207,10 @@ export function renderProfileCard(
   const { showReviews = false, avatarDataUri } = options;
   const name = escapeXml(data.stats.name);
   const login = escapeXml(data.stats.login);
-  const W = t.width;
   const langCount = data.languages.length;
-  const H = cardHeight(data.yearly.length, langCount);
+  const layout = computeCardLayout(data.yearly.length, langCount);
+  const W = t.width;
+  const H = layout.height;
   const ax = t.pad + 44;
   const ay = 58;
   const contentW = W - t.pad * 2;
@@ -243,11 +251,10 @@ export function renderProfileCard(
     });
   }
 
-  const metricsY1 = 108 + t.headerMetricGap;
-  const metricsY2 = metricsY1 + t.metricH + t.gap;
-  const langY = metricsY2 + t.metricH + t.langSectionGap;
-  const langBottom = langY + (langCount > 0 ? languagesSectionHeight(langCount) : 0);
-  const tableY = langBottom + t.tableGap + t.tableTitleH;
+  const metricsY1 = layout.metricsY1;
+  const metricsY2 = layout.metricsY2;
+  const langY = layout.langY;
+  const tableY = layout.tableY;
 
   const avatar = (dataUri?: string) =>
     dataUri
@@ -273,7 +280,7 @@ export function renderProfileCard(
           const textW = label.length * t.fsBadge * 0.58;
           const totalW = t.iconBadge + 6 + textW;
           const badgeCx = W - t.pad - totalW / 2;
-          return centeredIconLabel(badgeCx, 50, "fire", label, t.goldLight, t.iconBadge, t.fsBadge, "url(#foil)");
+          return centeredIconLabel(badgeCx, 50, "fire", label, t.goldLight, t.iconBadge, t.fsBadge, t.gold);
         })()
       : ""
   }
@@ -283,6 +290,6 @@ export function renderProfileCard(
 
   ${renderLanguagesSection(data.languages, langY)}
 
-  ${yearlyTable(data, tableY, showReviews)}
+  ${yearlyTable(data, tableY, layout.yearlyTitleCy, showReviews)}
 </svg>`;
 }

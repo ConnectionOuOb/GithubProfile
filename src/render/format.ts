@@ -5,6 +5,17 @@ export function compact(n: number): string {
   return String(n);
 }
 
+/** GitHub reports bytes; ~30 bytes/line is a common LOC estimate for display. */
+export function formatLines(bytes: number): string {
+  const lines = Math.max(1, Math.round(bytes / 30));
+  return `${compact(lines)} lines`;
+}
+
+/** SVG text y for visual vertical center (avoids dominant-baseline; better on GitHub). */
+export function textMiddleY(cy: number, fontSize: number): number {
+  return cy + fontSize * 0.35;
+}
+
 export function escapeXml(text: string): string {
   return text
     .replace(/&/g, "&amp;")

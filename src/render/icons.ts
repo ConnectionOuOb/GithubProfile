@@ -13,6 +13,8 @@ export const icons = {
 
 export type IconName = keyof typeof icons;
 
+import { textMiddleY } from "./format.js";
+
 export function iconSvg(
   name: IconName,
   x: number,
@@ -21,7 +23,7 @@ export function iconSvg(
   color: string,
 ): string {
   const path = icons[name].replaceAll("currentColor", color);
-  return `<svg x="${x}" y="${y}" width="${size}" height="${size}" viewBox="0 0 16 16">${path}</svg>`;
+  return `<g transform="translate(${x},${y})"><svg width="${size}" height="${size}" viewBox="0 0 16 16">${path}</svg></g>`;
 }
 
 export function centeredIconLabel(
@@ -42,7 +44,7 @@ export function centeredIconLabel(
 
   return `
     ${iconSvg(icon, startX, iconY, iconSize, color)}
-    <text x="${startX + iconSize + gap}" y="${cy}" dominant-baseline="central" fill="${textColor}" font-family="Segoe UI,system-ui,sans-serif" font-size="${fontSize}" font-weight="700">${label}</text>
+    <text x="${startX + iconSize + gap}" y="${textMiddleY(cy, fontSize)}" fill="${textColor}" font-family="Segoe UI,system-ui,sans-serif" font-size="${fontSize}" font-weight="700">${label}</text>
   `;
 }
 
