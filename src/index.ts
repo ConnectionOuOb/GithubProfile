@@ -61,7 +61,7 @@ try {
     Math.max(1, Number.parseInt(process.env.LANGS_COUNT ?? "20", 10) || 20),
   );
 
-  const languageNote = excludedLanguageNote(data.languages);
+  const languageNote = excludedLanguageNote(data.languages, hideLanguages);
   const languages = filterLanguages(data.languages, {
     count: langsCount,
     hide: allHiddenLanguages(hideLanguages),

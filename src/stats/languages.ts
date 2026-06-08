@@ -1,4 +1,5 @@
 import { graphql } from "../github/client.js";
+import { formatLines } from "../render/format.js";
 import type { LanguageStat } from "../types.js";
 
 interface RepoLanguageNode {
@@ -74,19 +75,28 @@ export const MARKUP_LANGUAGES = [
   "SVG",
 ] as const;
 
-const MARKUP_SET = new Set(MARKUP_LANGUAGES.map((n) => n.toLowerCase()));
-
 export function allHiddenLanguages(userHide: string[] = []): string[] {
   return [
     ...new Set([...MARKUP_LANGUAGES, ...userHide].map((h) => h.trim()).filter(Boolean)),
   ];
 }
 
-export function excludedLanguageNote(allLangs: LanguageStat[]): string {
-  const markup = allLangs.filter((l) => MARKUP_SET.has(l.name.toLowerCase()));
-  if (markup.length === 0) return "";
-  const names = markup.map((l) => l.name).join(", ");
-  return `${names} lines are not included in statistics.`;
+function joinEnglish(parts: string[]): string {
+  if (parts.length <= 1) return parts[0] ?? "";
+  if (parts.length === 2) return `${parts[0]} and ${parts[1]}`;
+  return `${parts.slice(0, -1).join(", ")}, and ${parts.at(-1)}`;
+}
+
+export function excludedLanguageNote(
+  allLangs: LanguageStat[],
+  userHide: string[] = [],
+): string {
+  const hideSet = new Set(allHiddenLanguages(userHide).map((h) => h.toLowerCase()));
+  const excluded = allLangs.filter((l) => hideSet.has(l.name.toLowerCase()));
+  if (excluded.length === 0) return "";
+
+  const parts = excluded.map((l) => `${formatLines(l.size)} of ${l.name}`);
+  return `${joinEnglish(parts)} are not included in statistics.`;
 }
 
 export interface LanguageOptions {

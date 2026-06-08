@@ -23,10 +23,10 @@ export function iconSvg(
   color: string,
 ): string {
   const path = icons[name].replaceAll("currentColor", color);
-  const scale = size / 16;
-  return `<g transform="translate(${x}, ${y}) scale(${scale})">${path}</g>`;
+  return `<svg x="${x}" y="${y}" width="${size}" height="${size}" viewBox="0 0 16 16">${path}</svg>`;
 }
 
+/** Icon immediately left of label; group centered at cx (GitHub-safe inline layout). */
 export function centeredIconLabel(
   cx: number,
   cy: number,
@@ -40,15 +40,13 @@ export function centeredIconLabel(
   const gap = 6;
   const textW = estimateTextWidth(label, fontSize, true);
   const totalW = iconSize + gap + textW;
-  const startX = -totalW / 2;
-  const textX = startX + iconSize + gap + textW / 2;
-  const textY = fontSize * 0.35;
+  const startX = cx - totalW / 2;
+  const iconY = cy - iconSize / 2;
+  const textY = textMiddleY(cy, fontSize);
 
   return `
-    <g transform="translate(${cx}, ${cy})">
-      ${iconSvg(icon, startX, -iconSize / 2, iconSize, color)}
-      <text x="${textX}" y="${textY}" text-anchor="middle" fill="${textColor}" font-family="Segoe UI,system-ui,sans-serif" font-size="${fontSize}" font-weight="700">${label}</text>
-    </g>
+    ${iconSvg(icon, startX, iconY, iconSize, color)}
+    <text x="${startX + iconSize + gap}" y="${textY}" fill="${textColor}" font-family="Segoe UI,system-ui,sans-serif" font-size="${fontSize}" font-weight="700">${label}</text>
   `;
 }
 
