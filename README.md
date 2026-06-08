@@ -5,14 +5,16 @@ Unified GitHub profile card — stats and contribution streak in one modern SVG.
 ## Preview
 
 ```md
-![Profile Card](./profile/card.svg)
+![Profile Card](https://raw.githubusercontent.com/ConnectionOuOb/GithubProfile/gh-pages/card.svg)
 ```
 
-Cross-repo embed:
+Cross-repo embed (replace `YOUR_USER`):
 
 ```md
-![Profile Card](https://raw.githubusercontent.com/YOUR_USER/GithubProfile/main/profile/card.svg)
+![Profile Card](https://raw.githubusercontent.com/YOUR_USER/GithubProfile/gh-pages/card.svg)
 ```
+
+> `profile/card.svg` is gitignored on `main`. Actions publishes to the **`gh-pages`** branch — no more merge conflicts.
 
 ---
 
@@ -24,25 +26,17 @@ Cross-repo embed:
 GITHUB_TOKEN=ghp_你的PAT
 ```
 
-帳號會**自動從 PAT 辨識**，不必手填 `GITHUB_USERNAME`。
-
 ```bash
 npm install
-npm run generate
+npm run generate   # 本地預覽用，不要 commit
+npm run preview    # mock 預覽
 ```
 
-**GitHub Actions：** Repo → Settings → Secrets → `PROFILE_PAT` = 同一支 PAT。帳號同樣自動辨識。
+**GitHub Actions：** Repo → Settings → Secrets → `PROFILE_PAT` = 同一支 PAT。
 
 PAT 權限：Classic 勾選 `read:user` + `repo`（含私有統計）。
 
 ---
-
-## Commands
-
-```bash
-npm run preview    # mock 預覽
-npm run generate   # 真實資料（需 .env）
-```
 
 ## Options
 

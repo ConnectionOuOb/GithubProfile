@@ -2,3 +2,6 @@ node_modules/
 dist/
 .env
 *.log
+
+# Generated output — only Actions commits this (git add -f)
+profile/card.svg

@@ -1,50 +1,49 @@
-name: Generate Profile Card
-
-on:
-  schedule:
-    - cron: "0 3 * * *"
-  push:
-    paths:
-      - ".github/workflows/generate-profile.yml"
-      - "src/**"
-  workflow_dispatch:
-
-permissions:
-  contents: write
-
-jobs:
-  generate:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-
-      - run: npm ci
-
-      - name: Verify PROFILE_PAT secret
-        env:
-          PROFILE_PAT: ${{ secrets.PROFILE_PAT }}
-        run: |
-          if [ -z "$PROFILE_PAT" ]; then
-            echo "::error::Missing repository secret PROFILE_PAT. Add it in repo Settings → Secrets and variables → Actions"
-            exit 1
-          fi
-
-      - name: Generate profile card
-        env:
-          PROFILE_PAT: ${{ secrets.PROFILE_PAT }}
-          OUTPUT_PATH: profile/card.svg
-        run: npm run generate
-
-      - name: Commit card
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add profile/card.svg
-          git diff --staged --quiet || git commit -m "Update profile card"
-          git push
-
+name: Generate Profile Card
+
+on:
+  schedule:
+    - cron: "0 3 * * *"
+  push:
+    paths:
+      - ".github/workflows/generate-profile.yml"
+      - "src/**"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Verify PROFILE_PAT secret
+        env:
+          PROFILE_PAT: ${{ secrets.PROFILE_PAT }}
+        run: |
+          if [ -z "$PROFILE_PAT" ]; then
+            echo "::error::Missing repository secret PROFILE_PAT. Add it in repo Settings → Secrets and variables → Actions"
+            exit 1
+          fi
+
+      - name: Generate profile card
+        env:
+          PROFILE_PAT: ${{ secrets.PROFILE_PAT }}
+          OUTPUT_PATH: profile/card.svg
+        run: npm run generate
+
+      - name: Publish card to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: profile
+          keep_files: false
+          commit_message: "Update profile card"
