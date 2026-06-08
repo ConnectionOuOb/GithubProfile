@@ -1,16 +1,19 @@
 import type { ProfileData, YearlyActivity } from "../types.js";
 import { compact, escapeXml } from "./format.js";
-import {
-  centeredIconLabel,
-  centeredIconStack,
-  iconSvg,
-  type IconName,
-} from "./icons.js";
+import { centeredIconLabel, iconSvg, type IconName } from "./icons.js";
 import { cardHeight, theme as t } from "./theme.js";
 
 interface RenderOptions {
   showReviews?: boolean;
   avatarDataUri?: string;
+}
+
+interface MetricProps {
+  title: string;
+  value: string;
+  icon: IconName;
+  accent: string;
+  subtitle?: string;
 }
 
 const TABLE_COL_ICONS: Record<string, IconName> = {
@@ -33,70 +36,76 @@ function defs(): string {
     <defs>
       <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
         <stop offset="0%" stop-color="${t.goldLight}"/>
-        <stop offset="45%" stop-color="${t.gold}"/>
+        <stop offset="50%" stop-color="${t.gold}"/>
         <stop offset="100%" stop-color="${t.goldDark}"/>
       </linearGradient>
+      <radialGradient id="ambient-purple" cx="0%" cy="0%" r="75%">
+        <stop offset="0%" stop-color="#7c5cbf" stop-opacity="0.22"/>
+        <stop offset="55%" stop-color="#4a3d78" stop-opacity="0.08"/>
+        <stop offset="100%" stop-color="${t.bgDeep}" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="ambient-gold" cx="100%" cy="100%" r="70%">
+        <stop offset="0%" stop-color="#c9a227" stop-opacity="0.16"/>
+        <stop offset="60%" stop-color="#8b6914" stop-opacity="0.06"/>
+        <stop offset="100%" stop-color="${t.bgDeep}" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="ambient-blue" cx="80%" cy="15%" r="55%">
+        <stop offset="0%" stop-color="#5b8def" stop-opacity="0.1"/>
+        <stop offset="100%" stop-color="${t.bgDeep}" stop-opacity="0"/>
+      </radialGradient>
     </defs>
   `;
 }
 
-function goldRect(
-  x: number,
-  y: number,
-  w: number,
-  h: number,
-  r = 12,
-  fill: string = t.panel,
-): string {
+function background(W: number, H: number): string {
   return `
-    <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${r}" fill="${fill}" stroke="url(#gold)" stroke-width="1.5"/>
-    <rect x="${x + 1.5}" y="${y + 1.5}" width="${w - 3}" height="${h - 3}" rx="${r - 1}" fill="none" stroke="${t.goldLight}" stroke-width="0.5" opacity="0.25"/>
+    <rect width="${W}" height="${H}" rx="${t.radius}" fill="${t.bg}"/>
+    <rect width="${W}" height="${H}" rx="${t.radius}" fill="url(#ambient-purple)"/>
+    <rect width="${W}" height="${H}" rx="${t.radius}" fill="url(#ambient-gold)"/>
+    <rect width="${W}" height="${H}" rx="${t.radius}" fill="url(#ambient-blue)"/>
+    <rect x="0.5" y="0.5" width="${W - 1}" height="${H - 1}" rx="${t.radius}" fill="none" stroke="url(#gold)" stroke-width="1.2" opacity="0.55"/>
   `;
 }
 
-function statCell(
+/** Elastic UI Metric-style card: title top-left, icon top-right, value bottom-left, accent bar left */
+function renderMetric(
   x: number,
   y: number,
   w: number,
   h: number,
-  icon: IconName,
-  label: string,
-  value: string,
-  color: string,
+  { title, value, icon, accent, subtitle }: MetricProps,
 ): string {
-  const cx = x + w / 2;
-  const py = t.cellPad;
-  const valueY = y + h - py;
+  const pad = t.metricPad;
+  const iconSize = 18;
+  const iconCx = x + w - pad - 10;
+  const iconCy = y + pad + 12;
 
   return `
-    ${goldRect(x, y, w, h)}
-    ${centeredIconStack(cx, y + py, icon, label, color, 20, 14)}
-    <text x="${cx}" y="${valueY}" text-anchor="middle" fill="${t.text}" font-family="${t.mono}" font-size="28" font-weight="700">${value}</text>
+    <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="10" fill="${t.panel}" stroke="${t.panelBorder}" stroke-width="1"/>
+    <rect x="${x + 6}" y="${y + 10}" width="4" height="${h - 20}" rx="2" fill="${accent}" opacity="0.9"/>
+    <circle cx="${iconCx}" cy="${iconCy}" r="18" fill="${accent}" opacity="0.12"/>
+    ${iconSvg(icon, iconCx - iconSize / 2, iconCy - iconSize / 2, iconSize, accent)}
+    <text x="${x + pad + 8}" y="${y + pad + 18}" fill="${t.text}" font-family="${t.font}" font-size="14" font-weight="600">${title}</text>
+    ${
+      subtitle
+        ? `<text x="${x + pad + 8}" y="${y + pad + 36}" fill="${t.sub}" font-family="${t.font}" font-size="11">${subtitle}</text>`
+        : ""
+    }
+    <text x="${x + pad + 8}" y="${y + h - pad}" fill="${t.text}" font-family="${t.mono}" font-size="32" font-weight="700">${value}</text>
   `;
 }
 
-function streakCell(
-  x: number,
+function metricRow(
+  metrics: MetricProps[],
   y: number,
-  w: number,
-  h: number,
-  icon: IconName,
-  label: string,
-  value: string,
-  accent = false,
+  x: number,
+  totalW: number,
 ): string {
-  const cx = x + w / 2;
-  const py = t.cellPad;
-  const fill = accent ? "rgba(188,140,255,0.08)" : t.panel;
-  const iconColor = accent ? t.purple : t.amber;
-  const valueY = y + h - py - 4;
-
-  return `
-    ${goldRect(x, y, w, h, 12, fill)}
-    ${iconSvg(icon, cx - 10, y + py, 20, iconColor)}
-    <text x="${cx}" y="${y + py + 38}" text-anchor="middle" fill="${t.label}" font-family="${t.font}" font-size="13" font-weight="600">${label}</text>
-    <text x="${cx}" y="${valueY}" text-anchor="middle" fill="${accent ? t.purple : t.text}" font-family="${t.mono}" font-size="${accent ? "38" : "32"}" font-weight="700">${value}</text>
-  `;
+  const gap = t.gap;
+  const w = (totalW - gap * (metrics.length - 1)) / metrics.length;
+  return metrics
+    .map((m, i) => renderMetric(x + i * (w + gap), y, w, t.metricH, m))
+    .join("");
 }
 
 function yearlyTable(data: ProfileData, startY: number, showReviews: boolean): string {
@@ -108,7 +117,7 @@ function yearlyTable(data: ProfileData, startY: number, showReviews: boolean): s
   const cx = t.width / 2;
   const rowH = t.tableRowH;
   const headerH = t.tableHeaderH;
-  const titleY = startY - 18;
+  const titleY = startY - 22;
 
   const cols = showReviews
     ? [
@@ -129,7 +138,6 @@ function yearlyTable(data: ProfileData, startY: number, showReviews: boolean): s
 
   const colWidths = cols.map((c) => Math.floor(w * c.w));
   colWidths[colWidths.length - 1] = w - colWidths.slice(0, -1).reduce((a, b) => a + b, 0);
-
   const tableH = headerH + years.length * rowH;
 
   let colX = x;
@@ -139,8 +147,8 @@ function yearlyTable(data: ProfileData, startY: number, showReviews: boolean): s
       const cellCx = colX + cw / 2;
       const icon = TABLE_COL_ICONS[col.key];
       const cell = `
-        <rect x="${colX}" y="${startY}" width="${cw}" height="${headerH}" fill="rgba(212,175,55,0.08)" stroke="url(#gold)" stroke-width="1"/>
-        ${centeredIconLabel(cellCx, startY + headerH / 2 + 2, icon, col.label, t.goldLight, 15, 13)}
+        <rect x="${colX}" y="${startY}" width="${cw}" height="${headerH}" fill="rgba(212,175,55,0.06)" stroke="${t.panelBorder}" stroke-width="1"/>
+        ${centeredIconLabel(cellCx, startY + headerH / 2 + 2, icon, col.label, t.goldLight, 14, 13)}
       `;
       colX += cw;
       return cell;
@@ -150,33 +158,30 @@ function yearlyTable(data: ProfileData, startY: number, showReviews: boolean): s
   const rows = years
     .map((row, rowIndex) => {
       const y = startY + headerH + rowIndex * rowH;
-      const bg = rowIndex % 2 === 0 ? "rgba(255,255,255,0.015)" : "transparent";
+      const bg = rowIndex % 2 === 0 ? "rgba(255,255,255,0.02)" : "transparent";
       colX = x;
 
-      const cells = cols
+      return cols
         .map((col, i) => {
           const cw = colWidths[i];
           const cellCx = colX + cw / 2;
           const raw = row[col.key as keyof YearlyActivity];
           const text = col.key === "year" ? String(raw) : compact(Number(raw));
-          const color = col.key === "year" ? t.gold : t.text;
-          const weight = col.key === "year" ? "700" : "600";
+          const color = col.key === "year" ? t.goldLight : t.text;
           const cell = `
-            <rect x="${colX}" y="${y}" width="${cw}" height="${rowH}" fill="${bg}" stroke="url(#gold)" stroke-width="0.75" opacity="0.95"/>
-            <text x="${cellCx}" y="${y + 27}" text-anchor="middle" fill="${color}" font-family="${col.key === "year" ? t.font : t.mono}" font-size="14" font-weight="${weight}">${text}</text>
+            <rect x="${colX}" y="${y}" width="${cw}" height="${rowH}" fill="${bg}" stroke="${t.panelBorder}" stroke-width="0.75"/>
+            <text x="${cellCx}" y="${y + 29}" text-anchor="middle" fill="${color}" font-family="${col.key === "year" ? t.font : t.mono}" font-size="14" font-weight="${col.key === "year" ? "700" : "600"}">${text}</text>
           `;
           colX += cw;
           return cell;
         })
         .join("");
-
-      return cells;
     })
     .join("");
 
   return `
-    ${centeredIconLabel(cx, titleY, "calendar", "Yearly Activity", t.goldLight, 20, 22)}
-    ${goldRect(x, startY, w, tableH + 12, 14, "rgba(13,17,23,0.6)")}
+    ${centeredIconLabel(cx, titleY, "calendar", "Yearly Activity", t.goldLight, 22, 22)}
+    <rect x="${x}" y="${startY}" width="${w}" height="${tableH}" rx="12" fill="${t.panel}" stroke="${t.panelBorder}" stroke-width="1"/>
     ${headerCells}
     ${rows}
   `;
@@ -192,40 +197,51 @@ export function renderProfileCard(
   const W = t.width;
   const H = cardHeight(data.yearly.length);
   const ax = t.pad + 44;
-  const ay = 68;
+  const ay = 58;
+  const contentW = W - t.pad * 2;
+  const streak = data.streak.currentStreak.length;
 
-  const statCount = showReviews ? 5 : 4;
-  const statsW = W - t.pad * 2;
-  const cellW = (statsW - t.gap * (statCount - 1)) / statCount;
-  const statsY = 232;
-  const statsH = 96;
+  const streakMetrics: MetricProps[] = [
+    {
+      title: "Total Contributions",
+      subtitle: "All-time activity",
+      value: compact(streakValue(data, "total")),
+      icon: "activity",
+      accent: t.amber,
+    },
+    {
+      title: "Current Streak",
+      subtitle: streak > 0 ? `${streak} days active` : "No active streak",
+      value: compact(streakValue(data, "current")),
+      icon: "fire",
+      accent: t.purple,
+    },
+    {
+      title: "Longest Streak",
+      subtitle: "Personal best",
+      value: compact(streakValue(data, "longest")),
+      icon: "trophy",
+      accent: t.gold,
+    },
+  ];
 
-  const statRow: {
-    icon: IconName;
-    label: string;
-    value: string;
-    color: string;
-  }[] = [
-    { icon: "star", label: "Stars", value: compact(data.stats.totalStars), color: t.amber },
-    { icon: "commit", label: "Commits", value: compact(data.stats.totalCommits), color: t.green },
-    { icon: "pr", label: "Pull Requests", value: compact(data.stats.totalPRs), color: t.blue },
-    { icon: "issue", label: "Issues", value: compact(data.stats.totalIssues), color: t.orange },
+  const statMetrics: MetricProps[] = [
+    { title: "Stars", value: compact(data.stats.totalStars), icon: "star", accent: t.amber },
+    { title: "Commits", value: compact(data.stats.totalCommits), icon: "commit", accent: t.green },
+    { title: "Pull Requests", value: compact(data.stats.totalPRs), icon: "pr", accent: t.blue },
+    { title: "Issues", value: compact(data.stats.totalIssues), icon: "issue", accent: t.orange },
   ];
   if (showReviews) {
-    statRow.push({
-      icon: "review",
-      label: "Reviews",
+    statMetrics.push({
+      title: "Reviews",
       value: compact(data.stats.totalReviews),
-      color: t.purple,
+      icon: "review",
+      accent: t.purple,
     });
   }
 
-  const streakX = 204;
-  const streakY = 124;
-  const streakH = 96;
-  const streakW = W - streakX - t.pad;
-  const streakCellW = (streakW - t.gap * 2) / 3;
-  const streak = data.streak.currentStreak.length;
+  const metricsY1 = 108;
+  const metricsY2 = metricsY1 + t.metricH + t.gap;
   const tableY = t.summaryHeight + t.tableGap + t.tableTitleH;
 
   const avatar = (dataUri?: string) =>
@@ -238,45 +254,25 @@ export function renderProfileCard(
   <title>${name} (@${login})</title>
   ${defs()}
   <defs><clipPath id="av"><circle cx="${ax}" cy="${ay}" r="42"/></clipPath></defs>
-  <rect width="${W}" height="${H}" rx="${t.radius}" fill="${t.bg}"/>
-  ${goldRect(0.5, 0.5, W - 1, H - 1, t.radius, "none")}
+  ${background(W, H)}
 
-  <circle cx="${ax}" cy="${ay}" r="46" fill="${t.purple}" opacity="0.2"/>
+  <circle cx="${ax}" cy="${ay}" r="46" fill="${t.purple}" opacity="0.15"/>
   ${avatar(avatarDataUri)}
 
-  <text x="204" y="56" fill="${t.text}" font-family="${t.font}" font-size="28" font-weight="700">${name}</text>
-  <text x="204" y="86" fill="${t.sub}" font-family="${t.font}" font-size="16">@${login}</text>
+  <text x="196" y="50" fill="${t.text}" font-family="${t.font}" font-size="26" font-weight="700">${name}</text>
+  <text x="196" y="76" fill="${t.sub}" font-family="${t.font}" font-size="15">@${login}</text>
   ${
     streak > 0
-      ? `<g transform="translate(${W - t.pad - 156}, 48)">
-    ${iconSvg("fire", 0, 0, 18, t.purple)}
-    <text x="28" y="15" fill="${t.purple}" font-family="${t.font}" font-size="15" font-weight="600">${streak} day streak</text>
+      ? `<g transform="translate(${W - t.pad - 148}, 42)">
+    ${iconSvg("fire", 0, 0, 16, t.purple)}
+    <text x="24" y="13" fill="${t.purple}" font-family="${t.font}" font-size="14" font-weight="600">${streak} day streak</text>
   </g>`
       : ""
   }
 
-  <line x1="${t.pad}" y1="112" x2="${W - t.pad}" y2="112" stroke="url(#gold)" stroke-width="1" opacity="0.5"/>
+  ${metricRow(streakMetrics, metricsY1, t.pad, contentW)}
+  ${metricRow(statMetrics, metricsY2, t.pad, contentW)}
 
-  ${streakCell(streakX, streakY, streakCellW, streakH, "activity", "Total Contributions", compact(streakValue(data, "total")))}
-  ${streakCell(streakX + streakCellW + t.gap, streakY, streakCellW, streakH, "fire", "Current Streak", compact(streakValue(data, "current")), true)}
-  ${streakCell(streakX + (streakCellW + t.gap) * 2, streakY, streakCellW, streakH, "trophy", "Longest Streak", compact(streakValue(data, "longest")))}
-
-  ${statRow
-    .map((s, i) =>
-      statCell(
-        t.pad + i * (cellW + t.gap),
-        statsY,
-        cellW,
-        statsH,
-        s.icon,
-        s.label,
-        s.value,
-        s.color,
-      ),
-    )
-    .join("")}
-
-  <line x1="${t.pad}" y1="${t.summaryHeight - 8}" x2="${W - t.pad}" y2="${t.summaryHeight - 8}" stroke="url(#gold)" stroke-width="1" opacity="0.35"/>
   ${yearlyTable(data, tableY, showReviews)}
 </svg>`;
 }

@@ -1,27 +1,29 @@
 export const theme = {
   width: 880,
-  summaryHeight: 360,
+  summaryHeight: 368,
   tableGap: 56,
-  tableTitleH: 28,
+  tableTitleH: 40,
   radius: 16,
   pad: 32,
-  gap: 14,
-  cellPad: 15,
+  gap: 16,
+  metricH: 108,
+  metricPad: 18,
 
-  bg: "#0d1117",
-  panel: "#161b22",
-  panelBorder: "rgba(255,255,255,0.08)",
+  bg: "#181b28",
+  bgDeep: "#141624",
+  panel: "rgba(255,255,255,0.045)",
+  panelBorder: "rgba(212,175,55,0.22)",
 
-  text: "#f0f6fc",
-  sub: "#8b949e",
-  label: "#7d8590",
+  text: "#eef1f8",
+  sub: "#9aa3b5",
+  label: "#7b849a",
 
-  purple: "#bc8cff",
-  blue: "#79c0ff",
-  green: "#56d364",
-  amber: "#e3b341",
-  orange: "#ffa657",
-  pink: "#ff7b72",
+  purple: "#c4a5fd",
+  blue: "#8ec5ff",
+  green: "#6ee7a0",
+  amber: "#f0ca5a",
+  orange: "#ffb86b",
+  pink: "#ff8a8a",
 
   goldLight: "#f5e6a3",
   gold: "#d4af37",
@@ -30,8 +32,8 @@ export const theme = {
   font: "Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif",
   mono: "SFMono-Regular,Consolas,ui-monospace,monospace",
 
-  tableRowH: 40,
-  tableHeaderH: 44,
+  tableRowH: 44,
+  tableHeaderH: 46,
 } as const;
 
 export function cardHeight(yearCount: number): number {
