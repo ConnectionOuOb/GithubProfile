@@ -1,12 +1,26 @@
 import type { ProfileData, YearlyActivity } from "../types.js";
 import { compact, escapeXml } from "./format.js";
-import { iconSvg } from "./icons.js";
+import {
+  centeredIconLabel,
+  centeredIconStack,
+  iconSvg,
+  type IconName,
+} from "./icons.js";
 import { cardHeight, theme as t } from "./theme.js";
 
 interface RenderOptions {
   showReviews?: boolean;
   avatarDataUri?: string;
 }
+
+const TABLE_COL_ICONS: Record<string, IconName> = {
+  year: "calendar",
+  commits: "commit",
+  pullRequests: "pr",
+  issues: "issue",
+  reviews: "review",
+  contributions: "activity",
+};
 
 function streakValue(data: ProfileData, key: string): number {
   if (key === "total") return data.streak.totalContributions;
@@ -45,7 +59,7 @@ function statCell(
   y: number,
   w: number,
   h: number,
-  icon: "star" | "commit" | "pr" | "issue" | "review",
+  icon: IconName,
   label: string,
   value: string,
   color: string,
@@ -56,10 +70,7 @@ function statCell(
 
   return `
     ${goldRect(x, y, w, h)}
-    <g transform="translate(${x + py}, ${y + py})">
-      ${iconSvg(icon, 0, 0, 18, color)}
-      <text x="28" y="15" fill="${t.label}" font-family="${t.font}" font-size="14" font-weight="600">${label}</text>
-    </g>
+    ${centeredIconStack(cx, y + py, icon, label, color, 20, 14)}
     <text x="${cx}" y="${valueY}" text-anchor="middle" fill="${t.text}" font-family="${t.mono}" font-size="28" font-weight="700">${value}</text>
   `;
 }
@@ -69,6 +80,7 @@ function streakCell(
   y: number,
   w: number,
   h: number,
+  icon: IconName,
   label: string,
   value: string,
   accent = false,
@@ -76,12 +88,13 @@ function streakCell(
   const cx = x + w / 2;
   const py = t.cellPad;
   const fill = accent ? "rgba(188,140,255,0.08)" : t.panel;
-  const labelY = y + py + 18;
+  const iconColor = accent ? t.purple : t.amber;
   const valueY = y + h - py - 4;
 
   return `
     ${goldRect(x, y, w, h, 12, fill)}
-    <text x="${cx}" y="${labelY}" text-anchor="middle" fill="${t.label}" font-family="${t.font}" font-size="13" font-weight="600">${label}</text>
+    ${iconSvg(icon, cx - 10, y + py, 20, iconColor)}
+    <text x="${cx}" y="${y + py + 38}" text-anchor="middle" fill="${t.label}" font-family="${t.font}" font-size="13" font-weight="600">${label}</text>
     <text x="${cx}" y="${valueY}" text-anchor="middle" fill="${accent ? t.purple : t.text}" font-family="${t.mono}" font-size="${accent ? "38" : "32"}" font-weight="700">${value}</text>
   `;
 }
@@ -92,8 +105,10 @@ function yearlyTable(data: ProfileData, startY: number, showReviews: boolean): s
 
   const x = t.pad;
   const w = t.width - t.pad * 2;
+  const cx = t.width / 2;
   const rowH = t.tableRowH;
   const headerH = t.tableHeaderH;
+  const titleY = startY - 18;
 
   const cols = showReviews
     ? [
@@ -121,10 +136,11 @@ function yearlyTable(data: ProfileData, startY: number, showReviews: boolean): s
   const headerCells = cols
     .map((col, i) => {
       const cw = colWidths[i];
-      const cx = colX + cw / 2;
+      const cellCx = colX + cw / 2;
+      const icon = TABLE_COL_ICONS[col.key];
       const cell = `
         <rect x="${colX}" y="${startY}" width="${cw}" height="${headerH}" fill="rgba(212,175,55,0.08)" stroke="url(#gold)" stroke-width="1"/>
-        <text x="${cx}" y="${startY + 30}" text-anchor="middle" fill="${t.goldLight}" font-family="${t.font}" font-size="13" font-weight="700">${col.label}</text>
+        ${centeredIconLabel(cellCx, startY + headerH / 2 + 2, icon, col.label, t.goldLight, 15, 13)}
       `;
       colX += cw;
       return cell;
@@ -140,14 +156,14 @@ function yearlyTable(data: ProfileData, startY: number, showReviews: boolean): s
       const cells = cols
         .map((col, i) => {
           const cw = colWidths[i];
-          const cx = colX + cw / 2;
+          const cellCx = colX + cw / 2;
           const raw = row[col.key as keyof YearlyActivity];
           const text = col.key === "year" ? String(raw) : compact(Number(raw));
           const color = col.key === "year" ? t.gold : t.text;
           const weight = col.key === "year" ? "700" : "600";
           const cell = `
             <rect x="${colX}" y="${y}" width="${cw}" height="${rowH}" fill="${bg}" stroke="url(#gold)" stroke-width="0.75" opacity="0.95"/>
-            <text x="${cx}" y="${y + 27}" text-anchor="middle" fill="${color}" font-family="${col.key === "year" ? t.font : t.mono}" font-size="14" font-weight="${weight}">${text}</text>
+            <text x="${cellCx}" y="${y + 27}" text-anchor="middle" fill="${color}" font-family="${col.key === "year" ? t.font : t.mono}" font-size="14" font-weight="${weight}">${text}</text>
           `;
           colX += cw;
           return cell;
@@ -159,8 +175,8 @@ function yearlyTable(data: ProfileData, startY: number, showReviews: boolean): s
     .join("");
 
   return `
+    ${centeredIconLabel(cx, titleY, "calendar", "Yearly Activity", t.goldLight, 20, 22)}
     ${goldRect(x, startY, w, tableH + 12, 14, "rgba(13,17,23,0.6)")}
-    <text x="${x + 16}" y="${startY - 12}" fill="${t.goldLight}" font-family="${t.font}" font-size="15" font-weight="700">Yearly Activity</text>
     ${headerCells}
     ${rows}
   `;
@@ -185,7 +201,7 @@ export function renderProfileCard(
   const statsH = 96;
 
   const statRow: {
-    icon: "star" | "commit" | "pr" | "issue" | "review";
+    icon: IconName;
     label: string;
     value: string;
     color: string;
@@ -241,9 +257,9 @@ export function renderProfileCard(
 
   <line x1="${t.pad}" y1="112" x2="${W - t.pad}" y2="112" stroke="url(#gold)" stroke-width="1" opacity="0.5"/>
 
-  ${streakCell(streakX, streakY, streakCellW, streakH, "Total Contributions", compact(streakValue(data, "total")))}
-  ${streakCell(streakX + streakCellW + t.gap, streakY, streakCellW, streakH, "Current Streak", compact(streakValue(data, "current")), true)}
-  ${streakCell(streakX + (streakCellW + t.gap) * 2, streakY, streakCellW, streakH, "Longest Streak", compact(streakValue(data, "longest")))}
+  ${streakCell(streakX, streakY, streakCellW, streakH, "activity", "Total Contributions", compact(streakValue(data, "total")))}
+  ${streakCell(streakX + streakCellW + t.gap, streakY, streakCellW, streakH, "fire", "Current Streak", compact(streakValue(data, "current")), true)}
+  ${streakCell(streakX + (streakCellW + t.gap) * 2, streakY, streakCellW, streakH, "trophy", "Longest Streak", compact(streakValue(data, "longest")))}
 
   ${statRow
     .map((s, i) =>
