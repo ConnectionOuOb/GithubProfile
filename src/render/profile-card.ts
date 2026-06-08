@@ -81,22 +81,22 @@ function renderMetric(
   { title, value, icon, subtitle }: MetricProps,
 ): string {
   const pad = t.metricPad;
-  const iconSize = 18;
+  const iconSize = t.iconMetric;
   const iconCx = x + w - pad - 10;
-  const iconCy = y + pad + 12;
+  const iconCy = y + pad + 14;
 
   return `
     <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="10" fill="${t.panel}" stroke="${t.panelBorder}" stroke-width="1"/>
     <rect x="${x + 6}" y="${y + 10}" width="4" height="${h - 20}" rx="2" fill="url(#foil)"/>
     <circle cx="${iconCx}" cy="${iconCy}" r="18" fill="${t.gold}" opacity="0.14"/>
     ${iconSvg(icon, iconCx - iconSize / 2, iconCy - iconSize / 2, iconSize, t.goldLight)}
-    <text x="${x + pad + 8}" y="${y + pad + 18}" fill="${t.text}" font-family="${t.font}" font-size="14" font-weight="600">${title}</text>
+    <text x="${x + pad + 8}" y="${y + pad + 20}" fill="${t.text}" font-family="${t.font}" font-size="${t.fsMetricTitle}" font-weight="600">${title}</text>
     ${
       subtitle
-        ? `<text x="${x + pad + 8}" y="${y + pad + 36}" fill="${t.sub}" font-family="${t.font}" font-size="11">${subtitle}</text>`
+        ? `<text x="${x + pad + 8}" y="${y + pad + 40}" fill="${t.sub}" font-family="${t.font}" font-size="${t.fsMetricSub}">${subtitle}</text>`
         : ""
     }
-    <text x="${x + pad + 8}" y="${y + h - pad}" fill="${t.text}" font-family="${t.mono}" font-size="32" font-weight="700">${value}</text>
+    <text x="${x + pad + 8}" y="${y + h - pad}" fill="${t.text}" font-family="${t.mono}" font-size="${t.fsMetricValue}" font-weight="700">${value}</text>
   `;
 }
 
@@ -153,7 +153,7 @@ function yearlyTable(data: ProfileData, startY: number, showReviews: boolean): s
       const icon = TABLE_COL_ICONS[col.key];
       const cell = `
         <rect x="${colX}" y="${startY}" width="${cw}" height="${headerH}" fill="rgba(212,175,55,0.06)" stroke="${t.panelBorder}" stroke-width="1"/>
-        ${centeredIconLabel(cellCx, startY + headerH / 2, icon, col.label, t.goldLight, 14, 13, t.gold)}
+        ${centeredIconLabel(cellCx, startY + headerH / 2, icon, col.label, t.goldLight, t.iconTableHeader, t.fsTableHeader, t.gold)}
       `;
       colX += cw;
       return cell;
@@ -175,7 +175,7 @@ function yearlyTable(data: ProfileData, startY: number, showReviews: boolean): s
           const color = col.key === "year" ? t.gold : t.text;
           const cell = `
             <rect x="${colX}" y="${y}" width="${cw}" height="${rowH}" fill="${bg}" stroke="${t.panelBorder}" stroke-width="0.75"/>
-            <text x="${cellCx}" y="${y + rowH / 2}" text-anchor="middle" dominant-baseline="central" fill="${color}" font-family="${col.key === "year" ? t.font : t.mono}" font-size="14" font-weight="${col.key === "year" ? "700" : "600"}">${text}</text>
+            <text x="${cellCx}" y="${y + rowH / 2}" text-anchor="middle" dominant-baseline="central" fill="${color}" font-family="${col.key === "year" ? t.font : t.mono}" font-size="${t.fsTableData}" font-weight="${col.key === "year" ? "700" : "600"}">${text}</text>
           `;
           colX += cw;
           return cell;
@@ -185,7 +185,7 @@ function yearlyTable(data: ProfileData, startY: number, showReviews: boolean): s
     .join("");
 
   return `
-    ${centeredIconLabel(cx, titleY, "calendar", "Yearly Activity", t.goldLight, 22, 22, t.gold)}
+    ${centeredIconLabel(cx, titleY, "calendar", "Yearly Activity", t.goldLight, t.iconTableTitle, t.fsTableTitle, t.gold)}
     <rect x="${x}" y="${startY}" width="${w}" height="${tableH}" rx="12" fill="${t.panel}" stroke="${t.panelBorder}" stroke-width="1"/>
     ${headerCells}
     ${rows}
@@ -241,7 +241,7 @@ export function renderProfileCard(
     });
   }
 
-  const metricsY1 = 108;
+  const metricsY1 = 108 + t.headerMetricGap;
   const metricsY2 = metricsY1 + t.metricH + t.gap;
   const tableY = t.summaryHeight + t.tableGap + t.tableTitleH;
 
@@ -260,18 +260,16 @@ export function renderProfileCard(
   <circle cx="${ax}" cy="${ay}" r="46" fill="${t.gold}" opacity="0.18"/>
   ${avatar(avatarDataUri)}
 
-  <text x="196" y="50" fill="${t.text}" font-family="${t.font}" font-size="26" font-weight="700">${name}</text>
-  <text x="196" y="76" fill="${t.sub}" font-family="${t.font}" font-size="15">@${login}</text>
+  <text x="196" y="50" fill="${t.text}" font-family="${t.font}" font-size="${t.fsName}" font-weight="700">${name}</text>
+  <text x="196" y="78" fill="${t.sub}" font-family="${t.font}" font-size="${t.fsLogin}">@${login}</text>
   ${
     streak > 0
       ? (() => {
           const label = `${streak} day streak`;
-          const iconSize = 16;
-          const fontSize = 14;
-          const textW = label.length * fontSize * 0.58;
-          const totalW = iconSize + 6 + textW;
+          const textW = label.length * t.fsBadge * 0.58;
+          const totalW = t.iconBadge + 6 + textW;
           const badgeCx = W - t.pad - totalW / 2;
-          return centeredIconLabel(badgeCx, 50, "fire", label, t.goldLight, iconSize, fontSize, "url(#foil)");
+          return centeredIconLabel(badgeCx, 50, "fire", label, t.goldLight, t.iconBadge, t.fsBadge, "url(#foil)");
         })()
       : ""
   }
