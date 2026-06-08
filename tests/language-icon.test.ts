@@ -12,7 +12,7 @@ test("resolves common GitHub language names to simple-icons slugs", () => {
 });
 
 test("renderLanguageIcon uses simple-icons path when available", () => {
-  const svg = renderLanguageIcon("TypeScript", 0, 0, 14, "#3178c6");
+  const svg = renderLanguageIcon("TypeScript", 0, 0, 36, "#3178c6");
   assert.match(svg, /<rect[^>]*stroke-width="1.25"/);
   assert.match(svg, /<svg[^>]*viewBox="0 0 24 24"/);
   assert.match(svg, /<path d="/);
@@ -20,7 +20,7 @@ test("renderLanguageIcon uses simple-icons path when available", () => {
 });
 
 test("renderLanguageIcon falls back to colored circle for unknown languages", () => {
-  const svg = renderLanguageIcon("Made Up Lang", 0, 0, 14, "#ff00ff");
+  const svg = renderLanguageIcon("Made Up Lang", 0, 0, 36, "#ff00ff");
   assert.match(svg, /<rect[^>]*stroke-width="1.25"/);
   assert.match(svg, /<circle[^>]*fill="#ff00ff"/);
 });

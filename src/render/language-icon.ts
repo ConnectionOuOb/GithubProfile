@@ -206,7 +206,7 @@ function resolveIcon(name: string): SimpleIcon | undefined {
   return slug ? iconByKey.get(slug) : undefined;
 }
 
-/** Bordered icon box placed before the language progress bar. */
+/** Bordered icon box spanning the full language row height beside name and bar. */
 export function renderLanguageIcon(
   name: string,
   boxX: number,
@@ -214,9 +214,9 @@ export function renderLanguageIcon(
   size: number,
   fallbackColor: string,
 ): string {
-  const pad = 2;
+  const pad = 3;
   const inner = size - pad * 2;
-  const border = `<rect x="${boxX}" y="${boxY}" width="${size}" height="${size}" rx="4" fill="rgba(255,255,255,0.1)" stroke="${t.panelBorder}" stroke-width="1.25"/>`;
+  const border = `<rect x="${boxX}" y="${boxY}" width="${size}" height="${size}" rx="5" fill="rgba(255,255,255,0.1)" stroke="${t.panelBorder}" stroke-width="1.25"/>`;
 
   const icon = resolveIcon(name);
   if (!icon) {

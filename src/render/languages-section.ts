@@ -13,20 +13,21 @@ function langRow(
 ): string {
   const pct = totalSize > 0 ? (lang.size / totalSize) * 100 : 0;
   const stats = `${formatLines(lang.size)} · ${pct.toFixed(1)}%`;
-  const nameY = y + 11;
-  const barH = t.langBarH;
-  const barY = y + t.langRowH - barH;
   const iconX = x + 12;
-  const barX = iconX + barH + t.langIconGap;
-  const barW = colW - (barX - x) - 12;
+  const iconY = y + (t.langRowH - t.langIconSize) / 2;
+  const contentX = iconX + t.langIconSize + t.langIconGap;
+  const nameY = y + 12;
+  const barH = t.langBarH;
+  const barY = y + t.langRowH - barH - 2;
+  const barW = colW - (contentX - x) - 12;
   const fillW = Math.max(2, (pct / 100) * barW);
 
   return `
-    <text x="${x + 12}" y="${textMiddleY(nameY, t.fsLangName)}" fill="${t.text}" font-family="${t.font}" font-size="${t.fsLangName}" font-weight="600">${escapeXml(lang.name)}</text>
+    ${renderLanguageIcon(lang.name, iconX, iconY, t.langIconSize, lang.color)}
+    <text x="${contentX}" y="${textMiddleY(nameY, t.fsLangName)}" fill="${t.text}" font-family="${t.font}" font-size="${t.fsLangName}" font-weight="600">${escapeXml(lang.name)}</text>
     <text x="${x + colW - 12}" y="${textMiddleY(nameY, t.fsLangPct)}" text-anchor="end" fill="${t.sub}" font-family="${t.mono}" font-size="${t.fsLangPct}">${stats}</text>
-    ${renderLanguageIcon(lang.name, iconX, barY, barH, lang.color)}
-    <rect x="${barX}" y="${barY}" width="${barW}" height="${barH}" rx="4" fill="rgba(255,255,255,0.06)"/>
-    <rect x="${barX}" y="${barY}" width="${fillW}" height="${barH}" rx="4" fill="${lang.color}" opacity="0.85"/>
+    <rect x="${contentX}" y="${barY}" width="${barW}" height="${barH}" rx="4" fill="rgba(255,255,255,0.06)"/>
+    <rect x="${contentX}" y="${barY}" width="${fillW}" height="${barH}" rx="4" fill="${lang.color}" opacity="0.85"/>
   `;
 }
 
