@@ -12,6 +12,8 @@ export const theme = {
   metricH: 108,
   metricPad: 18,
   langRowH: 36,
+  langBarH: 14,
+  langIconGap: 6,
   langPadBottom: 12,
   langNoteGap: 8,
   langNoteH: 20,

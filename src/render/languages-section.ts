@@ -13,20 +13,20 @@ function langRow(
 ): string {
   const pct = totalSize > 0 ? (lang.size / totalSize) * 100 : 0;
   const stats = `${formatLines(lang.size)} · ${pct.toFixed(1)}%`;
-  const nameY = y + 12;
-  const barX = x + 12;
-  const barY = y + 22;
-  const barW = colW - 24;
-  const barH = 6;
+  const nameY = y + 11;
+  const barH = t.langBarH;
+  const barY = y + t.langRowH - barH;
+  const iconX = x + 12;
+  const barX = iconX + barH + t.langIconGap;
+  const barW = colW - (barX - x) - 12;
   const fillW = Math.max(2, (pct / 100) * barW);
 
-  const iconCx = x + 12;
   return `
-    ${renderLanguageIcon(lang.name, iconCx, nameY, lang.color)}
-    <text x="${x + 24}" y="${textMiddleY(nameY, t.fsLangName)}" fill="${t.text}" font-family="${t.font}" font-size="${t.fsLangName}" font-weight="600">${escapeXml(lang.name)}</text>
+    <text x="${x + 12}" y="${textMiddleY(nameY, t.fsLangName)}" fill="${t.text}" font-family="${t.font}" font-size="${t.fsLangName}" font-weight="600">${escapeXml(lang.name)}</text>
     <text x="${x + colW - 12}" y="${textMiddleY(nameY, t.fsLangPct)}" text-anchor="end" fill="${t.sub}" font-family="${t.mono}" font-size="${t.fsLangPct}">${stats}</text>
-    <rect x="${barX}" y="${barY}" width="${barW}" height="${barH}" rx="3" fill="rgba(255,255,255,0.06)"/>
-    <rect x="${barX}" y="${barY}" width="${fillW}" height="${barH}" rx="3" fill="${lang.color}" opacity="0.85"/>
+    ${renderLanguageIcon(lang.name, iconX, barY, barH, lang.color)}
+    <rect x="${barX}" y="${barY}" width="${barW}" height="${barH}" rx="4" fill="rgba(255,255,255,0.06)"/>
+    <rect x="${barX}" y="${barY}" width="${fillW}" height="${barH}" rx="4" fill="${lang.color}" opacity="0.85"/>
   `;
 }
 

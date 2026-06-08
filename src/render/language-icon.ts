@@ -1,5 +1,6 @@
 import * as simpleIcons from "simple-icons";
 import { escapeXml } from "./format.js";
+import { theme as t } from "./theme.js";
 
 interface SimpleIcon {
   title: string;
@@ -205,25 +206,29 @@ function resolveIcon(name: string): SimpleIcon | undefined {
   return slug ? iconByKey.get(slug) : undefined;
 }
 
-const ICON_SIZE = 10;
-
-/** Inline simple-icons path scaled into a fixed box beside the language name. */
+/** Bordered icon box placed before the language progress bar. */
 export function renderLanguageIcon(
   name: string,
-  cx: number,
-  cy: number,
+  boxX: number,
+  boxY: number,
+  size: number,
   fallbackColor: string,
 ): string {
-  const icon = resolveIcon(name);
-  const x = cx - ICON_SIZE / 2;
-  const y = cy - ICON_SIZE / 2;
+  const pad = 2;
+  const inner = size - pad * 2;
+  const border = `<rect x="${boxX}" y="${boxY}" width="${size}" height="${size}" rx="4" fill="rgba(255,255,255,0.1)" stroke="${t.panelBorder}" stroke-width="1.25"/>`;
 
+  const icon = resolveIcon(name);
   if (!icon) {
-    return `<circle cx="${cx}" cy="${cy}" r="5" fill="${escapeXml(fallbackColor)}"/>`;
+    const cx = boxX + size / 2;
+    const cy = boxY + size / 2;
+    return `${border}<circle cx="${cx}" cy="${cy}" r="${inner / 2 - 0.5}" fill="${escapeXml(fallbackColor)}"/>`;
   }
 
   const fill = `#${icon.hex}`;
-  return `<svg x="${x}" y="${y}" width="${ICON_SIZE}" height="${ICON_SIZE}" viewBox="0 0 24 24" role="img" aria-hidden="true"><path d="${escapeXml(icon.path)}" fill="${fill}"/></svg>`;
+  const ix = boxX + pad;
+  const iy = boxY + pad;
+  return `${border}<svg x="${ix}" y="${iy}" width="${inner}" height="${inner}" viewBox="0 0 24 24" role="img" aria-hidden="true"><path d="${escapeXml(icon.path)}" fill="${fill}"/></svg>`;
 }
 
 /** Exposed for tests. */
