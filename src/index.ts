@@ -1,5 +1,6 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
+import { fetchAvatarDataUri } from "./github/avatar.js";
 import { fetchProfile } from "./github/fetch-profile.js";
 import { resolveUsername } from "./github/resolve-user.js";
 import { loadEnv } from "./load-env.js";
@@ -28,10 +29,7 @@ function reportMissingToken(): never {
 }
 
 const token = getToken() ?? reportMissingToken();
-
-const outputPath = resolve(
-  process.env.OUTPUT_PATH ?? "profile/card.svg",
-);
+const outputPath = resolve(process.env.OUTPUT_PATH ?? "profile/card.svg");
 
 const usernameHint =
   process.env.GITHUB_USERNAME ??
@@ -41,8 +39,11 @@ const usernameHint =
 try {
   const username = await resolveUsername(token, usernameHint);
   const data = await fetchProfile(username, token);
+  const avatarDataUri = await fetchAvatarDataUri(data.stats.avatarUrl, token);
+
   const svg = renderProfileCard(data, {
     showReviews: process.env.SHOW_REVIEWS === "true",
+    avatarDataUri,
   });
 
   mkdirSync(dirname(outputPath), { recursive: true });

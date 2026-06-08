@@ -1,5 +1,6 @@
 import { writeFileSync, mkdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";
+import { fetchAvatarDataUri } from "./github/avatar.js";
 import { renderProfileCard } from "./render/profile-card.js";
 import type { ProfileData } from "./types.js";
 
@@ -7,9 +8,9 @@ const mock: ProfileData = {
   stats: {
     name: "Connection",
     login: "ConnectionOuOb",
-    avatarUrl: "https://avatars.githubusercontent.com/u/9919?s=120&v=4",
+    avatarUrl: "https://avatars.githubusercontent.com/u/69660530?v=4",
     totalStars: 15,
-    totalCommits: 289,
+    totalCommits: 292,
     totalPRs: 671,
     totalIssues: 22,
     totalReviews: 0,
@@ -22,8 +23,9 @@ const mock: ProfileData = {
   },
 };
 
+const avatarDataUri = await fetchAvatarDataUri(mock.stats.avatarUrl);
 const output = resolve("profile/card.svg");
-const svg = renderProfileCard(mock);
+const svg = renderProfileCard(mock, { avatarDataUri });
 
 mkdirSync(dirname(output), { recursive: true });
 writeFileSync(output, svg, "utf8");
