@@ -1,22 +1,25 @@
 export const theme = {
-  width: 760,
-  height: 200,
-  radius: 16,
-  pad: 20,
+  width: 820,
+  height: 196,
+  radius: 20,
 
-  bg: "#0a0b10",
-  panel: "rgba(255,255,255,0.035)",
-  panelBorder: "rgba(255,255,255,0.07)",
+  bg: "#0c0e14",
+  card: "#13161f",
+  highlight: "rgba(255,255,255,0.03)",
+  border: "rgba(255,255,255,0.06)",
+  divider: "rgba(255,255,255,0.055)",
 
-  text: "#eef1f6",
-  textMuted: "#8b929a",
-  textDim: "#565c64",
+  text: "#f1f3f8",
+  sub: "#868da0",
+  dim: "#4e5565",
 
-  accent: "#7c9cff",
-  accentGlow: "rgba(124,156,255,0.12)",
-  streakHot: "#a78bfa",
+  purple: "#a78bfa",
+  blue: "#6ea8fe",
+  pink: "#f472b6",
+  green: "#4ade80",
+  amber: "#fbbf24",
+  orange: "#fb923c",
 
-  statColors: ["#f0c14a", "#4ade80", "#60a5fa", "#fb923c"] as const,
-
-  font: "-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif",
+  font: "'Segoe UI',system-ui,-apple-system,sans-serif",
+  mono: "'SF Mono',ui-monospace,SFMono-Regular,Menlo,monospace",
 } as const;

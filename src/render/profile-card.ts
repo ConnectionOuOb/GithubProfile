@@ -6,155 +6,144 @@ interface RenderOptions {
   showReviews?: boolean;
 }
 
-const STREAK = [
-  { key: "totalContributions" as const, label: "Contributions" },
-  { key: "currentStreak" as const, label: "Current Streak", hot: true },
-  { key: "longestStreak" as const, label: "Longest Streak" },
-];
-
-function streakValue(
-  data: ProfileData,
-  key: (typeof STREAK)[number]["key"],
-): number {
-  if (key === "totalContributions") return data.streak.totalContributions;
-  return data.streak[key].length;
+function streakValue(data: ProfileData, key: string): number {
+  if (key === "total") return data.streak.totalContributions;
+  if (key === "current") return data.streak.currentStreak.length;
+  return data.streak.longestStreak.length;
 }
 
 function statItems(data: ProfileData, showReviews: boolean) {
   const items: { value: number; label: string; color: string }[] = [
-    { value: data.stats.totalStars, label: "Stars", color: t.statColors[0] },
-    { value: data.stats.totalCommits, label: "Commits", color: t.statColors[1] },
-    { value: data.stats.totalPRs, label: "PRs", color: t.statColors[2] },
-    { value: data.stats.totalIssues, label: "Issues", color: t.statColors[3] },
+    { value: data.stats.totalStars, label: "Stars", color: t.amber },
+    { value: data.stats.totalCommits, label: "Commits", color: t.green },
+    { value: data.stats.totalPRs, label: "PRs", color: t.blue },
+    { value: data.stats.totalIssues, label: "Issues", color: t.orange },
   ];
   if (showReviews) {
-    items.push({ value: data.stats.totalReviews, label: "Reviews", color: t.accent });
+    items.push({ value: data.stats.totalReviews, label: "Reviews", color: t.purple });
   }
   return items;
-}
-
-function defs(): string {
-  return `
-    <defs>
-      <linearGradient id="ring" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#7c9cff"/>
-        <stop offset="100%" stop-color="#c084fc"/>
-      </linearGradient>
-      <linearGradient id="shine" x1="0%" y1="0%" x2="0%" y2="100%">
-        <stop offset="0%" stop-color="rgba(255,255,255,0.06)"/>
-        <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
-      </linearGradient>
-      <clipPath id="av"><circle cx="0" cy="0" r="22"/></clipPath>
-    </defs>
-  `;
-}
-
-function header(data: ProfileData): string {
-  const name = escapeXml(data.stats.name);
-  const login = escapeXml(data.stats.login);
-  const avatar = escapeXml(data.stats.avatarUrl);
-  const streak = data.streak.currentStreak.length;
-
-  return `
-    <g transform="translate(${t.pad}, 22)">
-      <circle cx="26" cy="26" r="25" fill="url(#ring)" opacity="0.9"/>
-      <circle cx="26" cy="26" r="23" fill="${t.bg}"/>
-      <g transform="translate(26, 26)">
-        <image href="${avatar}" x="-22" y="-22" width="44" height="44" clip-path="url(#av)" preserveAspectRatio="xMidYMid slice"/>
-      </g>
-      <text x="60" y="22" fill="${t.text}" font-family="${t.font}" font-size="17" font-weight="600" letter-spacing="-0.3">${name}</text>
-      <text x="60" y="42" fill="${t.textMuted}" font-family="${t.font}" font-size="12">@${login}</text>
-      ${
-        streak > 0
-          ? `<g transform="translate(${t.width - t.pad * 2 - 108}, 8)">
-          <rect width="108" height="28" rx="14" fill="${t.accentGlow}" stroke="${t.panelBorder}" stroke-width="1"/>
-          <text x="54" y="18" text-anchor="middle" fill="${t.streakHot}" font-family="${t.font}" font-size="11" font-weight="600">${streak} day streak</text>
-        </g>`
-          : ""
-      }
-    </g>
-  `;
-}
-
-function metricColumn(
-  x: number,
-  y: number,
-  w: number,
-  label: string,
-  value: string,
-  opts: { hot?: boolean; divider?: boolean } = {},
-): string {
-  const cx = x + w / 2;
-  const valueColor = opts.hot ? t.streakHot : t.text;
-  const hotBg = opts.hot
-    ? `<rect x="${x + 8}" y="${y - 4}" width="${w - 16}" height="68" rx="10" fill="${t.accentGlow}"/>`
-    : "";
-
-  return `
-    ${opts.divider ? `<line x1="${x}" y1="${y + 8}" x2="${x}" y2="${y + 56}" stroke="${t.panelBorder}"/>` : ""}
-    ${hotBg}
-    <text x="${cx}" y="${y + 18}" text-anchor="middle" fill="${t.textDim}" font-family="${t.font}" font-size="9" font-weight="600" letter-spacing="0.8">${label.toUpperCase()}</text>
-    <text x="${cx}" y="${y + 46}" text-anchor="middle" fill="${valueColor}" font-family="${t.font}" font-size="${opts.hot ? "28" : "24"}" font-weight="700" letter-spacing="-0.8">${value}</text>
-  `;
-}
-
-function mainPanel(data: ProfileData, showReviews: boolean): string {
-  const panelX = t.pad;
-  const panelY = 78;
-  const panelW = t.width - t.pad * 2;
-  const panelH = 102;
-  const streakW = panelW / 3;
-  const stats = statItems(data, showReviews);
-  const statW = panelW / stats.length;
-  const streakY = panelY + 18;
-  const statsY = panelY + 62;
-
-  const streakCols = STREAK.map((m, i) =>
-    metricColumn(
-      panelX + i * streakW,
-      streakY,
-      streakW,
-      m.label,
-      compact(streakValue(data, m.key)),
-      { hot: "hot" in m && m.hot, divider: i > 0 },
-    ),
-  ).join("");
-
-  const statCols = stats
-    .map((item, i) => {
-      const x = panelX + i * statW;
-      const cx = x + statW / 2;
-      return `
-        ${i > 0 ? `<line x1="${x}" y1="${statsY + 6}" x2="${x}" y2="${statsY + 34}" stroke="${t.panelBorder}"/>` : ""}
-        <circle cx="${cx}" cy="${statsY + 14}" r="2.5" fill="${item.color}"/>
-        <text x="${cx}" y="${statsY + 30}" text-anchor="middle" fill="${t.text}" font-family="${t.font}" font-size="14" font-weight="600">${compact(item.value)}</text>
-        <text x="${cx}" y="${statsY + 44}" text-anchor="middle" fill="${t.textDim}" font-family="${t.font}" font-size="9" font-weight="500">${item.label}</text>
-      `;
-    })
-    .join("");
-
-  return `
-    <rect x="${panelX}" y="${panelY}" width="${panelW}" height="${panelH}" rx="12" fill="${t.panel}" stroke="${t.panelBorder}" stroke-width="1"/>
-    <rect x="${panelX}" y="${panelY}" width="${panelW}" height="40" rx="12" fill="url(#shine)"/>
-    <line x1="${panelX + 16}" y1="${panelY + 54}" x2="${panelX + panelW - 16}" y2="${panelY + 54}" stroke="${t.panelBorder}"/>
-    ${streakCols}
-    ${statCols}
-  `;
 }
 
 export function renderProfileCard(
   data: ProfileData,
   options: RenderOptions = {},
 ): string {
-  const login = escapeXml(data.stats.login);
+  const { showReviews = false } = options;
   const name = escapeXml(data.stats.name);
+  const login = escapeXml(data.stats.login);
+  const avatar = escapeXml(data.stats.avatarUrl);
+  const stats = statItems(data, showReviews);
+  const currentStreak = data.streak.currentStreak.length;
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${t.width}" height="${t.height}" viewBox="0 0 ${t.width} ${t.height}" role="img" aria-label="GitHub profile for ${login}">
+  const W = t.width;
+  const H = t.height;
+
+  const streakItems = [
+    { key: "total", label: "Contributions", value: compact(streakValue(data, "total")) },
+    { key: "current", label: "Current Streak", value: compact(streakValue(data, "current")) },
+    { key: "longest", label: "Longest Streak", value: compact(streakValue(data, "longest")) },
+  ];
+
+  // Layout zones
+  const leftW = 280;
+  const rightX = leftW;
+  const rightW = W - leftW;
+
+  // --- DEFS ---
+  const defs = `
+    <defs>
+      <linearGradient id="g-ring" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="${t.purple}"/>
+        <stop offset="100%" stop-color="${t.pink}"/>
+      </linearGradient>
+      <linearGradient id="g-bar" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="${t.purple}" stop-opacity="0.8"/>
+        <stop offset="50%" stop-color="${t.blue}" stop-opacity="0.6"/>
+        <stop offset="100%" stop-color="${t.pink}" stop-opacity="0.8"/>
+      </linearGradient>
+      <radialGradient id="g-glow" cx="25%" cy="30%" r="60%">
+        <stop offset="0%" stop-color="${t.purple}" stop-opacity="0.06"/>
+        <stop offset="100%" stop-color="${t.bg}" stop-opacity="0"/>
+      </radialGradient>
+      <clipPath id="clip-av"><circle cx="0" cy="0" r="32"/></clipPath>
+    </defs>
+  `;
+
+  // --- LEFT SECTION: Avatar + Name + Stats ---
+  const avatarY = 56;
+  const leftSection = `
+    <g transform="translate(32, ${avatarY})">
+      <circle cx="0" cy="0" r="35" fill="url(#g-ring)" opacity="0.85"/>
+      <circle cx="0" cy="0" r="33" fill="${t.bg}"/>
+      <image href="${avatar}" x="-32" y="-32" width="64" height="64" clip-path="url(#clip-av)" preserveAspectRatio="xMidYMid slice"/>
+    </g>
+    <g transform="translate(80, 42)">
+      <text fill="${t.text}" font-family="${t.font}" font-size="18" font-weight="700" letter-spacing="-0.3">${name}</text>
+      <text y="22" fill="${t.sub}" font-family="${t.font}" font-size="12" font-weight="400">@${login}</text>
+    </g>
+    ${currentStreak > 0 ? `
+    <g transform="translate(80, 88)">
+      <rect width="96" height="24" rx="12" fill="rgba(167,139,250,0.1)" stroke="rgba(167,139,250,0.2)" stroke-width="0.5"/>
+      <text x="48" y="16" text-anchor="middle" fill="${t.purple}" font-family="${t.font}" font-size="10" font-weight="600">${currentStreak} day streak</text>
+    </g>
+    ` : ""}
+    <g transform="translate(32, 132)">
+      ${stats.map((s, i) => {
+        const sx = i * 60;
+        return `
+          <circle cx="${sx}" cy="0" r="3" fill="${s.color}" opacity="0.85"/>
+          <text x="${sx + 10}" y="4" fill="${t.text}" font-family="${t.mono}" font-size="12" font-weight="600">${compact(s.value)}</text>
+          <text x="${sx}" y="18" fill="${t.dim}" font-family="${t.font}" font-size="8.5" font-weight="500">${s.label}</text>
+        `;
+      }).join("")}
+    </g>
+  `;
+
+  // --- RIGHT SECTION: Streak panels ---
+  const panelPad = 24;
+  const panelGap = 12;
+  const panelCount = streakItems.length;
+  const panelInnerW = rightW - panelPad * 2;
+  const colW = (panelInnerW - panelGap * (panelCount - 1)) / panelCount;
+  const panelY = 30;
+  const panelH = H - panelY * 2;
+
+  const rightSection = `
+    <g transform="translate(${rightX}, 0)">
+      <rect x="0" y="${panelY}" width="${rightW}" height="${panelH}" rx="14" fill="${t.card}" stroke="${t.border}" stroke-width="1"/>
+      ${streakItems.map((item, i) => {
+        const cx = panelPad + i * (colW + panelGap) + colW / 2;
+        const isHot = item.key === "current";
+        const valueColor = isHot ? t.purple : t.text;
+        const fontSize = isHot ? 36 : 30;
+        const hotBg = isHot
+          ? `<rect x="${panelPad + i * (colW + panelGap)}" y="${panelY + 12}" width="${colW}" height="${panelH - 24}" rx="10" fill="rgba(167,139,250,0.06)" stroke="rgba(167,139,250,0.12)" stroke-width="0.5"/>`
+          : "";
+        const divider = i > 0
+          ? `<line x1="${panelPad + i * (colW + panelGap) - panelGap / 2}" y1="${panelY + 28}" x2="${panelPad + i * (colW + panelGap) - panelGap / 2}" y2="${panelY + panelH - 28}" stroke="${t.divider}"/>`
+          : "";
+
+        return `
+          ${divider}
+          ${hotBg}
+          <text x="${cx}" y="${panelY + 48}" text-anchor="middle" fill="${t.dim}" font-family="${t.font}" font-size="9" font-weight="600" letter-spacing="0.6">${item.label.toUpperCase()}</text>
+          <text x="${cx}" y="${panelY + 48 + fontSize + 6}" text-anchor="middle" fill="${valueColor}" font-family="${t.mono}" font-size="${fontSize}" font-weight="700" letter-spacing="-1.5">${item.value}</text>
+        `;
+      }).join("")}
+    </g>
+  `;
+
+  // --- COMPOSE ---
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="GitHub profile for ${login}">
   <title>${name} (@${login})</title>
-  ${defs()}
-  <rect width="${t.width}" height="${t.height}" rx="${t.radius}" fill="${t.bg}"/>
-  <rect x="0.5" y="0.5" width="${t.width - 1}" height="${t.height - 1}" rx="${t.radius}" fill="none" stroke="${t.panelBorder}"/>
-  ${header(data)}
-  ${mainPanel(data, options.showReviews ?? false)}
+  ${defs}
+  <rect width="${W}" height="${H}" rx="${t.radius}" fill="${t.bg}"/>
+  <rect width="${W}" height="${H}" rx="${t.radius}" fill="url(#g-glow)"/>
+  <rect x="0.5" y="0.5" width="${W - 1}" height="${H - 1}" rx="${t.radius}" fill="none" stroke="${t.border}"/>
+  <rect x="${t.radius}" y="0" width="${W - t.radius * 2}" height="2" rx="1" fill="url(#g-bar)" opacity="0.7"/>
+  <line x1="${leftW}" y1="24" x2="${leftW}" y2="${H - 24}" stroke="${t.divider}"/>
+  ${leftSection}
+  ${rightSection}
 </svg>`;
 }
