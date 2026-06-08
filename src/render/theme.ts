@@ -6,7 +6,7 @@ export const theme = {
   radius: 16,
   pad: 32,
   gap: 14,
-  cellPad: 22,
+  cellPad: 15,
 
   bg: "#0d1117",
   panel: "#161b22",
