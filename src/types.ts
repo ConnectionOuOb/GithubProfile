@@ -48,4 +48,5 @@ export interface ProfileData {
   streak: StreakStats;
   yearly: YearlyActivity[];
   languages: LanguageStat[];
+  excludedLanguageNote?: string;
 }

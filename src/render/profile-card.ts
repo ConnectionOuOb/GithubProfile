@@ -205,7 +205,8 @@ export function renderProfileCard(
   const name = escapeXml(data.stats.name);
   const login = escapeXml(data.stats.login);
   const langCount = data.languages.length;
-  const layout = computeCardLayout(data.yearly.length, langCount);
+  const hasLangNote = Boolean(data.excludedLanguageNote);
+  const layout = computeCardLayout(data.yearly.length, langCount, hasLangNote);
   const W = t.width;
   const H = layout.height;
   const ax = t.pad + 44;
@@ -293,7 +294,7 @@ export function renderProfileCard(
   ${metricRow(statMetrics, metricsY2, t.pad, contentW)}
 
   ${langHeader}
-  ${renderLanguagesSection(data.languages, layout.langContentY)}
+  ${renderLanguagesSection(data.languages, layout.langContentY, data.excludedLanguageNote)}
 
   ${yearlyHeader}
   ${yearlyTable(data, tableY, showReviews)}

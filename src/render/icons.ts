@@ -23,7 +23,8 @@ export function iconSvg(
   color: string,
 ): string {
   const path = icons[name].replaceAll("currentColor", color);
-  return `<g transform="translate(${x},${y})"><svg width="${size}" height="${size}" viewBox="0 0 16 16">${path}</svg></g>`;
+  const scale = size / 16;
+  return `<g transform="translate(${x}, ${y}) scale(${scale})">${path}</g>`;
 }
 
 export function centeredIconLabel(
@@ -37,14 +38,17 @@ export function centeredIconLabel(
   textColor = color,
 ): string {
   const gap = 6;
-  const textW = estimateTextWidth(label, fontSize);
-  const textMidX = cx + (iconSize + gap) / 2;
-  const iconX = textMidX - textW / 2 - gap - iconSize;
-  const iconY = cy - iconSize / 2;
+  const textW = estimateTextWidth(label, fontSize, true);
+  const totalW = iconSize + gap + textW;
+  const startX = -totalW / 2;
+  const textX = startX + iconSize + gap + textW / 2;
+  const textY = fontSize * 0.35;
 
   return `
-    ${iconSvg(icon, iconX, iconY, iconSize, color)}
-    <text x="${textMidX}" y="${textMiddleY(cy, fontSize)}" text-anchor="middle" fill="${textColor}" font-family="Segoe UI,system-ui,sans-serif" font-size="${fontSize}" font-weight="700">${label}</text>
+    <g transform="translate(${cx}, ${cy})">
+      ${iconSvg(icon, startX, -iconSize / 2, iconSize, color)}
+      <text x="${textX}" y="${textY}" text-anchor="middle" fill="${textColor}" font-family="Segoe UI,system-ui,sans-serif" font-size="${fontSize}" font-weight="700">${label}</text>
+    </g>
   `;
 }
 

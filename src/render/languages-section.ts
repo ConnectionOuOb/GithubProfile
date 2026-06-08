@@ -33,11 +33,13 @@ export { languagesPanelHeight };
 export function renderLanguagesSection(
   langs: LanguageStat[],
   contentY: number,
+  excludedNote?: string,
 ): string {
   if (langs.length === 0) return "";
 
   const x = t.pad;
   const w = t.width - t.pad * 2;
+  const cx = t.width / 2;
   const colGap = t.gap;
   const colW = (w - colGap) / 2;
   const totalSize = langs.reduce((sum, l) => sum + l.size, 0);
@@ -45,7 +47,8 @@ export function renderLanguagesSection(
   const left = langs.slice(0, mid);
   const right = langs.slice(mid);
   const rows = mid;
-  const panelH = languagesPanelHeight(langs.length);
+  const withNote = Boolean(excludedNote);
+  const panelH = rows * t.langRowH + t.langPadBottom;
 
   const leftCol = left
     .map((lang, i) => langRow(lang, x, contentY + i * t.langRowH, colW, totalSize))
@@ -57,9 +60,15 @@ export function renderLanguagesSection(
     )
     .join("");
 
+  const noteY = contentY + panelH + t.langNoteGap;
+  const note = excludedNote
+    ? `<text x="${cx}" y="${textMiddleY(noteY + t.langNoteH / 2, t.fsLangNote)}" text-anchor="middle" fill="${t.sub}" font-family="${t.font}" font-size="${t.fsLangNote}">${escapeXml(excludedNote)}</text>`
+    : "";
+
   return `
     <rect x="${x}" y="${contentY}" width="${w}" height="${panelH}" rx="12" fill="${t.panel}" stroke="${t.panelBorder}" stroke-width="1"/>
     ${leftCol}
     ${rightCol}
+    ${note}
   `;
 }

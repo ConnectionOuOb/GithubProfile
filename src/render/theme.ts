@@ -13,6 +13,8 @@ export const theme = {
   metricPad: 18,
   langRowH: 36,
   langPadBottom: 12,
+  langNoteGap: 8,
+  langNoteH: 16,
 
   fsName: 28,
   fsLogin: 17,
@@ -23,6 +25,7 @@ export const theme = {
   fsSectionTitle: 24,
   fsLangName: 14,
   fsLangPct: 13,
+  fsLangNote: 11,
   fsMetricValue: 32,
   fsTableData: 14,
 

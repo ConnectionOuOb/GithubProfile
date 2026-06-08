@@ -3,7 +3,11 @@ import { dirname, resolve } from "node:path";
 import { fetchAvatarDataUri } from "./github/avatar.js";
 import { fetchProfile } from "./github/fetch-profile.js";
 import { resolveUsername } from "./github/resolve-user.js";
-import { filterLanguages } from "./stats/languages.js";
+import {
+  allHiddenLanguages,
+  excludedLanguageNote,
+  filterLanguages,
+} from "./stats/languages.js";
 import { loadEnv } from "./load-env.js";
 import { renderProfileCard } from "./render/profile-card.js";
 
@@ -57,13 +61,14 @@ try {
     Math.max(1, Number.parseInt(process.env.LANGS_COUNT ?? "20", 10) || 20),
   );
 
+  const languageNote = excludedLanguageNote(data.languages);
   const languages = filterLanguages(data.languages, {
     count: langsCount,
-    hide: hideLanguages,
+    hide: allHiddenLanguages(hideLanguages),
   });
 
   const svg = renderProfileCard(
-    { ...data, languages },
+    { ...data, languages, excludedLanguageNote: languageNote },
     {
       showReviews: process.env.SHOW_REVIEWS === "true",
       avatarDataUri,

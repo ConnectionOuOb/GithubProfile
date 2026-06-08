@@ -1,15 +1,16 @@
 import { theme as t } from "./theme.js";
 import { sectionBlockHeight } from "./section-header.js";
 
-export function languagesPanelHeight(langCount: number): number {
+export function languagesPanelHeight(langCount: number, withNote = false): number {
   if (langCount <= 0) return 0;
   const rows = Math.ceil(langCount / 2);
-  return rows * t.langRowH + t.langPadBottom;
+  const noteBlock = withNote ? t.langNoteGap + t.langNoteH : 0;
+  return rows * t.langRowH + t.langPadBottom + noteBlock;
 }
 
-export function languagesSectionHeight(langCount: number): number {
+export function languagesSectionHeight(langCount: number, withNote = false): number {
   if (langCount <= 0) return 0;
-  return sectionBlockHeight(languagesPanelHeight(langCount));
+  return sectionBlockHeight(languagesPanelHeight(langCount, withNote));
 }
 
 export interface CardLayout {
@@ -24,7 +25,11 @@ export interface CardLayout {
   height: number;
 }
 
-export function computeCardLayout(yearCount: number, langCount: number): CardLayout {
+export function computeCardLayout(
+  yearCount: number,
+  langCount: number,
+  withLangNote = false,
+): CardLayout {
   const statsContentH = t.metricH + t.gap + t.metricH;
   const tableRows = Math.max(yearCount, 1);
   const tableHeight = t.tableHeaderH + tableRows * t.tableRowH;
@@ -40,7 +45,7 @@ export function computeCardLayout(yearCount: number, langCount: number): CardLay
   const langSectionY = langCount > 0 ? y : 0;
   const langContentY = langCount > 0 ? langSectionY + t.sectionTitleH + t.sectionTitleGap : 0;
   if (langCount > 0) {
-    y = langContentY + languagesPanelHeight(langCount) + t.sectionGap;
+    y = langContentY + languagesPanelHeight(langCount, withLangNote) + t.sectionGap;
   }
 
   const yearlySectionY = y;
@@ -59,6 +64,10 @@ export function computeCardLayout(yearCount: number, langCount: number): CardLay
   };
 }
 
-export function cardHeight(yearCount: number, langCount: number): number {
-  return computeCardLayout(yearCount, langCount).height;
+export function cardHeight(
+  yearCount: number,
+  langCount: number,
+  withLangNote = false,
+): number {
+  return computeCardLayout(yearCount, langCount, withLangNote).height;
 }

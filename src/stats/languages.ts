@@ -59,6 +59,36 @@ function aggregateLanguages(
     .sort((a, b) => b.size - a.size);
 }
 
+/** Markup / generated languages excluded from Top Languages by default. */
+export const MARKUP_LANGUAGES = [
+  "HTML",
+  "CSS",
+  "SCSS",
+  "Sass",
+  "Less",
+  "Stylus",
+  "Markdown",
+  "JSON",
+  "YAML",
+  "XML",
+  "SVG",
+] as const;
+
+const MARKUP_SET = new Set(MARKUP_LANGUAGES.map((n) => n.toLowerCase()));
+
+export function allHiddenLanguages(userHide: string[] = []): string[] {
+  return [
+    ...new Set([...MARKUP_LANGUAGES, ...userHide].map((h) => h.trim()).filter(Boolean)),
+  ];
+}
+
+export function excludedLanguageNote(allLangs: LanguageStat[]): string {
+  const markup = allLangs.filter((l) => MARKUP_SET.has(l.name.toLowerCase()));
+  if (markup.length === 0) return "";
+  const names = markup.map((l) => l.name).join(", ");
+  return `${names} lines are not included in statistics.`;
+}
+
 export interface LanguageOptions {
   count?: number;
   hide?: string[];
