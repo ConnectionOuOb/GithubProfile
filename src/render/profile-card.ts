@@ -1,5 +1,5 @@
 import type { ProfileData, YearlyActivity } from "../types.js";
-import { compact, escapeXml, textMiddleY } from "./format.js";
+import { escapeXml, metric, textMiddleY } from "./format.js";
 import { centeredIconLabel, iconSvg, type IconName } from "./icons.js";
 import { renderLanguagesSection } from "./languages-section.js";
 import { computeCardLayout } from "./layout.js";
@@ -177,7 +177,7 @@ function yearlyTable(
           const cellCx = colX + cw / 2;
           const cellCy = y + rowH / 2;
           const raw = row[col.key as keyof YearlyActivity];
-          const text = col.key === "year" ? String(raw) : compact(Number(raw));
+          const text = col.key === "year" ? String(raw) : metric(Number(raw));
           const color = col.key === "year" ? t.gold : t.text;
           const cell = `
             <rect x="${colX}" y="${y}" width="${cw}" height="${rowH}" fill="${bg}" stroke="${t.panelBorder}" stroke-width="0.75"/>
@@ -218,33 +218,33 @@ export function renderProfileCard(
     {
       title: "Total Contributions",
       subtitle: "All-time activity",
-      value: compact(streakValue(data, "total")),
+      value: metric(streakValue(data, "total")),
       icon: "activity",
     },
     {
       title: "Current Streak",
       subtitle: streak > 0 ? `${streak} days active` : "No active streak",
-      value: compact(streakValue(data, "current")),
+      value: metric(streakValue(data, "current")),
       icon: "fire",
     },
     {
       title: "Longest Streak",
       subtitle: "Personal best",
-      value: compact(streakValue(data, "longest")),
+      value: metric(streakValue(data, "longest")),
       icon: "trophy",
     },
   ];
 
   const statMetrics: MetricProps[] = [
-    { title: "Stars", value: compact(data.stats.totalStars), icon: "star" },
-    { title: "Commits", value: compact(data.stats.totalCommits), icon: "commit" },
-    { title: "Pull Requests", value: compact(data.stats.totalPRs), icon: "pr" },
-    { title: "Repositories", value: compact(data.stats.totalRepos), icon: "repo" },
+    { title: "Stars", value: metric(data.stats.totalStars), icon: "star" },
+    { title: "Commits", value: metric(data.stats.totalCommits), icon: "commit" },
+    { title: "Pull Requests", value: metric(data.stats.totalPRs), icon: "pr" },
+    { title: "Repositories", value: metric(data.stats.totalRepos), icon: "repo" },
   ];
   if (showReviews) {
     statMetrics.push({
       title: "Reviews",
-      value: compact(data.stats.totalReviews),
+      value: metric(data.stats.totalReviews),
       icon: "review",
     });
   }

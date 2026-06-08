@@ -1,6 +1,7 @@
 import { writeFileSync, mkdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fetchAvatarDataUri } from "./github/avatar.js";
+import { stripXmlWhitespace } from "./render/format.js";
 import { renderProfileCard } from "./render/profile-card.js";
 import type { ProfileData } from "./types.js";
 
@@ -40,7 +41,7 @@ const mock: ProfileData = {
 
 const avatarDataUri = await fetchAvatarDataUri(mock.stats.avatarUrl);
 const output = resolve("profile/card.svg");
-const svg = renderProfileCard(mock, { avatarDataUri, showReviews: true });
+const svg = stripXmlWhitespace(renderProfileCard(mock, { avatarDataUri, showReviews: true }));
 
 mkdirSync(dirname(output), { recursive: true });
 writeFileSync(output, svg, "utf8");

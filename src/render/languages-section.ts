@@ -1,5 +1,6 @@
 import type { LanguageStat } from "../types.js";
 import { escapeXml, formatLines, textMiddleY } from "./format.js";
+import { renderLanguageIcon } from "./language-icon.js";
 import { languagesPanelHeight } from "./layout.js";
 import { theme as t } from "./theme.js";
 
@@ -19,8 +20,9 @@ function langRow(
   const barH = 6;
   const fillW = Math.max(2, (pct / 100) * barW);
 
+  const iconCx = x + 12;
   return `
-    <circle cx="${x + 12}" cy="${nameY}" r="5" fill="${lang.color}"/>
+    ${renderLanguageIcon(lang.name, iconCx, nameY, lang.color)}
     <text x="${x + 24}" y="${textMiddleY(nameY, t.fsLangName)}" fill="${t.text}" font-family="${t.font}" font-size="${t.fsLangName}" font-weight="600">${escapeXml(lang.name)}</text>
     <text x="${x + colW - 12}" y="${textMiddleY(nameY, t.fsLangPct)}" text-anchor="end" fill="${t.sub}" font-family="${t.mono}" font-size="${t.fsLangPct}">${stats}</text>
     <rect x="${barX}" y="${barY}" width="${barW}" height="${barH}" rx="3" fill="rgba(255,255,255,0.06)"/>

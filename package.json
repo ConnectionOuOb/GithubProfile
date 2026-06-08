@@ -6,11 +6,16 @@
   "scripts": {
     "generate": "tsx src/index.ts",
     "preview": "tsx src/preview.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "node --import tsx --test tests/**/*.test.ts",
+    "test:snapshot:update": "node --import tsx scripts/update-snapshot.ts"
   },
   "devDependencies": {
     "@types/node": "^22.15.21",
     "tsx": "^4.19.4",
     "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "simple-icons": "^14.15.0"
   }
 }

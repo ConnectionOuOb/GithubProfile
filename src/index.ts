@@ -9,6 +9,7 @@ import {
   filterLanguages,
 } from "./stats/languages.js";
 import { loadEnv } from "./load-env.js";
+import { stripXmlWhitespace } from "./render/format.js";
 import { renderProfileCard } from "./render/profile-card.js";
 
 loadEnv();
@@ -67,12 +68,14 @@ try {
     hide: allHiddenLanguages(hideLanguages),
   });
 
-  const svg = renderProfileCard(
-    { ...data, languages, excludedLanguageNote: languageNote },
-    {
-      showReviews: process.env.SHOW_REVIEWS === "true",
-      avatarDataUri,
-    },
+  const svg = stripXmlWhitespace(
+    renderProfileCard(
+      { ...data, languages, excludedLanguageNote: languageNote },
+      {
+        showReviews: process.env.SHOW_REVIEWS === "true",
+        avatarDataUri,
+      },
+    ),
   );
 
   mkdirSync(dirname(outputPath), { recursive: true });
