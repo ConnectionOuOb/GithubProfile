@@ -153,7 +153,7 @@ function yearlyTable(data: ProfileData, startY: number, showReviews: boolean): s
       const icon = TABLE_COL_ICONS[col.key];
       const cell = `
         <rect x="${colX}" y="${startY}" width="${cw}" height="${headerH}" fill="rgba(212,175,55,0.06)" stroke="${t.panelBorder}" stroke-width="1"/>
-        ${centeredIconLabel(cellCx, startY + headerH / 2 + 2, icon, col.label, t.gold, 14, 13)}
+        ${centeredIconLabel(cellCx, startY + headerH / 2, icon, col.label, t.goldLight, 14, 13, t.gold)}
       `;
       colX += cw;
       return cell;
@@ -175,7 +175,7 @@ function yearlyTable(data: ProfileData, startY: number, showReviews: boolean): s
           const color = col.key === "year" ? t.gold : t.text;
           const cell = `
             <rect x="${colX}" y="${y}" width="${cw}" height="${rowH}" fill="${bg}" stroke="${t.panelBorder}" stroke-width="0.75"/>
-            <text x="${cellCx}" y="${y + 29}" text-anchor="middle" fill="${color}" font-family="${col.key === "year" ? t.font : t.mono}" font-size="14" font-weight="${col.key === "year" ? "700" : "600"}">${text}</text>
+            <text x="${cellCx}" y="${y + rowH / 2}" text-anchor="middle" dominant-baseline="central" fill="${color}" font-family="${col.key === "year" ? t.font : t.mono}" font-size="14" font-weight="${col.key === "year" ? "700" : "600"}">${text}</text>
           `;
           colX += cw;
           return cell;
@@ -185,7 +185,7 @@ function yearlyTable(data: ProfileData, startY: number, showReviews: boolean): s
     .join("");
 
   return `
-    ${centeredIconLabel(cx, titleY, "calendar", "Yearly Activity", t.gold, 22, 22)}
+    ${centeredIconLabel(cx, titleY, "calendar", "Yearly Activity", t.goldLight, 22, 22, t.gold)}
     <rect x="${x}" y="${startY}" width="${w}" height="${tableH}" rx="12" fill="${t.panel}" stroke="${t.panelBorder}" stroke-width="1"/>
     ${headerCells}
     ${rows}
@@ -264,10 +264,15 @@ export function renderProfileCard(
   <text x="196" y="76" fill="${t.sub}" font-family="${t.font}" font-size="15">@${login}</text>
   ${
     streak > 0
-      ? `<g transform="translate(${W - t.pad - 148}, 42)">
-    ${iconSvg("fire", 0, 0, 16, t.goldLight)}
-    <text x="24" y="13" fill="url(#foil)" font-family="${t.font}" font-size="14" font-weight="600">${streak} day streak</text>
-  </g>`
+      ? (() => {
+          const label = `${streak} day streak`;
+          const iconSize = 16;
+          const fontSize = 14;
+          const textW = label.length * fontSize * 0.58;
+          const totalW = iconSize + 6 + textW;
+          const badgeCx = W - t.pad - totalW / 2;
+          return centeredIconLabel(badgeCx, 50, "fire", label, t.goldLight, iconSize, fontSize, "url(#foil)");
+        })()
       : ""
   }
 

@@ -1,7 +1,7 @@
 export const theme = {
   width: 880,
   summaryHeight: 368,
-  tableGap: 28,
+  tableGap: 18,
   tableTitleH: 40,
   radius: 16,
   pad: 32,

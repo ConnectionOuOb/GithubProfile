@@ -25,20 +25,23 @@ export function iconSvg(
 
 export function centeredIconLabel(
   cx: number,
-  y: number,
+  cy: number,
   icon: IconName,
   label: string,
   color: string,
   iconSize = 16,
   fontSize = 13,
+  textColor = color,
 ): string {
+  const gap = 6;
   const textW = label.length * fontSize * 0.58;
-  const totalW = iconSize + 6 + textW;
+  const totalW = iconSize + gap + textW;
   const startX = cx - totalW / 2;
+  const iconY = cy - iconSize / 2;
 
   return `
-    ${iconSvg(icon, startX, y - iconSize + 5, iconSize, color)}
-    <text x="${startX + iconSize + 6}" y="${y + 5}" fill="${color}" font-family="Segoe UI,system-ui,sans-serif" font-size="${fontSize}" font-weight="700">${label}</text>
+    ${iconSvg(icon, startX, iconY, iconSize, color)}
+    <text x="${startX + iconSize + gap}" y="${cy}" dominant-baseline="central" fill="${textColor}" font-family="Segoe UI,system-ui,sans-serif" font-size="${fontSize}" font-weight="700">${label}</text>
   `;
 }
 
