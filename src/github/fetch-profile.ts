@@ -27,9 +27,8 @@ interface UserQueryResult {
     commits: { totalCommitContributions: number };
     reviews: { totalPullRequestReviewContributions: number };
     pullRequests: { totalCount: number };
-    openIssues: { totalCount: number };
-    closedIssues: { totalCount: number };
     repositories: {
+      totalCount: number;
       nodes: { stargazers: { totalCount: number } }[];
     };
     contributionsCollection: {
@@ -49,13 +48,12 @@ const USER_STATS_QUERY = `
       commits: contributionsCollection { totalCommitContributions }
       reviews: contributionsCollection { totalPullRequestReviewContributions }
       pullRequests { totalCount }
-      openIssues: issues(states: OPEN) { totalCount }
-      closedIssues: issues(states: CLOSED) { totalCount }
       repositories(
         first: 100
         ownerAffiliations: OWNER
         orderBy: { field: STARGAZERS, direction: DESC }
       ) {
+        totalCount
         nodes { stargazers { totalCount } }
       }
       contributionsCollection {

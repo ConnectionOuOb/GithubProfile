@@ -239,7 +239,7 @@ export function renderProfileCard(
     { title: "Stars", value: compact(data.stats.totalStars), icon: "star" },
     { title: "Commits", value: compact(data.stats.totalCommits), icon: "commit" },
     { title: "Pull Requests", value: compact(data.stats.totalPRs), icon: "pr" },
-    { title: "Issues", value: compact(data.stats.totalIssues), icon: "issue" },
+    { title: "Repositories", value: compact(data.stats.totalRepos), icon: "repo" },
   ];
   if (showReviews) {
     statMetrics.push({

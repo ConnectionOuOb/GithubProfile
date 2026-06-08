@@ -12,7 +12,7 @@ const mock: ProfileData = {
     totalStars: 15,
     totalCommits: 295,
     totalPRs: 671,
-    totalIssues: 22,
+    totalRepos: 42,
     totalReviews: 48,
   },
   streak: {

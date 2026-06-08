@@ -23,7 +23,7 @@ export interface UserStats {
   totalStars: number;
   totalCommits: number;
   totalPRs: number;
-  totalIssues: number;
+  totalRepos: number;
   totalReviews: number;
 }
 

@@ -7,9 +7,10 @@ interface GitHubUser {
   commits: { totalCommitContributions: number };
   reviews: { totalPullRequestReviewContributions: number };
   pullRequests: { totalCount: number };
-  openIssues: { totalCount: number };
-  closedIssues: { totalCount: number };
-  repositories: { nodes: { stargazers: { totalCount: number } }[] };
+  repositories: {
+    totalCount: number;
+    nodes: { stargazers: { totalCount: number } }[];
+  };
 }
 
 export function extractStats(user: GitHubUser): UserStats {
@@ -25,7 +26,7 @@ export function extractStats(user: GitHubUser): UserStats {
     totalStars,
     totalCommits: user.commits.totalCommitContributions,
     totalPRs: user.pullRequests.totalCount,
-    totalIssues: user.openIssues.totalCount + user.closedIssues.totalCount,
+    totalRepos: user.repositories.totalCount,
     totalReviews: user.reviews.totalPullRequestReviewContributions,
   };
 }
