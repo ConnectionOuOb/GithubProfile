@@ -7,6 +7,7 @@ const mock: ProfileData = {
   stats: {
     name: "Your Name",
     login: "username",
+    avatarUrl: "https://avatars.githubusercontent.com/u/9919?s=120&v=4",
     totalStars: 1284,
     totalCommits: 2341,
     totalPRs: 186,

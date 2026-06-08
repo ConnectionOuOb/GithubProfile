@@ -6,36 +6,40 @@ interface RenderOptions {
   showReviews?: boolean;
 }
 
-const STREAK_METRICS = [
-  { key: "totalContributions" as const, label: "Contributions" },
-  { key: "currentStreak" as const, label: "Current Streak" },
-  { key: "longestStreak" as const, label: "Longest Streak" },
+const STREAK = [
+  { key: "totalContributions" as const, label: "Contributions", highlight: false },
+  { key: "currentStreak" as const, label: "Current Streak", highlight: true },
+  { key: "longestStreak" as const, label: "Longest Streak", highlight: false },
 ];
 
 function streakValue(
   data: ProfileData,
-  key: (typeof STREAK_METRICS)[number]["key"],
+  key: (typeof STREAK)[number]["key"],
 ): number {
   if (key === "totalContributions") return data.streak.totalContributions;
   return data.streak[key].length;
 }
 
 function statItems(data: ProfileData, showReviews: boolean) {
-  const items = [
-    { value: data.stats.totalStars, label: "Stars" },
-    { value: data.stats.totalCommits, label: "Commits" },
-    { value: data.stats.totalPRs, label: "PRs" },
-    { value: data.stats.totalIssues, label: "Issues" },
+  const items: { value: number; label: string; color: string }[] = [
+    { value: data.stats.totalStars, label: "Stars", color: theme.statColors[0] },
+    { value: data.stats.totalCommits, label: "Commits", color: theme.statColors[1] },
+    { value: data.stats.totalPRs, label: "PRs", color: theme.statColors[2] },
+    { value: data.stats.totalIssues, label: "Issues", color: theme.statColors[3] },
   ];
 
   if (showReviews) {
-    items.push({ value: data.stats.totalReviews, label: "Reviews" });
+    items.push({
+      value: data.stats.totalReviews,
+      label: "Reviews",
+      color: theme.accent2,
+    });
   }
 
   return items;
 }
 
-function defs(width: number): string {
+function defs(): string {
   const stops = theme.gradient
     .map((color, i) => {
       const offset = (i / (theme.gradient.length - 1)) * 100;
@@ -45,90 +49,90 @@ function defs(width: number): string {
 
   return `
     <defs>
-      <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
-        ${stops}
-      </linearGradient>
-      <linearGradient id="bg-fade" x1="0%" y1="0%" x2="0%" y2="100%">
-        <stop offset="0%" stop-color="${theme.bgElevated}" stop-opacity="0.5"/>
+      <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">${stops}</linearGradient>
+      <linearGradient id="accent-h" x1="0%" y1="0%" x2="100%" y2="0%">${stops}</linearGradient>
+      <radialGradient id="orb-l" cx="0%" cy="0%" r="70%">
+        <stop offset="0%" stop-color="${theme.accent}" stop-opacity="0.12"/>
         <stop offset="100%" stop-color="${theme.bg}" stop-opacity="0"/>
-      </linearGradient>
+      </radialGradient>
+      <radialGradient id="orb-r" cx="100%" cy="100%" r="65%">
+        <stop offset="0%" stop-color="${theme.accent3}" stop-opacity="0.1"/>
+        <stop offset="100%" stop-color="${theme.bg}" stop-opacity="0"/>
+      </radialGradient>
+      <filter id="soft-shadow" x="-20%" y="-20%" width="140%" height="140%">
+        <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000" flood-opacity="0.35"/>
+      </filter>
+      <clipPath id="avatar-clip"><circle cx="0" cy="0" r="30"/></clipPath>
     </defs>
-    <rect width="${width}" height="3" fill="url(#accent)" rx="1.5"/>
   `;
 }
 
-function streakSection(data: ProfileData, width: number): string {
-  const pad = 24;
-  const colW = (width - pad * 2) / 3;
+function header(data: ProfileData): string {
+  const { font, text, textMuted, borderSoft } = theme;
+  const name = escapeXml(data.stats.name);
+  const login = escapeXml(data.stats.login);
+  const avatar = escapeXml(data.stats.avatarUrl);
+  const ax = 32;
+  const ay = 36;
 
-  return STREAK_METRICS.map((metric, i) => {
-    const x = pad + i * colW + colW / 2;
+  return `
+    <circle cx="${ax}" cy="${ay}" r="34" fill="url(#accent)" opacity="0.85"/>
+    <circle cx="${ax}" cy="${ay}" r="31" fill="${theme.surface}"/>
+    <g transform="translate(${ax}, ${ay})">
+      <image href="${avatar}" x="-30" y="-30" width="60" height="60" clip-path="url(#avatar-clip)" preserveAspectRatio="xMidYMid slice"/>
+    </g>
+    <text x="84" y="44" fill="${text}" font-family="${font}" font-size="20" font-weight="700" letter-spacing="-0.4">${name}</text>
+    <text x="84" y="66" fill="${textMuted}" font-family="${font}" font-size="13">@${login}</text>
+    <rect x="84" y="76" width="58" height="20" rx="10" fill="${borderSoft}" stroke="${theme.border}" stroke-width="1"/>
+    <text x="113" y="90" text-anchor="middle" fill="${textMuted}" font-family="${font}" font-size="10" font-weight="600" letter-spacing="0.4">GITHUB</text>
+  `;
+}
+
+function streakPanels(data: ProfileData): string {
+  const { width, font, fontMono, text, textMuted, surface, border, borderSoft, glow } = theme;
+  const pad = 28;
+  const gap = 14;
+  const panelW = (width - pad * 2 - gap * 2) / 3;
+  const panelH = 88;
+  const y = 118;
+
+  return STREAK.map((metric, i) => {
+    const x = pad + i * (panelW + gap);
     const value = streakValue(data, metric.key);
-    const divider =
-      i < STREAK_METRICS.length - 1
-        ? `<line x1="${pad + (i + 1) * colW}" y1="0" x2="${pad + (i + 1) * colW}" y2="52" stroke="${theme.border}" stroke-width="1"/>`
-        : "";
+    const valueFill = metric.highlight ? "url(#accent-h)" : text;
+    const glowRect = metric.highlight
+      ? `<rect x="${x}" y="${y}" width="${panelW}" height="${panelH}" rx="14" fill="${glow}"/>`
+      : "";
 
     return `
-      ${divider}
-      <text
-        x="${x}" y="0"
-        text-anchor="middle"
-        fill="${theme.text}"
-        font-family="${theme.font}"
-        font-size="30"
-        font-weight="700"
-        letter-spacing="-0.5"
-      >${compact(value)}</text>
-      <text
-        x="${x}" y="24"
-        text-anchor="middle"
-        fill="${theme.textMuted}"
-        font-family="${theme.font}"
-        font-size="11"
-        font-weight="500"
-        letter-spacing="0.2"
-      >${metric.label}</text>
+      ${glowRect}
+      <rect x="${x}" y="${y}" width="${panelW}" height="${panelH}" rx="14" fill="${surface}" stroke="${metric.highlight ? theme.accent : border}" stroke-width="1" stroke-opacity="${metric.highlight ? "0.45" : "1"}"/>
+      <rect x="${x + 1}" y="${y + 1}" width="${panelW - 2}" height="${panelH - 2}" rx="13" fill="none" stroke="${borderSoft}" stroke-width="1"/>
+      <text x="${x + 18}" y="${y + 38}" fill="${valueFill}" font-family="${fontMono}" font-size="${metric.highlight ? 32 : 28}" font-weight="700" letter-spacing="-1">${compact(value)}</text>
+      <text x="${x + 18}" y="${y + 62}" fill="${textMuted}" font-family="${font}" font-size="11" font-weight="500">${metric.label}</text>
     `;
   }).join("");
 }
 
-function statsRow(data: ProfileData, showReviews: boolean, width: number): string {
+function statsRow(data: ProfileData, showReviews: boolean): string {
   const items = statItems(data, showReviews);
-  const pad = 24;
-  const gap = 10;
-  const available = width - pad * 2 - gap * (items.length - 1);
-  const pillW = available / items.length;
-  const pillH = 44;
+  const { width, font, fontMono, text, textDim, surface, border } = theme;
+  const pad = 28;
+  const gap = 12;
+  const rowY = 222;
+  const pillH = 36;
+  const pillW = (width - pad * 2 - gap * (items.length - 1)) / items.length;
 
   return items
     .map((item, i) => {
       const x = pad + i * (pillW + gap);
 
       return `
-        <g transform="translate(${x}, 0)">
-          <rect
-            width="${pillW}" height="${pillH}" rx="10"
-            fill="${theme.accentSoft}"
-            stroke="${theme.border}"
-            stroke-width="1"
-          />
-          <text
-            x="${pillW / 2}" y="20"
-            text-anchor="middle"
-            fill="${theme.text}"
-            font-family="${theme.fontMono}"
-            font-size="15"
-            font-weight="600"
-          >${compact(item.value)}</text>
-          <text
-            x="${pillW / 2}" y="36"
-            text-anchor="middle"
-            fill="${theme.textDim}"
-            font-family="${theme.font}"
-            font-size="10"
-            font-weight="500"
-          >${item.label}</text>
+        <g transform="translate(${x}, ${rowY})">
+          <rect width="${pillW}" height="${pillH}" rx="${pillH / 2}" fill="${surface}" stroke="${border}" stroke-width="1"/>
+          <circle cx="16" cy="${pillH / 2}" r="4" fill="${item.color}"/>
+          <text x="28" y="23" fill="${text}" font-family="${fontMono}" font-size="13" font-weight="600">${compact(item.value)}</text>
+          <text x="${pillW - 14}" y="23" text-anchor="end" fill="${textDim}" font-family="${font}" font-size="10" font-weight="500">${item.label}</text>
         </g>
       `;
     })
@@ -140,61 +144,20 @@ export function renderProfileCard(
   options: RenderOptions = {},
 ): string {
   const { showReviews = false } = options;
-  const { width, height, radius, bg, border, font, text, textMuted } = theme;
-  const displayName = escapeXml(data.stats.name);
+  const { width, height, radius, bg, border } = theme;
   const login = escapeXml(data.stats.login);
+  const name = escapeXml(data.stats.name);
 
-  return `<svg
-  xmlns="http://www.w3.org/2000/svg"
-  width="${width}"
-  height="${height}"
-  viewBox="0 0 ${width} ${height}"
-  role="img"
-  aria-label="GitHub profile stats for ${login}"
->
-  <title>${displayName} (@${login}) — GitHub Profile</title>
-  ${defs(width)}
-
-  <rect
-    x="0.5" y="3.5"
-    width="${width - 1}" height="${height - 4}"
-    rx="${radius}" ry="${radius}"
-    fill="${bg}"
-    stroke="${border}"
-    stroke-width="1"
-  />
-  <rect
-    x="0.5" y="3.5"
-    width="${width - 1}" height="80"
-    rx="${radius}" ry="${radius}"
-    fill="url(#bg-fade)"
-  />
-
-  <text
-    x="24" y="36"
-    fill="${text}"
-    font-family="${font}"
-    font-size="16"
-    font-weight="600"
-  >${displayName}</text>
-  <text
-    x="24" y="56"
-    fill="${textMuted}"
-    font-family="${font}"
-    font-size="12"
-  >@${login}</text>
-
-  <g transform="translate(0, 88)">
-    ${streakSection(data, width)}
-  </g>
-
-  <line
-    x1="24" y1="152" x2="${width - 24}" y2="152"
-    stroke="${border}" stroke-width="1"
-  />
-
-  <g transform="translate(0, 162)">
-    ${statsRow(data, showReviews, width)}
-  </g>
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="GitHub profile for ${login}">
+  <title>${name} (@${login})</title>
+  ${defs()}
+  <rect width="${width}" height="${height}" rx="${radius}" fill="${bg}"/>
+  <rect width="${width}" height="${height}" rx="${radius}" fill="url(#orb-l)"/>
+  <rect width="${width}" height="${height}" rx="${radius}" fill="url(#orb-r)"/>
+  <rect x="0.5" y="0.5" width="${width - 1}" height="${height - 1}" rx="${radius}" fill="none" stroke="${border}" stroke-width="1" filter="url(#soft-shadow)"/>
+  <rect x="16" y="0" width="${width - 32}" height="2.5" rx="1.25" fill="url(#accent-h)" opacity="0.9"/>
+  ${header(data)}
+  ${streakPanels(data)}
+  ${statsRow(data, showReviews)}
 </svg>`;
 }

@@ -19,6 +19,7 @@ export interface StreakStats {
 export interface UserStats {
   name: string;
   login: string;
+  avatarUrl: string;
   totalStars: number;
   totalCommits: number;
   totalPRs: number;

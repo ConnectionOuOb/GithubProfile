@@ -8,41 +8,47 @@ Unified GitHub profile card — stats and contribution streak in one modern SVG.
 ![Profile Card](./profile/card.svg)
 ```
 
-## How it works
+Cross-repo embed:
 
-```
-GitHub GraphQL API
-       │
-       ├── stats/     stars, commits, PRs, issues
-       ├── streak/    contribution calendar → streak algorithm
-       └── render/    modern SVG card
+```md
+![Profile Card](https://raw.githubusercontent.com/YOUR_USER/GithubProfile/main/profile/card.svg)
 ```
 
-| Module | Role |
-|--------|------|
-| `src/github/` | Fetch user data via GraphQL |
-| `src/stats/` | Extract repository & activity stats |
-| `src/streak/` | Compute contribution streaks |
-| `src/render/` | Generate the SVG card |
+---
 
-## Local development
+## 設定（只需 PAT）
+
+**本地：** 複製 `.env.example` → `.env`，只填一行：
+
+```env
+GITHUB_TOKEN=ghp_你的PAT
+```
+
+帳號會**自動從 PAT 辨識**，不必手填 `GITHUB_USERNAME`。
 
 ```bash
 npm install
-npm run preview        # mock data → profile/card.svg
-cp .env.example .env   # add your token & username
-npm run generate       # real data from GitHub API
+npm run generate
 ```
 
-## GitHub Actions
+**GitHub Actions：** Repo → Settings → Secrets → `PROFILE_PAT` = 同一支 PAT。帳號同樣自動辨識。
 
-The workflow in `.github/workflows/generate-profile.yml` regenerates `profile/card.svg` daily using `GITHUB_TOKEN`. For private contribution data, add a PAT as a repository secret and update the workflow.
+PAT 權限：Classic 勾選 `read:user` + `repo`（含私有統計）。
+
+---
+
+## Commands
+
+```bash
+npm run preview    # mock 預覽
+npm run generate   # 真實資料（需 .env）
+```
 
 ## Options
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `GITHUB_USERNAME` | — | GitHub username |
-| `GITHUB_TOKEN` | — | Personal access token |
-| `OUTPUT_PATH` | `profile/card.svg` | Output file path |
-| `SHOW_REVIEWS` | `false` | Show PR review count |
+| `GITHUB_TOKEN` | — | PAT |
+| `GITHUB_USERNAME` | 自動 | 僅在要查別人時才填 |
+| `OUTPUT_PATH` | `profile/card.svg` | 輸出路徑 |
+| `SHOW_REVIEWS` | `false` | 顯示 PR review 數 |

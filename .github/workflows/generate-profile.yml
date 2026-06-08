@@ -27,8 +27,7 @@ jobs:
 
       - name: Generate profile card
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_USERNAME: ${{ github.repository_owner }}
+          GITHUB_TOKEN: ${{ secrets.PROFILE_PAT }}
           OUTPUT_PATH: profile/card.svg
         run: npm run generate
 

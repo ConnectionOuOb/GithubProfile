@@ -13,6 +13,7 @@ interface UserQueryResult {
   user: {
     name: string | null;
     login: string;
+    avatarUrl: string;
     createdAt: string;
     commits: { totalCommitContributions: number };
     reviews: { totalPullRequestReviewContributions: number };
@@ -34,6 +35,7 @@ const USER_STATS_QUERY = `
     user(login: $login) {
       name
       login
+      avatarUrl
       createdAt
       commits: contributionsCollection { totalCommitContributions }
       reviews: contributionsCollection { totalPullRequestReviewContributions }
