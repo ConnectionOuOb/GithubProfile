@@ -52,6 +52,7 @@ function statCell(
 ): string {
   const cx = x + w / 2;
   const py = t.cellPad;
+  const valueY = y + h - py;
 
   return `
     ${goldRect(x, y, w, h)}
@@ -59,7 +60,7 @@ function statCell(
       ${iconSvg(icon, 0, 0, 18, color)}
       <text x="28" y="15" fill="${t.label}" font-family="${t.font}" font-size="14" font-weight="600">${label}</text>
     </g>
-    <text x="${cx}" y="${y + h - py - 4}" text-anchor="middle" fill="${t.text}" font-family="${t.mono}" font-size="28" font-weight="700">${value}</text>
+    <text x="${cx}" y="${valueY}" text-anchor="middle" fill="${t.text}" font-family="${t.mono}" font-size="28" font-weight="700">${value}</text>
   `;
 }
 
@@ -75,16 +76,18 @@ function streakCell(
   const cx = x + w / 2;
   const py = t.cellPad;
   const fill = accent ? "rgba(188,140,255,0.08)" : t.panel;
+  const labelY = y + py + 18;
+  const valueY = y + h - py - 4;
 
   return `
     ${goldRect(x, y, w, h, 12, fill)}
-    <text x="${cx}" y="${y + py + 14}" text-anchor="middle" fill="${t.label}" font-family="${t.font}" font-size="13" font-weight="600">${label}</text>
-    <text x="${cx}" y="${y + h - py}" text-anchor="middle" fill="${accent ? t.purple : t.text}" font-family="${t.mono}" font-size="${accent ? "38" : "32"}" font-weight="700">${value}</text>
+    <text x="${cx}" y="${labelY}" text-anchor="middle" fill="${t.label}" font-family="${t.font}" font-size="13" font-weight="600">${label}</text>
+    <text x="${cx}" y="${valueY}" text-anchor="middle" fill="${accent ? t.purple : t.text}" font-family="${t.mono}" font-size="${accent ? "38" : "32"}" font-weight="700">${value}</text>
   `;
 }
 
 function yearlyTable(data: ProfileData, startY: number, showReviews: boolean): string {
-  const years = data.yearly;
+  const years = [...data.yearly].sort((a, b) => b.year - a.year);
   if (years.length === 0) return "";
 
   const x = t.pad;
@@ -121,7 +124,7 @@ function yearlyTable(data: ProfileData, startY: number, showReviews: boolean): s
       const cx = colX + cw / 2;
       const cell = `
         <rect x="${colX}" y="${startY}" width="${cw}" height="${headerH}" fill="rgba(212,175,55,0.08)" stroke="url(#gold)" stroke-width="1"/>
-        <text x="${cx}" y="${startY + 26}" text-anchor="middle" fill="${t.goldLight}" font-family="${t.font}" font-size="13" font-weight="700">${col.label}</text>
+        <text x="${cx}" y="${startY + 30}" text-anchor="middle" fill="${t.goldLight}" font-family="${t.font}" font-size="13" font-weight="700">${col.label}</text>
       `;
       colX += cw;
       return cell;
@@ -144,7 +147,7 @@ function yearlyTable(data: ProfileData, startY: number, showReviews: boolean): s
           const weight = col.key === "year" ? "700" : "600";
           const cell = `
             <rect x="${colX}" y="${y}" width="${cw}" height="${rowH}" fill="${bg}" stroke="url(#gold)" stroke-width="0.75" opacity="0.95"/>
-            <text x="${cx}" y="${y + 24}" text-anchor="middle" fill="${color}" font-family="${col.key === "year" ? t.font : t.mono}" font-size="14" font-weight="${weight}">${text}</text>
+            <text x="${cx}" y="${y + 27}" text-anchor="middle" fill="${color}" font-family="${col.key === "year" ? t.font : t.mono}" font-size="14" font-weight="${weight}">${text}</text>
           `;
           colX += cw;
           return cell;
@@ -156,8 +159,8 @@ function yearlyTable(data: ProfileData, startY: number, showReviews: boolean): s
     .join("");
 
   return `
-    ${goldRect(x, startY - 8, w, tableH + 16, 14, "rgba(13,17,23,0.6)")}
-    <text x="${x + 16}" y="${startY - 16}" fill="${t.goldLight}" font-family="${t.font}" font-size="15" font-weight="700">Yearly Activity</text>
+    ${goldRect(x, startY, w, tableH + 12, 14, "rgba(13,17,23,0.6)")}
+    <text x="${x + 16}" y="${startY - 12}" fill="${t.goldLight}" font-family="${t.font}" font-size="15" font-weight="700">Yearly Activity</text>
     ${headerCells}
     ${rows}
   `;
@@ -178,8 +181,8 @@ export function renderProfileCard(
   const statCount = showReviews ? 5 : 4;
   const statsW = W - t.pad * 2;
   const cellW = (statsW - t.gap * (statCount - 1)) / statCount;
-  const statsY = 224;
-  const statsH = 72;
+  const statsY = 232;
+  const statsH = 96;
 
   const statRow: {
     icon: "star" | "commit" | "pr" | "issue" | "review";
@@ -203,11 +206,11 @@ export function renderProfileCard(
 
   const streakX = 204;
   const streakY = 124;
-  const streakH = 80;
+  const streakH = 96;
   const streakW = W - streakX - t.pad;
   const streakCellW = (streakW - t.gap * 2) / 3;
   const streak = data.streak.currentStreak.length;
-  const tableY = t.summaryHeight + 8;
+  const tableY = t.summaryHeight + t.tableGap + t.tableTitleH;
 
   const avatar = (dataUri?: string) =>
     dataUri
@@ -257,7 +260,7 @@ export function renderProfileCard(
     )
     .join("")}
 
-  <line x1="${t.pad}" y1="${t.summaryHeight - 4}" x2="${W - t.pad}" y2="${t.summaryHeight - 4}" stroke="url(#gold)" stroke-width="1" opacity="0.4"/>
+  <line x1="${t.pad}" y1="${t.summaryHeight - 8}" x2="${W - t.pad}" y2="${t.summaryHeight - 8}" stroke="url(#gold)" stroke-width="1" opacity="0.35"/>
   ${yearlyTable(data, tableY, showReviews)}
 </svg>`;
 }

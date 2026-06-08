@@ -1,10 +1,12 @@
 export const theme = {
   width: 880,
-  summaryHeight: 320,
+  summaryHeight: 360,
+  tableGap: 56,
+  tableTitleH: 28,
   radius: 16,
   pad: 32,
   gap: 14,
-  cellPad: 18,
+  cellPad: 22,
 
   bg: "#0d1117",
   panel: "#161b22",
@@ -28,13 +30,16 @@ export const theme = {
   font: "Segoe UI,system-ui,-apple-system,BlinkMacSystemFont,sans-serif",
   mono: "SFMono-Regular,Consolas,ui-monospace,monospace",
 
-  tableRowH: 36,
-  tableHeaderH: 40,
+  tableRowH: 40,
+  tableHeaderH: 44,
 } as const;
 
 export function cardHeight(yearCount: number): number {
   const tableRows = Math.max(yearCount, 1);
   const tableBlock =
-    theme.tableHeaderH + tableRows * theme.tableRowH + theme.pad;
-  return theme.summaryHeight + tableBlock;
+    theme.tableTitleH +
+    theme.tableHeaderH +
+    tableRows * theme.tableRowH +
+    theme.pad;
+  return theme.summaryHeight + theme.tableGap + tableBlock;
 }
