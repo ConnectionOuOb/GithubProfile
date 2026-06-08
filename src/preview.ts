@@ -5,20 +5,20 @@ import type { ProfileData } from "./types.js";
 
 const mock: ProfileData = {
   stats: {
-    name: "Your Name",
-    login: "username",
+    name: "Connection",
+    login: "ConnectionOuOb",
     avatarUrl: "https://avatars.githubusercontent.com/u/9919?s=120&v=4",
-    totalStars: 1284,
-    totalCommits: 2341,
-    totalPRs: 186,
-    totalIssues: 73,
-    totalReviews: 412,
+    totalStars: 15,
+    totalCommits: 289,
+    totalPRs: 671,
+    totalIssues: 22,
+    totalReviews: 0,
   },
   streak: {
-    totalContributions: 4821,
+    totalContributions: 4800,
     firstContribution: "2021-03-15",
-    currentStreak: { start: "2026-05-28", end: "2026-06-05", length: 9 },
-    longestStreak: { start: "2025-11-01", end: "2025-12-18", length: 48 },
+    currentStreak: { start: "2026-06-05", end: "2026-06-05", length: 1 },
+    longestStreak: { start: "2025-11-01", end: "2025-12-18", length: 26 },
   },
 };
 
